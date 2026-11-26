@@ -1,0 +1,1505 @@
+{
+  "findings": [
+    {
+      "viewport": "360x640",
+      "shot": "01-welcome",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "02-about",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "03-how",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "04-setup-menus-empty",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "05-menu-sheet-empty",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "06-menu-sheet-error",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "07-demo-picker",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "08-today-plan-phase",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "09-plan-suggested",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "10-plan-edited",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "11-today-planned",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "12-service-available",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "13-service-sold-out-toast",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "14-close-missed-prompt",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": ["input \"\" 24x24"],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "15-close-sheet",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": ["input \"\" 24x24"],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "16-close-closed",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "17-today-closed",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "18-history",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "19-day-detail",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "20-settings",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": ["input \"\" 1x1"],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "21-setup-menus-filled",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "22-setup-hours",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "23-not-found-redirect",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "24-register-empty-cart",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "360x640",
+      "shot": "25-register-cart",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 360,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "01-welcome",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "02-about",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "03-how",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "04-setup-menus-empty",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "05-menu-sheet-empty",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "06-menu-sheet-error",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "07-demo-picker",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "08-today-plan-phase",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "09-plan-suggested",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "10-plan-edited",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "11-today-planned",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "12-service-available",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "13-service-sold-out-toast",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "14-close-missed-prompt",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": ["input \"\" 24x24"],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "15-close-sheet",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": ["input \"\" 24x24"],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "16-close-closed",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "17-today-closed",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "18-history",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "19-day-detail",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "20-settings",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": ["input \"\" 1x1"],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "21-setup-menus-filled",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "22-setup-hours",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "23-not-found-redirect",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "24-register-empty-cart",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "390x844",
+      "shot": "25-register-cart",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "01-welcome",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 44],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "02-about",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 44],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "03-how",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "04-setup-menus-empty",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "05-menu-sheet-empty",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "06-menu-sheet-error",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "07-demo-picker",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 44],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "08-today-plan-phase",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "09-plan-suggested",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "10-plan-edited",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "11-today-planned",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "12-service-available",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "13-service-sold-out-toast",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "14-close-missed-prompt",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": ["input \"\" 24x24"],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "15-close-sheet",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": ["input \"\" 24x24"],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "16-close-closed",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "17-today-closed",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "18-history",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "19-day-detail",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "20-settings",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": ["input \"\" 1x1"],
+      "fontSizes": [12, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "21-setup-menus-filled",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "22-setup-hours",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "23-not-found-redirect",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "24-register-empty-cart",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "768x1024",
+      "shot": "25-register-cart",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 768,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "01-welcome",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 44],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "02-about",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 44],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "03-how",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 28, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "04-setup-menus-empty",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "05-menu-sheet-empty",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "06-menu-sheet-error",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "07-demo-picker",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 44],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "08-today-plan-phase",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 28, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "09-plan-suggested",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "10-plan-edited",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "11-today-planned",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 28, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "12-service-available",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "13-service-sold-out-toast",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "14-close-missed-prompt",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": ["input \"\" 24x24"],
+      "fontSizes": [12, 14, 16, 20, 24, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "15-close-sheet",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": ["input \"\" 24x24"],
+      "fontSizes": [12, 14, 16, 20, 24, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "16-close-closed",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "17-today-closed",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 28, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "18-history",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 28, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "19-day-detail",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "20-settings",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": ["input \"\" 1x1"],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "21-setup-menus-filled",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "22-setup-hours",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "23-not-found-redirect",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 28, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "24-register-empty-cart",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 28, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1280x800",
+      "shot": "25-register-cart",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1280,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 28, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "01-welcome",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 44],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "02-about",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 44],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "03-how",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 28, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "04-setup-menus-empty",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "05-menu-sheet-empty",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "06-menu-sheet-error",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "07-demo-picker",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 44],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "08-today-plan-phase",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 28, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "09-plan-suggested",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "10-plan-edited",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "11-today-planned",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 28, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "12-service-available",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "13-service-sold-out-toast",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "14-close-missed-prompt",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": ["input \"\" 24x24"],
+      "fontSizes": [12, 14, 16, 20, 24, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "15-close-sheet",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": ["input \"\" 24x24"],
+      "fontSizes": [12, 14, 16, 20, 24, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "16-close-closed",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "17-today-closed",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 28, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "18-history",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 28, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "19-day-detail",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "20-settings",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": ["input \"\" 1x1"],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "21-setup-menus-filled",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "22-setup-hours",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "23-not-found-redirect",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 28, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "24-register-empty-cart",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 28, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "1440x900",
+      "shot": "25-register-cart",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 28, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "01-welcome",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "02-about",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "03-how",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "04-setup-menus-empty",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "05-menu-sheet-empty",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "06-menu-sheet-error",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "07-demo-picker",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 20, 32],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "08-today-plan-phase",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 12.8, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "09-plan-suggested",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 12.8, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "10-plan-edited",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 12.8, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "11-today-planned",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 12.8, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "12-service-available",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 12.8, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "13-service-sold-out-toast",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 12.8, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "14-close-missed-prompt",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": ["input \"\" 24x24"],
+      "fontSizes": [12, 12.8, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "15-close-sheet",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": ["input \"\" 24x24"],
+      "fontSizes": [12, 12.8, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "16-close-closed",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 12.8, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "17-today-closed",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 12.8, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "18-history",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 12.8, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "19-day-detail",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 12.8, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "20-settings",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": ["input \"\" 1x1"],
+      "fontSizes": [12, 12.8, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "21-setup-menus-filled",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "22-setup-hours",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 14, 16, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "23-not-found-redirect",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 12.8, 14, 16, 20, 24, 28],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "24-register-empty-cart",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 12.8, 14, 16, 20, 24],
+      "clipped": []
+    },
+    {
+      "viewport": "320x640",
+      "shot": "25-register-cart",
+      "lowContrast": [],
+      "horizontalScroll": false,
+      "scrollWidth": 320,
+      "smallTargets": [],
+      "fontSizes": [12, 12.8, 14, 16, 20, 24],
+      "clipped": []
+    }
+  ],
+  "failures": []
+}

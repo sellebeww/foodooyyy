@@ -1,0 +1,6 @@
+// src/app/env.d.ts
+declare const __APP_VERSION__: string;
+
+interface ImportMetaEnv {
+  readonly VITE_DEMO?: string;
+}

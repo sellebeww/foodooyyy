@@ -1,0 +1,40 @@
+// src/components/AppIcon.tsx
+interface AppIconProps {
+  size?: number;
+  label?: string;
+}
+
+export const BRAND_LOOP =
+  "M0 0 C26 -31.2 86 -74 122 -74 C163.5 -74 205 -37 205 0 C205 37 163.5 74 122 74 C86 74 26 31.2 0 0 C-26 -31.2 -86 -74 -122 -74 C-163.5 -74 -205 -37 -205 0 C-205 37 -163.5 74 -122 74 C-86 74 -26 31.2 0 0 Z";
+export const BRAND_LOOP_STROKE = 50;
+export const APP_ICON_F =
+  "M90.3 84H190.8Q192.5 84 193.8 85.2Q195 86.5 195 88.2V111.6Q195 113.3 193.8 114.5Q192.5 115.8 190.8 115.8H128.7V125.7H180.5Q182.2 125.7 183.5 126.9Q184.8 128.1 184.8 129.8V153.1Q184.8 154.8 183.5 156Q182.2 157.3 180.5 157.3H128.7V187.8Q128.7 189.5 127.4 190.8Q126.1 192 124.4 192H90.3Q88.5 192 87.3 190.8Q86 189.5 86 187.8V88.2Q86 86.5 87.3 85.2Q88.5 84 90.3 84Z";
+export const APP_ICON_D =
+  "M323.3 312H373.7Q391 312 403.8 316.5Q416.6 320.9 424.5 331.6Q432.4 342.2 432.4 358.1V373.9Q432.4 398.6 415.4 409.8Q399.7 420 373.7 420H323.3Q321.5 420 320.3 418.8Q319 417.5 319 415.8V316.2Q319 314.5 320.3 313.2Q321.5 312 323.3 312ZM360.1 342.1V389.9H374.5Q381.9 389.9 386.2 386.4Q390.6 383 390.6 376.6V355.3Q390.6 349 386.2 345.6Q381.9 342.1 374.5 342.1Z";
+
+export function AppIcon({ size = 40, label }: AppIconProps) {
+  const labelled = label !== undefined;
+  return (
+    <svg
+      className="app-icon"
+      width={size}
+      height={size}
+      viewBox="0 0 512 512"
+      role={labelled ? "img" : undefined}
+      aria-label={label}
+      aria-hidden={labelled ? undefined : true}
+      focusable="false"
+    >
+      <rect width="512" height="512" rx="112" fill="#003049" />
+      <path d={APP_ICON_F} fill="#ffffff" />
+      <path d={APP_ICON_D} fill="#ffffff" />
+      <path
+        d={BRAND_LOOP}
+        fill="none"
+        stroke="#f77f00"
+        strokeWidth={BRAND_LOOP_STROKE}
+        transform="translate(256 256) rotate(-45)"
+      />
+    </svg>
+  );
+}

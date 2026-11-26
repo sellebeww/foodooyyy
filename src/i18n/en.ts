@@ -1,0 +1,584 @@
+// src/i18n/en.ts
+export const en = {
+  "app.name": "FOODOO",
+  "app.skip": "Skip to content",
+  "app.loading": "Loading…",
+  "app.offlineReady": "Ready to work offline.",
+  "app.valueLine":
+    "Daily portion planning that counts the customers a sold-out menu hides.",
+
+  "nav.main": "Main navigation",
+  "nav.today": "Today",
+  "nav.plan": "Plan",
+  "nav.service": "Sales",
+  "nav.close": "Close",
+  "nav.settings": "Settings",
+
+  "header.demo": "Demo data",
+  "header.offline": "Offline. Saved on this device.",
+
+  "common.save": "Save",
+  "common.cancel": "Cancel",
+  "common.back": "Back",
+  "common.next": "Next",
+  "common.edit": "Edit",
+  "common.archive": "Archive",
+  "common.restore": "Restore",
+  "common.closeDialog": "Close dialog",
+  "common.yes": "Yes",
+  "common.no": "No",
+  "common.saveFailed": "Could not save. Please try again.",
+
+  "lang.label": "Language",
+  "lang.en": "English",
+  "lang.id": "Bahasa Indonesia",
+
+  "welcome.start": "Start setup",
+  "welcome.continue": "Continue setup",
+  "demo.pick.title": "Choose a demo stall",
+  "demo.pick.intro":
+    "All four stalls use made-up data. Their history always ends yesterday, on whatever day you open the app.",
+  "demo.pick.hours": "Open {open}–{close}",
+  "demo.pick.history": "{days} days of history",
+  "demo.s1.desc":
+    "Morning stall with two rush hours. Nasi Uduk sells out most days, so you can see how FOODOO counts the customers it missed.",
+  "demo.s2.desc":
+    "Office lunch stall with one noon rush. Busy on weekdays and quiet at weekends, so each weekday gets its own suggestion.",
+  "demo.s3.desc":
+    "Night stall open past midnight. Sales after 00:00 still count for the evening the stall opened.",
+  "demo.s4.desc":
+    "Stall that opened four days ago. There is not enough history yet, so suggestions start from the usual portions and adjust.",
+  "demo.refreshed": "Demo dates moved up to today",
+  "welcome.demo": "Try demo stall",
+  "welcome.demoNote":
+    "Choose one of four demo stalls with made-up data to look around first.",
+  "welcome.demoBlocked":
+    "You have started your own setup. Delete it in Settings to try the demo.",
+
+  "setup.step": "Step {step} of {total}",
+  "setup.menus.title": "Your menus",
+  "setup.menus.intro":
+    "Add each dish you cook in the morning. You can change them later in Settings.",
+  "setup.menus.needOne": "Add at least one menu to continue.",
+  "setup.hours.title": "Opening hours",
+  "setup.hours.intro": "When do you open and close, and which hours are busy?",
+  "setup.done": "Setup complete. You are ready to plan.",
+  "setup.hours.finish": "Finish setup",
+
+  "menu.list.empty": "No menus yet. Add your first menu.",
+  "menu.list.add": "Add menu",
+  "menu.list.archived": "Archived menus ({count})",
+  "menu.list.summary": "{price} · cost {cost} · usual {qty} portions",
+  "menu.list.editLabel": "Edit {name}",
+  "menu.list.archiveLabel": "Archive {name}",
+  "menu.list.restoreLabel": "Restore {name}",
+  "menu.editor.addTitle": "Add menu",
+  "menu.editor.editTitle": "Edit menu",
+  "menu.field.name": "Menu name",
+  "menu.field.price": "Selling price (Rp)",
+  "menu.field.cost": "Cost per portion (Rp)",
+  "menu.field.salvage": "Value of a leftover portion (Rp)",
+  "menu.field.salvageHint":
+    "What an unsold portion is still worth to you, for example as a staff meal. Usually 0.",
+  "menu.field.usualQty": "Usual portions per day",
+  "menu.error.nameLength": "Enter a name of 1 to 40 characters",
+  "menu.error.priceInvalid": "Enter a price in whole rupiah, above 0",
+  "menu.error.costInvalid": "Enter a cost in whole rupiah, 0 or more",
+  "menu.error.costNotBelowPrice": "Cost must be lower than price",
+  "menu.error.salvageInvalid": "Enter a value in whole rupiah, 0 or more",
+  "menu.error.salvageNotBelowPrice": "Leftover value must be lower than price",
+  "menu.error.usualInvalid": "Enter a whole number from 1 to 999",
+  "menu.saved": "Menu saved",
+  "menu.archivedToast": "Menu archived",
+  "menu.restoredToast": "Menu restored",
+
+  "hours.open": "Opening time",
+  "hours.close": "Closing time",
+  "hours.error.timeInvalid": "Enter a time as HH:MM",
+  "hours.error.closeSameAsOpen":
+    "Closing time must be different from opening time",
+  "hours.overnight":
+    "You close after midnight. Sales after midnight count for the day you opened.",
+  "hours.busyTitle": "Busy hours",
+  "hours.busyHint":
+    "Tap an hour to change it: quiet, normal, busy. Busier hours mean more customers arrive then.",
+  "hours.busyEmpty": "Set valid opening hours to see the busy hours.",
+  "hours.level.1": "Quiet",
+  "hours.level.2": "Normal",
+  "hours.level.4": "Busy",
+  "hours.saved": "Hours saved",
+
+  "today.title": "Today",
+  "today.loopTitle": "Today's loop",
+  "today.phase.plan": "Plan",
+  "today.phase.service": "Service",
+  "today.phase.close": "Close",
+  "today.status.done": "Done",
+  "today.status.current": "Now",
+  "today.status.next": "Next",
+  "today.action.plan": "Plan today's portions",
+  "today.action.service": "Open service",
+  "today.action.close": "Close the day",
+  "today.action.done": "See you tomorrow",
+  "today.doneNote": "Today is closed. Come back tomorrow morning to plan.",
+  "today.counts.title": "Today so far",
+  "today.counts.portions": "Portions planned",
+  "today.counts.soldOut": "Menus sold out",
+  "today.counts.closed": "Day closed",
+  "today.empty.setupTitle": "Finish setting up",
+  "today.empty.setupBody":
+    "Add your menus and opening hours to get daily suggestions.",
+  "today.empty.setupAction": "Continue setup",
+  "today.empty.menusTitle": "No active menus",
+  "today.empty.menusBody":
+    "All menus are archived. Add or restore a menu in Settings.",
+  "today.empty.menusAction": "Open Settings",
+  "today.incompleteTitle": "Days not closed",
+  "today.incompleteBody":
+    "These days were never closed, so they are not used for suggestions yet. Close them to count them:",
+  "today.incompleteAction": "Close {date}",
+  "week.title": "Last 7 days",
+  "week.empty":
+    "No closed days in the last 7 days yet. Close a day to see your numbers.",
+  "week.leftover": "Leftover portions",
+  "week.sellOuts": "Sell-outs",
+  "week.lostSales": "Lost sales (portions)",
+  "week.accepted": "Plans accepted as suggested",
+  "week.percent": "{value}%",
+  "nav.history": "History",
+  "today.historyLink": "See history",
+  "history.title": "History",
+  "history.menus.title": "Per menu, last 7 days",
+  "history.col.menu": "Menu",
+  "history.col.date": "Date",
+  "history.col.cooked": "Cooked",
+  "history.col.sold": "Sold",
+  "history.col.leftover": "Leftover",
+  "history.col.demand": "Demand",
+  "history.chart.title": "Cooked vs demand",
+  "history.chart.menu": "Menu",
+  "history.chart.caption": "Cooked and demand per day for {menu}, last 7 days",
+  "history.chart.cooked": "Cooked",
+  "history.chart.demand": "Demand",
+  "history.chart.estimate": "Demand (estimate, sold-out day)",
+  "history.days.title": "Past days",
+  "history.days.empty": "No days recorded yet.",
+  "history.days.meta": "{portions} portions · {soldOut} sold out",
+  "history.days.more": "Show more days",
+  "history.status.open": "Not closed",
+  "history.status.closed": "Closed",
+  "history.status.unusual": "Unusual day",
+  "estimate.tag": "estimate",
+  "history.menus.note":
+    "Totals of closed, usual days. Demand on sold-out days is an estimate.",
+  "day.title": "Day details",
+  "day.noSuggestion": "No suggestion stored",
+  "day.back": "Back to history",
+  "day.empty": "Nothing was recorded on this day.",
+  "day.closeAction": "Close this day",
+  "day.suggested": "Suggested {qty}",
+  "day.soldOutAt": "Sold out {time}",
+  "day.notSoldOut": "Not sold out",
+  "transfer.export.title": "Export your data",
+  "transfer.format": "File format",
+  "transfer.format.json": "JSON",
+  "transfer.format.csv": "CSV",
+  "transfer.format.xlsx": "XLSX",
+  "transfer.hint.json":
+    "Full backup of your stall, menus and every day. Use it to move to a new phone.",
+  "transfer.hint.csv":
+    "Daily records per menu, one row each. Opens in any spreadsheet app.",
+  "transfer.hint.xlsx":
+    "Full backup for Excel or Google Sheets, in four sheets: Stall, Menus, Days, MenuDays.",
+  "transfer.export.action": "Export file",
+  "transfer.exported": "File saved",
+  "transfer.exportFailed": "Could not export. Please try again.",
+  "transfer.import.title": "Import a file",
+  "transfer.import.hint":
+    "JSON or XLSX restores a full backup and replaces the data on this device. CSV adds or updates daily records for the menus you already have.",
+  "transfer.import.action": "Choose a file to import",
+  "transfer.import.file": "File to import",
+  "transfer.imported": "Data imported",
+  "transfer.issues.title":
+    "Nothing was imported. Fix these problems in the file and try again:",
+  "transfer.issue.unreadable": "The file could not be read ({where}).",
+  "transfer.issue.wrongFormat": "This is not a FOODOO file.",
+  "transfer.issue.unknownVersion":
+    "This file comes from a newer or unknown version of FOODOO.",
+  "transfer.issue.missingSheet": "The sheet {where} is missing.",
+  "transfer.issue.missingColumn": "The column {where} is missing.",
+  "transfer.issue.badValue": "The value at {where} is not valid.",
+  "transfer.issue.unknownMenu":
+    "The menu at {where} does not exist on this device.",
+  "transfer.issue.duplicate": "{where} appears twice.",
+  "transfer.issue.noStall": "Set up your stall first, then import a CSV file.",
+  "transfer.issue.empty": "The file has no data ({where}).",
+  "transfer.confirm.title": "Import this file?",
+  "transfer.confirm.replace":
+    "This replaces all data on this device with the file: {menus} menus and {days} days.",
+  "transfer.confirm.merge":
+    "This adds or updates {days} days of records for your menus. Other data stays as it is.",
+  "transfer.confirm.action": "Import",
+  "transfer.manage.title": "Manage data",
+
+  "plan.title": "Plan",
+  "plan.intro": "Suggested portions for today. Change any number, then save.",
+  "plan.suggested": "Suggested {qty}",
+  "plan.edited": "Edited",
+  "plan.portionsLabel": "Portions of {name}",
+  "plan.decrease": "One less {name}",
+  "plan.increase": "One more {name}",
+  "plan.total": "Total {qty} portions",
+  "plan.acceptAll": "Accept all",
+  "plan.save": "Save plan",
+  "plan.saved": "Plan saved",
+  "plan.savedNote":
+    "Plan saved. You can still change it until the first menu sells out.",
+  "plan.locked":
+    "The plan is locked because a menu has sold out today. Undo the sell-out to change it.",
+  "plan.closedNote": "Today is closed. This was the plan.",
+  "plan.cooked": "Cooked {qty}",
+
+  "service.title": "Service",
+  "service.intro": "Tap a menu the moment it sells out.",
+  "service.cooked": "Cooked {qty}",
+  "service.tapHint": "Tap when sold out",
+  "service.soldOutAt": "Sold out {time}",
+  "service.holdHint": "Hold the tile or press Edit time to change the time.",
+  "service.earlyTitle": "{name} sold out already?",
+  "service.earlyBody":
+    "It is {time} and you opened at {open}. A sell-out this early makes FOODOO estimate very high demand. Mark it only if it really sold out.",
+  "service.earlyConfirm": "Yes, it sold out",
+  "service.editTime": "Edit time",
+  "service.editTimeLabel": "Edit the sold-out time of {name}",
+  "service.soldOutToast": "{name} sold out at {time}",
+  "service.undo": "Undo",
+  "service.undone": "Sell-out undone",
+  "service.timeSaved": "Sold-out time saved",
+  "service.cleared": "Marked as not sold out",
+  "service.notPlannedTitle": "Plan today first",
+  "service.notPlannedBody": "Service starts once today's portions are saved.",
+  "service.planAction": "Plan today's portions",
+  "service.closedNote": "Today is closed. Sell-outs can no longer be changed.",
+
+  "soldOut.sheetTitle": "Sold-out time: {name}",
+  "soldOut.timeLabel": "Time it sold out",
+  "soldOut.clear": "Not sold out",
+  "soldOut.error.timeInvalid": "Enter a time as HH:MM",
+  "soldOut.error.outsideHours": "Enter a time between {open} and {close}",
+
+  "close.title": "Close",
+  "close.intro": "Count what is left of each menu.",
+  "close.leftoverPlaceholder": "?",
+  "close.leftoverMissing": "Enter the leftover portions, or 0 if none are left",
+  "close.leftoverMissingSummary":
+    "Enter the leftover portions for {count} menu(s) before closing.",
+  "close.pastIntro": "You are closing a past day: {date}.",
+  "close.pastSheetTitle": "Close {date}?",
+  "close.pastClosed": "{date} closed",
+  "close.soldOutChip": "Sold out {time}",
+  "close.leftoverLabel": "Leftover portions of {name}",
+  "close.cookedOf": "Cooked {qty}",
+  "close.missedQuestion": "About what time did {name} run out?",
+  "close.missedHint":
+    "Nothing is left, but no sell-out was tapped. If you are not sure, keep the closing time.",
+  "close.unusual": "Unusual day",
+  "close.unusualHint":
+    "Rain, a holiday or an event. The day is kept but not used for suggestions.",
+  "close.closeDay": "Close day",
+  "close.sheetTitle": "Close today?",
+  "close.todayHeading": "How many wanted each menu today",
+  "close.tomorrowNone": "No active menus. Add or restore a menu in Settings.",
+  "close.tomorrowHeading": "Tomorrow's suggestions, {date}",
+  "close.wanted": "Wanted",
+  "close.suggestedPortions": "suggested portions",
+  "close.confirm": "Save all",
+  "close.closed": "Day closed",
+  "close.closedTitle": "Today is closed",
+  "close.unusualNote":
+    "Marked as an unusual day: kept, but not used for suggestions.",
+  "close.tomorrowNote":
+    "Tomorrow morning the Plan screen starts from these numbers.",
+  "close.notPlannedTitle": "Nothing to close yet",
+  "close.notPlannedBody": "Plan today's portions first.",
+
+  "estimate.value": "≈ {qty} (estimate)",
+  "estimate.none": "Not recorded",
+
+  "settings.title": "Settings",
+  "settings.stall.title": "Stall",
+  "settings.stall.name": "Stall name (optional)",
+  "settings.stall.nameError": "Use at most 40 characters",
+  "settings.stall.nameSaved": "Stall name saved",
+  "settings.menus.title": "Menus",
+  "settings.hours.title": "Hours and busy hours",
+  "settings.hours.save": "Save hours",
+  "settings.language.title": "Language",
+  "settings.data.title": "Data",
+  "settings.data.onDevice":
+    "Everything is stored only on this device. Nothing is sent anywhere.",
+  "settings.data.loadDemo": "Load demo stall",
+  "settings.data.resetDemo": "Reset demo data",
+  "settings.data.switchDemo": "Choose another demo stall",
+  "settings.data.loadDemoBlocked":
+    "Delete your own data first to load the demo stall.",
+  "settings.data.demoLoaded": "Demo stall loaded",
+  "settings.data.removeDemo": "Remove demo stall",
+  "settings.data.deleteAll": "Delete all data",
+  "settings.delete.title": "Delete all data?",
+  "settings.delete.body":
+    "This removes every menu, plan and record from this device. It cannot be undone.",
+  "settings.delete.confirm": "Delete everything",
+  "settings.removeDemo.title": "Remove the demo stall?",
+  "settings.removeDemo.body":
+    "This removes all demo data. You can then set up your own stall.",
+  "settings.removeDemo.confirm": "Remove demo",
+  "settings.about.title": "About",
+  "settings.about.version": "Version {version}",
+  "settings.about.body":
+    "FOODOO suggests portions with fixed, explainable rules. It uses no AI model. The licences of the libraries and fonts, and the AI assistance used to build the app, are listed in the project README.",
+  "settings.about.link": "Open the project README",
+
+  "register.title": "Register",
+  "register.intro": "Tap a menu to add a portion to the cart.",
+  "register.left": "{qty} left",
+  "register.over": "{qty} over plan",
+  "register.stockLabel": "Stock of {name}: {left} of {total} left",
+  "register.soldOutButton": "Sold out",
+  "register.soldOutLabel": "Mark {name} as sold out",
+  "register.cartButton": "Cart: {count} items, {total}",
+  "register.cartTitle": "Cart",
+  "register.emptyCart": "The cart is empty.",
+  "register.clear": "Clear cart",
+  "register.total": "Total",
+  "register.method": "Payment (label only)",
+  "register.cash": "Cash",
+  "register.qris": "QRIS",
+  "register.methodNote":
+    "FOODOO records the method only. It does not process payments.",
+  "register.tendered": "Cash received",
+  "register.exact": "Exact",
+  "register.change": "Change: {amount}",
+  "register.short": "Short by {amount}",
+  "register.save": "Save sale",
+  "register.saved": "Sale saved: {total}",
+  "register.autoSoldOut": "{name} sold out at {time}",
+  "register.saveFailed": "The sale was not saved. Nothing was recorded.",
+  "register.todayTitle": "Today's sales",
+  "register.revenue": "Revenue",
+  "register.count": "Transactions",
+  "register.noSales": "No sales yet today.",
+  "register.line": "{qty} × {name}",
+  "register.methodCash": "Cash",
+  "register.methodQris": "QRIS",
+  "register.void": "Void last sale",
+  "register.voidTitle": "Void the last sale?",
+  "register.voidBody":
+    "The sale from {time} ({total}) is removed. Sold-out marks set by the register are removed if stock returns.",
+  "register.voidConfirm": "Void sale",
+  "register.voided": "Sale voided",
+  "register.voidedReopened": "Sale voided. {name} is available again.",
+  "register.dayChanged": "The day changed. The cart was cleared.",
+
+  "settings.mode.title": "Sales mode",
+  "settings.mode.simple": "Simple",
+  "settings.mode.simpleHint":
+    "Tap Sold out when a menu runs out. No sales are recorded.",
+  "settings.mode.pos": "Register",
+  "settings.mode.posHint":
+    "Record each sale. Remaining portions and sell-out times update by themselves.",
+  "settings.mode.keep":
+    "You can switch at any time. Recorded sales are never deleted by switching.",
+  "settings.mode.saved": "Mode saved",
+
+  "close.posNote":
+    "Register says {remaining} left. You entered {entered} (difference {gap}).",
+  "close.posOver": "The register recorded {qty} portions over the plan.",
+  "close.unknownTime": "Don't remember",
+  "close.unknownTimeNote": "Counted as sold out at closing time.",
+  "close.knownTime": "Enter a time",
+  "close.someLeft": "Some left over",
+  "close.cancelledNote": "Sell-out mark removed. Enter what is left.",
+  "close.didSellOut": "It did sell out",
+  "close.revenue": "Revenue: {amount}",
+  "close.correct": "Correct this day",
+  "close.correctNote": "You can correct this day until {date}.",
+  "close.corrected": "Day corrected",
+
+  "reason.history.soldOutWeekday":
+    "Sold out on {soldOut} of the last {observations} {weekdayPlural} → {delta}",
+  "reason.history.soldOutRecent":
+    "Sold out on {soldOut} of the last {observations} days → {delta}",
+  "reason.history.leftover":
+    "Leftovers on {leftover} of the last {observations} days → {delta}",
+  "reason.history.base": "Based on the last {observations} days",
+  "reason.coldStart":
+    "Not enough history yet. Starting from your usual {usualQty}",
+  "reason.coldStartUp":
+    "Not enough history yet. Starting from your usual {usualQty}, sold out last time → {delta}",
+  "reason.coldStartDown":
+    "Not enough history yet. Starting from your usual {usualQty}, leftovers last time → {delta}",
+
+  "weekday.plural.0": "Sundays",
+  "weekday.plural.1": "Mondays",
+  "weekday.plural.2": "Tuesdays",
+  "weekday.plural.3": "Wednesdays",
+  "weekday.plural.4": "Thursdays",
+  "weekday.plural.5": "Fridays",
+  "weekday.plural.6": "Saturdays",
+  "how.title": "How FOODOO calculates",
+  "how.intro":
+    "FOODOO uses a few fixed rules. This page shows them on an example, worked out by the same code the app uses for your stall.",
+  "how.exampleNote":
+    "Example stall. These numbers are an example, not your data.",
+  "how.demandTitle": "1. How many people wanted a menu that sold out",
+  "how.demandSetup":
+    "Example: Nasi Uduk. {cooked} portions were cooked, and the last one was sold at {time}.",
+  "how.barBefore": "(before {time})",
+  "how.barsCaption":
+    "Busy hours of the example stall. Filled bars are the hours before {time}.",
+  "how.demandShare":
+    "From the busy hours, about {percent}% of a normal day's customers had arrived by {time}.",
+  "how.demandResult":
+    "So {cooked} portions were enough for only about {percent}% of the day's customers. Over the whole day, about this many people would have wanted it:",
+  "how.ruleCounted":
+    "If a menu did not sell out, nothing is guessed: wanted = cooked − leftover.",
+  "how.ruleLate":
+    "If it sold out at or very close to closing time, wanted = cooked.",
+  "how.ruleCap":
+    "The guess is never more than 3 times what was cooked ({cap} here).",
+  "how.ruleBusy":
+    "A busy hour counts 4 times, a normal hour 2 times and a quiet hour once. You set them in Settings.",
+  "how.suggestTitle": "2. How tomorrow's portions are suggested",
+  "how.suggestMoney":
+    "Each extra portion sold earns {gain}. Each portion left over loses {loss}, what it cost to cook.",
+  "how.suggestCover":
+    "Here a leftover loses more than a sale earns, so FOODOO does not cook for the busiest day. It picks the amount that would have been enough on about {cover} of every 100 past days.",
+  "how.suggestHistory":
+    "On the last {count} {weekdays}, people wanted: {values}.",
+  "how.ruleEligible":
+    "Only closed, normal days count. Unusual days and days not closed are left out.",
+  "how.ruleWeekday":
+    "It looks at the same weekday first (up to the last 8). With fewer than 5 of those, it uses the last 14 days.",
+  "how.ruleColdStart":
+    "With fewer than 5 days of history, it starts from your usual portions: 10% more after a sell-out, 10% less when more than a fifth was left over.",
+  "how.ruleYouDecide":
+    "A suggestion is only a starting point. You can change every number before cooking.",
+  "how.notTitle": "What FOODOO does not do",
+  "how.notAi":
+    "It uses no AI model. Every number comes from the fixed rules on this page.",
+  "how.notCloud": "It sends nothing anywhere. Your data stays on this device.",
+  "how.back": "Back to the app",
+  "close.howLink": "How is this worked out?",
+  "settings.about.how": "How FOODOO calculates",
+  "settings.data.storageKept":
+    "Protected: the browser will not clear this data to free up space.",
+  "settings.data.storageAtRisk":
+    "Not protected yet: the browser may clear this data if the phone runs low on space.",
+  "settings.data.storageUnknown":
+    "This browser does not say whether it protects the data.",
+  "settings.data.keep": "Keep my data",
+  "settings.data.keepGranted": "The browser will keep your data",
+  "settings.data.keepRefused":
+    "The browser said no for now. Adding FOODOO to the home screen often helps.",
+  "landing.pillOffline": "Works offline",
+  "landing.pillNoAccount": "No account",
+  "landing.pillLocal": "Data stays on your phone",
+  "landing.problemTitle": "Every morning is a guess",
+  "landing.problemWasteTitle": "Too much",
+  "landing.problemWasteBody":
+    "Unsold portions go to waste, and so does the money spent cooking them.",
+  "landing.problemEarlyTitle": "Too little",
+  "landing.problemEarlyBody":
+    "A dish sells out before noon and later customers walk away.",
+  "landing.problemHiddenTitle": "Sold out hides demand",
+  "landing.problemHiddenBody":
+    "Sales stop when the pot is empty, so your records never show how many people really wanted it.",
+  "landing.loopTitle": "A daily loop that takes minutes",
+  "landing.loopPlanTitle": "Plan in the morning",
+  "landing.loopPlanBody":
+    "See a suggested portion for each dish, then change any number you like.",
+  "landing.loopServiceTitle": "Mark sold-out times",
+  "landing.loopServiceBody": "Tap when a dish runs out. FOODOO keeps the time.",
+  "landing.loopCloseTitle": "Close the day",
+  "landing.loopCloseBody":
+    "Enter what is left. FOODOO estimates how many people wanted each dish.",
+  "landing.loopNextTitle": "Better tomorrow",
+  "landing.loopNextBody":
+    "Tomorrow's suggestion learns from today, including the customers you missed.",
+  "landing.exampleBadge": "Example",
+  "landing.whyTitle": "Why FOODOO is different",
+  "landing.whyHiddenTitle": "Counts missed customers",
+  "landing.whyHiddenBody":
+    "It uses the sell-out time and your busy hours to estimate the demand a sold-out day hides.",
+  "landing.whyRulesTitle": "Rules you can check",
+  "landing.whyRulesBody":
+    "No AI model. Every number comes from fixed rules you can read in the app.",
+  "landing.whyOfflineTitle": "Built for the stall",
+  "landing.whyOfflineBody":
+    "Installs like an app and works with no signal, on an ordinary phone.",
+  "landing.whyPrivateTitle": "Private by design",
+  "landing.whyPrivateBody":
+    "No login, no server, no customer data. Export or delete everything at any time.",
+  "landing.closingTitle": "Ready to try it?",
+  "landing.closingBody":
+    "Look around a demo stall with made-up data, or set up your own menus. No account needed.",
+  "landing.installHint":
+    "Tip: use your browser's “Add to Home screen” to open FOODOO like an app.",
+  "settings.about.landing": "About FOODOO",
+  "landing.headline": "Cook the right amount.",
+  "landing.headlineAccent": "No piles of leftovers, no turning customers away.",
+  "landing.exampleTitle": "What you will see",
+  "landing.exampleCooked": "Cooked",
+  "landing.exampleSoldOut": "Sold out at",
+  "landing.pageTitle": "Daily portion planning",
+  "landing.eyebrow": "For warung and small food stalls",
+  "landing.nav.label": "Page sections",
+  "landing.nav.menu": "Menu",
+  "landing.nav.problem": "The problem",
+  "landing.nav.loop": "How it works",
+  "landing.nav.demo": "Demo",
+  "landing.nav.team": "Team",
+  "landing.nav.seeDemo": "See the demo",
+  "landing.nav.openApp": "Open the app",
+  "landing.problemLead":
+    "Cook too much and money is wasted. Cook too little and customers leave, and the records never show how many.",
+  "landing.loopLead": "Four small moments a day, each only a few taps.",
+  "landing.seeEyebrow": "From pot to plan",
+  "landing.seeLead":
+    "One sold-out dish, followed from service to the next morning. The numbers are an example, worked out by the app's own rules.",
+  "landing.preview.service": "One tap the moment the pot is empty.",
+  "landing.preview.close":
+    "At night FOODOO estimates how many people wanted it.",
+  "landing.preview.next":
+    "Later suggestions learn from this estimate, not only the {cooked} portions you sold.",
+  "landing.whyEyebrow": "What sets it apart",
+  "landing.explorer.title": "When did it sell out?",
+  "landing.explorer.cooked": "{cooked} portions cooked",
+  "landing.explorer.legendSold": "Customers before the sell-out",
+  "landing.explorer.legendMissed": "Customers after: missing from sales",
+  "landing.explorer.arrived": "Customers arrived by then",
+  "landing.explorer.hint":
+    "Drag the slider. Same rules as the app, on an example stall.",
+  "landing.demoTitle": "Walk through a demo stall",
+  "landing.demoOpen": "Open demo",
+  "landing.demoOpenLabel": "Open demo: {name}",
+  "landing.teamTitle": "The team behind FOODOO",
+  "landing.teamBody":
+    "Calon Mantu Idaman, building for STACK 2026 by GDGoC ITB, Case 2: Stronger Communities and Everyday Services.",
+  "landing.team.domain": "Demand estimates, suggestions and backtest",
+  "landing.team.data": "On-device data, export and import",
+  "landing.team.screens": "Screens and components",
+  "landing.team.platform":
+    "Offline app, languages, accessibility, tests and deployment",
+  "landing.closingSetup": "Set up my stall",
+  "landing.closingDemo": "Pick a demo stall",
+  "landing.footerNote":
+    "Demo data is made up and labelled. What you enter stays on your device.",
+  "landing.footerLinks": "More about FOODOO",
+  "today.hint.plan":
+    "Check each suggested number, change what you like, then save.",
+  "today.hint.service": "When a menu runs out, tap it so the time is kept.",
+  "today.hint.close":
+    "Count what is left so later suggestions can learn from today.",
+} as const;

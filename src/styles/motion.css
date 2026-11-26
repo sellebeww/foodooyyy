@@ -1,0 +1,250 @@
+/* src/styles/motion.css */
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.site) {
+    scroll-behavior: smooth;
+  }
+
+  .btn,
+  .icon-btn,
+  .service-tile,
+  .stepper__btn,
+  .demo-option,
+  .busy__cell,
+  .segmented__option,
+  .toast__action,
+  .showcase__card,
+  .day-row,
+  .nav-link,
+  .site-nav a,
+  .sidebar__about,
+  .field input,
+  .skip-link {
+    transition:
+      transform var(--dur-fast) var(--ease-out),
+      background-color var(--dur-base) var(--ease-std),
+      border-color var(--dur-base) var(--ease-std),
+      box-shadow var(--dur-base) var(--ease-std),
+      color var(--dur-base) var(--ease-std);
+  }
+
+  .btn:active:not(:disabled),
+  .icon-btn:active,
+  .service-tile:active:not(:disabled),
+  .stepper__btn:active:not(:disabled),
+  .demo-option:active:not(:disabled),
+  .busy__cell:active,
+  .segmented__option:active,
+  .toast__action:active {
+    transform: scale(0.97);
+  }
+
+  .btn .icon {
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+
+  .btn:hover:not(:disabled) .icon {
+    transform: translateX(3px);
+  }
+
+  .screen__main > *,
+  .card-grid > *,
+  .service-grid > *,
+  .demo-picker > * {
+    animation: rise var(--dur-enter) var(--ease-out) backwards;
+  }
+
+  :is(.screen__main, .card-grid, .service-grid, .demo-picker) > :nth-child(2) {
+    animation-delay: var(--dur-stagger);
+  }
+
+  :is(.screen__main, .card-grid, .service-grid, .demo-picker) > :nth-child(3) {
+    animation-delay: calc(var(--dur-stagger) * 2);
+  }
+
+  :is(.screen__main, .card-grid, .service-grid, .demo-picker)
+    > :nth-child(n + 4) {
+    animation-delay: calc(var(--dur-stagger) * 3);
+  }
+
+  .hero__copy > *,
+  .explorer {
+    animation: settle var(--dur-enter) var(--ease-out) backwards;
+  }
+
+  .hero__copy > :nth-child(2) {
+    animation-delay: var(--dur-stagger);
+  }
+
+  .hero__copy > :nth-child(3) {
+    animation-delay: calc(var(--dur-stagger) * 2);
+  }
+
+  .hero__copy > :nth-child(n + 4),
+  .explorer {
+    animation-delay: calc(var(--dur-stagger) * 3);
+  }
+
+  .explorer__fill {
+    transition: transform var(--dur-slow) var(--ease-out);
+  }
+
+  .site-nav--open {
+    animation: rise var(--dur-slow) var(--ease-out);
+  }
+
+  .loop__arc {
+    animation: appear var(--dur-enter) var(--ease-out) backwards;
+  }
+
+  .loop__arc:nth-child(2) {
+    animation-delay: var(--dur-base);
+  }
+
+  .loop__arc:nth-child(3) {
+    animation-delay: var(--dur-enter);
+  }
+
+  .tab-bar .nav-link::before {
+    transform: scaleX(0.4);
+    transition:
+      transform var(--dur-slow) var(--ease-out),
+      opacity var(--dur-base) var(--ease-std);
+  }
+
+  .tab-bar .nav-link[aria-current="page"]::before {
+    transform: none;
+  }
+
+  .nav-link[aria-current="page"] .icon,
+  .toast > .icon,
+  .closed-card__mark {
+    animation: pop var(--dur-enter) var(--ease-spring) backwards;
+  }
+
+  .chip {
+    animation: pop var(--dur-slow) var(--ease-spring);
+  }
+
+  .service-tile .stamp {
+    animation: stamp var(--dur-enter) var(--ease-spring) backwards;
+  }
+
+  .stockbar__fill {
+    transition: transform var(--dur-slow) var(--ease-out);
+  }
+
+  .toast {
+    animation: rise var(--dur-slow) var(--ease-out);
+  }
+
+  .sheet-backdrop {
+    animation: appear var(--dur-base) var(--ease-std);
+  }
+
+  .sheet {
+    animation: sheet-up var(--dur-enter) var(--ease-out);
+  }
+
+  .bars__bar {
+    animation: grow var(--dur-enter) var(--ease-out) backwards;
+    transform-origin: bottom;
+  }
+
+  .how-bars__bar {
+    animation: stretch var(--dur-enter) var(--ease-out) backwards;
+    transform-origin: left;
+  }
+
+  .welcome__loader::after {
+    animation: slide 1.2s var(--ease-std) infinite;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .service-tile:hover:not(:disabled, :active),
+  .demo-option:hover:not(:disabled, :active),
+  .showcase__card:hover {
+    transform: translateY(-3px);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .band__head,
+    .features > *,
+    .preview > *,
+    .showcase > *,
+    .team > * {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+}
+
+@keyframes settle {
+  from {
+    transform: translateY(14px);
+  }
+}
+
+@keyframes reveal {
+  from {
+    translate: 0 24px;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.6);
+  }
+}
+
+@keyframes stamp {
+  from {
+    transform: scale(1.5) rotate(-8deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(48px);
+    opacity: 0;
+  }
+}
+
+@keyframes grow {
+  from {
+    scale: 1 0;
+  }
+}
+
+@keyframes stretch {
+  from {
+    scale: 0 1;
+  }
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(250%);
+  }
+}

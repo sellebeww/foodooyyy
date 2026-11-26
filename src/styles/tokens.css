@@ -1,0 +1,101 @@
+/* src/styles/tokens.css */
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url("/fonts/SpaceGrotesk-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Space Grotesk Fallback";
+  font-weight: 500 700;
+  src: local("Arial"), local("Helvetica"), local("Liberation Sans");
+  size-adjust: 108%;
+}
+
+:root {
+  color-scheme: light;
+
+  --navy: #003049;
+  --navy-900: #00212f;
+  --navy-700: #0a4563;
+  --navy-100: #e4eef4;
+  --orange: #f77f00;
+  --orange-600: #ea7400;
+  --orange-800: #8f4700;
+  --orange-100: #ffe6c7;
+  --orange-50: #fff4e5;
+
+  --bg: #f7f4ef;
+  --paper: #ffffff;
+  --sunken: #f1ede6;
+  --ink: #10212c;
+  --muted: #4d5d68;
+  --on-dark: #ffffff;
+  --on-dark-muted: #b9cddb;
+  --line: #e5ded3;
+  --line-strong: #75828c;
+  --line-dark: #2b5268;
+
+  --success: #17603c;
+  --success-100: #dcf2e4;
+  --info: #0a4f74;
+  --info-100: #dff0fa;
+  --warn: #664800;
+  --warn-100: #fcefc4;
+  --danger: #ad1220;
+  --danger-100: #fdeaec;
+
+  --scrim: rgb(0 25 38 / 55%);
+
+  --border: 1px solid var(--line);
+  --shadow-card:
+    0 1px 2px rgb(0 33 47 / 5%), 0 10px 28px -18px rgb(0 33 47 / 22%);
+  --shadow-raised:
+    0 2px 4px rgb(0 33 47 / 6%), 0 18px 36px -18px rgb(0 33 47 / 30%);
+  --shadow-overlay: 0 20px 48px -12px rgb(0 33 47 / 34%);
+
+  --radius-xs: 6px;
+  --radius-sm: 12px;
+  --radius: 18px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 72px;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-num: 1.75rem;
+  --text-hero: 2.75rem;
+  --text-section: clamp(1.5rem, 1.1rem + 1.8vw, 2.5rem);
+  --text-display: clamp(2.25rem, 1.2rem + 4.2vw, 4.25rem);
+
+  --dur-fast: 120ms;
+  --dur-base: 180ms;
+  --dur-slow: 280ms;
+  --dur-enter: 420ms;
+  --dur-stagger: 55ms;
+  --ease-std: ease;
+  --ease-out: cubic-bezier(0.2, 0.75, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.5, 0.64, 1);
+
+  --tap-min: 48px;
+  --sidebar-w: 264px;
+  --content-max: 1120px;
+  --site-max: 1180px;
+
+  --font-ui: "Space Grotesk", "Space Grotesk Fallback", system-ui, sans-serif;
+  --font-num: "Space Grotesk", "Space Grotesk Fallback", system-ui, sans-serif;
+}
