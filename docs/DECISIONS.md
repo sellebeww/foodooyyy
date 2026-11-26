@@ -820,3 +820,42 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 - **Measured on this build:** 399 unit tests and 13 e2e tests pass; axe in Chromium reports 0 violations over 64 page states (both languages, 360 and 1280 px, colour contrast on); 150 screenshots show no sideways scrolling, clipped elements or low-contrast text; page JavaScript 154.2 to 157.9 KB gzip, CSS 6.6 to 9.9 KB gzip. Cold load of `/` at 390 px with 150 ms latency, 1.6 Mbps and 4x CPU slowdown, median of 5: first paint 1180 to 1204 ms, largest paint 1252 to 1316 ms, layout shift 0.0000 in both. The axe and timing scripts are one-off Playwright scripts that are not in the repository.
 - **Not done:** Lighthouse was not re-run (`registry.npmjs.org` timed out and a mirror needs the owner's approval). No physical phone. The screenshots in `docs/ui/` still show the earlier design.
 - **Alternatives considered:** a restyle of tokens only (would not fix the landing page structure); a second font (needs a download and a licence entry for a small gain); a UI or animation library (not allowed by `AGENTS.md`).
+
+## Quality pass (2026-11-26)
+
+### D-096 Three small features built from data already stored (Vassel, Hakim)
+
+- **Request:** evaluate the whole app, add useful features and improve the design (2026-11-26). The abstract's loop is unchanged; nothing it promises was removed or replaced.
+- **Money view:** the problem statement is about wasted money, but the app only counted portions. Plan shows cooking cost and possible sales; the weekly summary shows money lost on leftovers and margin missed (estimate). Rules are in `src/domain/money.ts`, 100% covered. Prices are the current ones, which the screen says. Alternative: copy cost and price into each menu-day (needs a schema change and leaves old days without values).
+- **Cooking list:** whoever cooks is often not whoever holds the phone. Today lists the day's menus and shares them with the Web Share API, falling back to the clipboard. No dependency, no server, only on a tap. Alternative: a WhatsApp link (assumes one app and puts the data in a URL).
+- **Navigation cues:** a "now" marker on the current step, progress on Service and Close, and section links in Settings.
+- **Reserved work:** none of this is the reserved UX-FIX, which still waits for owner testing. If the team meant any of these as the replacement Final Day tasks R1' or R2', they are now built early and should not be chosen again.
+- **Not built, recommended instead:** install button, backup reminder, dark mode (already rejected in D-093), menu photos, per-event notes for unusual days.
+
+### D-097 Bugs found by review, each with a regression test (Samuel, Vassel, Sonny)
+
+- **Backup lost data:** JSON and XLSX export skipped register sales, and import dropped the sales mode and the sell-out source. All three are now optional fields, so older backups still import. `formatVersion` stays 1 because the change only adds fields. Alternative: version 2 (an older app would refuse every new backup).
+- **Typed values moved to another day:** `/close` and `/close/:date` reused one component, so leftovers typed for a past day appeared on today. Close and Plan are now keyed by date.
+- **Stale date after sleep:** the clock now re-reads when the page becomes visible, not only on its 30 s timer.
+- **Scrolling changed numbers:** a +/- button stepped on touch down, so a scroll that started on it changed the value. Touch now steps on release or after a long press; mouse and keyboard are unchanged.
+- **Installed app locked to portrait:** `orientation` was removed from the manifest so tablets and landscape phones work.
+- **Hidden file input:** it could receive keyboard focus; it now uses `hidden`.
+- **Found while testing:** navigation called `matchMedia` even without View Transitions; the order of the two checks was swapped.
+
+### D-098 Visual refinement without new colours or libraries (Vassel, Sonny)
+
+- **Look:** the D-095 palette stays. Navy and orange surfaces gained quiet gradients, shadows are layered, radii are slightly tighter, the header stays on screen while scrolling, and the Undo toast shows its remaining time.
+- **Small screens:** short landscape screens get a one-row tab bar, a static header and a lower action bar; below 400 px the date, sticker and Plan totals are smaller.
+- **Motion:** still CSS only and off under reduced motion.
+- **Checked:** unit and e2e tests; a one-off axe scan in Chromium (66 states, both languages, 360x740, 740x360 and 1280x800) with no violations; `scripts/uiShots.ts` at six sizes with no sideways scroll, clipped elements or low-contrast text. Lighthouse 12.8.2 was run again on this build: accessibility 100 and best practices 100 on every row, performance 98 or higher, cold mobile largest contentful paint 2.05 s (target 2 s, missed). Not checked: physical devices, Safari, Firefox.
+- **Alternatives considered:** a dark theme (doubles the states to verify five days before the semifinal); a UI or animation library (not allowed by `AGENTS.md`).
+
+### D-099 First-run tutorial and hourly simulation (Vassel, Hakim, Sonny)
+
+- **Request:** a spotlight tutorial on first open, and a repeating hour-by-hour simulation with demand analysis.
+- **Tutorial:** own component (`Tour.tsx`) with four shaded panels around the target, so the target stays clickable without a library. Steps are data (`tourSteps.ts`). A step that changes data waits for the result (sold-out mark, closed day), not just the click. An open dialog is spotlighted instead. "Seen" is one `localStorage` key. Alternative: a tour library (new dependency).
+- **Simulation:** reuses the generator's demand model, `suggestQty` and `estimateDemand`, seeded per date, and lives in memory. Alternative: write simulated sales into the register tables; rejected because repeating days would put future dates into the stored history.
+- **Menu analysis:** ranks existing menus by profit per day and names the pattern. It does not propose new dishes, which the abstract does not promise.
+- **Scope:** both features go beyond the abstract's core loop and need the team's confirmation. The abstract's "+1 turned away" tap is still missing.
+- **Bug fixed:** choosing a demo moment on the company page could land on Today, because the page redirected before the navigation. It no longer redirects while the demo is opening.
+- **Checks:** unit and e2e tests, including a first-visitor walk through all 16 steps. Not checked: physical devices, Safari, Firefox, Lighthouse.

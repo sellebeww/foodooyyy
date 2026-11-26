@@ -3,6 +3,22 @@ import type { en } from "./en.ts";
 
 export const id: Record<keyof typeof en, string> = {
   "app.name": "FOODOO",
+  "nav.currentStep": "Langkah hari ini yang sedang berjalan",
+  "today.menus.title": "Menu hari ini",
+  "today.menus.available": "Masih ada",
+  "today.menus.left": "Sisa {qty}",
+  "today.share.action": "Bagikan daftar",
+  "today.share.copied": "Daftar masak disalin",
+  "today.share.failed": "Daftar tidak bisa dibagikan. Coba lagi.",
+  "week.leftoverCost": "Uang hilang karena sisa",
+  "week.missedEarnings": "Untung yang lolos karena habis",
+  "week.moneyNote":
+    "Dihitung dengan harga jual dan modal saat ini. Sisa dihitung sebesar modal dikurangi nilai sisa; untung yang lolos adalah harga jual dikurangi modal.",
+  "plan.cost": "Modal masak {amount}",
+  "plan.revenue": "Jika habis terjual {amount}",
+  "close.progress": "{ready} dari {total} menu siap",
+  "service.progress": "{soldOut} dari {total} menu habis",
+  "settings.jump": "Bagian pengaturan",
   "app.skip": "Langsung ke isi",
   "app.loading": "Memuat…",
   "app.offlineReady": "Siap dipakai tanpa internet.",
@@ -17,6 +33,8 @@ export const id: Record<keyof typeof en, string> = {
   "nav.settings": "Pengaturan",
 
   "header.demo": "Data demo",
+  "header.demoSwitch": "Ganti demo",
+  "header.demoTime": "Jam demo",
   "header.offline": "Offline. Tersimpan di perangkat ini.",
 
   "common.save": "Simpan",
@@ -50,6 +68,19 @@ export const id: Record<keyof typeof en, string> = {
     "Angkringan yang buka sampai lewat tengah malam. Penjualan setelah 00:00 tetap dihitung untuk malam warung itu buka.",
   "demo.s4.desc":
     "Warung yang baru buka empat hari. Riwayat belum cukup, jadi saran dimulai dari porsi biasa lalu disesuaikan.",
+  "demo.launch.stall": "1. Pilih warung",
+  "demo.launch.moment": "2. Pencet momen untuk membukanya",
+  "demo.launch.note":
+    "Momen memakai jam demo simulasi, tertulis di samping label Data demo.",
+  "demo.launch.realClock": "Buka dengan jam asli",
+  "demo.moment.plan.title": "Rencana pagi",
+  "demo.moment.plan.desc": "Saran porsi, siap diterima",
+  "demo.moment.service.title": "Jam jualan",
+  "demo.moment.service.desc": "Masakan siap dan satu menu sudah habis",
+  "demo.moment.close.title": "Waktu tutup",
+  "demo.moment.close.desc": "Dua menu habis, tinggal isi sisa",
+  "demo.moment.summary.title": "Ringkasan minggu",
+  "demo.moment.summary.desc": "Hari-hari lalu, grafik, dan uang",
   "demo.refreshed": "Tanggal demo disesuaikan ke hari ini",
   "welcome.demo": "Coba warung demo",
   "welcome.demoNote":
@@ -189,11 +220,11 @@ export const id: Record<keyof typeof en, string> = {
   "transfer.format.csv": "CSV",
   "transfer.format.xlsx": "XLSX",
   "transfer.hint.json":
-    "Cadangan lengkap warung, menu, dan semua hari. Pakai untuk pindah ke HP baru.",
+    "Cadangan lengkap warung, menu, semua hari, dan penjualan kasir. Pakai untuk pindah ke HP baru.",
   "transfer.hint.csv":
     "Catatan harian per menu, satu baris per menu per hari. Bisa dibuka di aplikasi spreadsheet apa pun.",
   "transfer.hint.xlsx":
-    "Cadangan lengkap untuk Excel atau Google Sheets, dalam empat sheet: Stall, Menus, Days, MenuDays.",
+    "Cadangan lengkap untuk Excel atau Google Sheets, dalam lima sheet: Stall, Menus, Days, MenuDays, Sales.",
   "transfer.export.action": "Ekspor file",
   "transfer.exported": "File tersimpan",
   "transfer.exportFailed": "Gagal mengekspor. Coba lagi.",
@@ -324,7 +355,7 @@ export const id: Record<keyof typeof en, string> = {
   "settings.language.title": "Bahasa",
   "settings.data.title": "Data",
   "settings.data.onDevice":
-    "Semua data hanya disimpan di perangkat ini. Tidak ada yang dikirim ke mana pun.",
+    "Semua data hanya disimpan di perangkat ini. Tidak ada yang keluar kecuali Anda bagikan atau ekspor.",
   "settings.data.loadDemo": "Muat warung demo",
   "settings.data.resetDemo": "Atur ulang data demo",
   "settings.data.switchDemo": "Pilih warung demo lain",
@@ -476,7 +507,7 @@ export const id: Record<keyof typeof en, string> = {
   "how.notAi":
     "Tidak memakai model AI. Setiap angka berasal dari aturan tetap di halaman ini.",
   "how.notCloud":
-    "Tidak mengirim apa pun ke mana pun. Data Anda tetap di perangkat ini.",
+    "Tidak mengirim apa pun sendiri. Data Anda tetap di perangkat ini kecuali Anda bagikan atau ekspor.",
   "how.back": "Kembali ke aplikasi",
   "close.howLink": "Bagaimana ini dihitung?",
   "settings.about.how": "Cara FOODOO menghitung",
@@ -571,8 +602,6 @@ export const id: Record<keyof typeof en, string> = {
   "landing.explorer.hint":
     "Geser penggesernya. Aturannya sama dengan aplikasi, pada warung contoh.",
   "landing.demoTitle": "Jelajahi warung demo",
-  "landing.demoOpen": "Buka demo",
-  "landing.demoOpenLabel": "Buka demo: {name}",
   "landing.teamTitle": "Tim di balik FOODOO",
   "landing.teamBody":
     "Calon Mantu Idaman, membangun untuk STACK 2026 oleh GDGoC ITB, Kasus 2: Stronger Communities and Everyday Services.",
@@ -590,4 +619,98 @@ export const id: Record<keyof typeof en, string> = {
   "today.hint.service": "Saat menu habis, ketuk agar jamnya tercatat.",
   "today.hint.close":
     "Hitung sisanya supaya saran berikutnya belajar dari hari ini.",
+  "tour.label": "Tutorial",
+  "tour.progress": "Langkah {step} dari {total}",
+  "tour.next": "Lanjut",
+  "tour.skip": "Lewati langkah",
+  "tour.finish": "Selesai",
+  "tour.end": "Akhiri tutorial",
+  "tour.goThere": "Antar saya ke sana",
+  "tour.replay": "Ulangi tutorial",
+  "tour.welcome.title": "Mulai dari demo",
+  "tour.welcome.body":
+    "Tekan Coba warung demo. Datanya buatan, jadi silakan tekan apa saja.",
+  "tour.moment.title": "Pilih pagi hari",
+  "tour.moment.body": "Tekan Rencana pagi untuk memulai hari dari awal.",
+  "tour.suggestion.title": "Saran beserta alasannya",
+  "tour.suggestion.body":
+    "Tiap kartu menunjukkan jumlah porsi yang dimasak dan alasannya. Ubah dengan + dan −.",
+  "tour.accept.title": "Simpan rencana",
+  "tour.accept.body": "Tekan Terima semua untuk menyimpan porsi hari ini.",
+  "tour.toService.title": "Buka penjualan",
+  "tour.toService.body": "Tekan Penjualan di navigasi.",
+  "tour.soldOut.title": "Ada menu habis",
+  "tour.soldOut.body":
+    "Ketuk menu untuk mencatat jam habisnya. Bisa dibatalkan dalam 10 detik.",
+  "tour.toClose.title": "Tutup hari",
+  "tour.toClose.body": "Tekan Tutup di navigasi.",
+  "tour.close.title": "Hitung sisanya",
+  "tour.close.body":
+    "Isi tiap menu, tekan Tutup hari, lalu Simpan semua. FOODOO memperkirakan permintaan dan menyarankan porsi besok.",
+  "tour.toHistory.title": "Lihat hasilnya",
+  "tour.toHistory.body": "Tekan Riwayat di navigasi.",
+  "tour.history.title": "7 hari terakhir",
+  "tour.history.body":
+    "Sisa, kejadian habis, dan perkiraan penjualan hilang. Angka perkiraan diberi label.",
+  "tour.toSettings.title": "Buka pengaturan",
+  "tour.toSettings.body": "Tekan tombol Pengaturan.",
+  "tour.cashier.title": "Mode kasir",
+  "tour.cashier.body":
+    "Aktifkan register di sini. Kasir menekan menu yang terjual, stok berkurang, jam habis tercatat, dan penutupan terisi otomatis.",
+  "tour.toToday.title": "Kembali ke hari ini",
+  "tour.toToday.body": "Tekan Hari ini di navigasi.",
+  "tour.openSim.title": "Simulasikan hari penuh",
+  "tour.openSim.body": "Buka simulasi per jam.",
+  "tour.play.title": "Jalankan warung",
+  "tour.play.body":
+    "Tekan putar. Pelanggan datang jam demi jam, hari demi hari.",
+  "tour.analysis.title": "Analisis langsung",
+  "tour.analysis.body":
+    "Jam ramai, kinerja tiap menu, dan jumlah porsi berikutnya. Berubah selama simulasi berjalan.",
+  "sim.title": "Simulasi per jam",
+  "sim.cardBody":
+    "Lihat pelanggan simulasi datang jam demi jam dan analisisnya berubah.",
+  "sim.open": "Buka simulasi",
+  "sim.note":
+    "Simulasi dengan data demo buatan. Tidak ada yang disimpan ke warung.",
+  "sim.emptyTitle": "Simulasi butuh warung demo",
+  "sim.emptyBody": "Muat warung demo dengan minimal satu menu aktif.",
+  "sim.day": "Hari {day}: {date}",
+  "sim.hours": "{done} dari {total} jam disimulasikan",
+  "sim.dayDone": "Hari ditutup. Saran berikutnya memakai hari ini.",
+  "sim.play": "Putar",
+  "sim.pause": "Jeda",
+  "sim.nextHour": "Jam berikutnya",
+  "sim.nextDay": "Hari berikutnya",
+  "sim.finishDay": "Selesaikan hari",
+  "sim.restart": "Ulang dari awal",
+  "sim.hourTitle": "Aktivitas {from} sampai {to}",
+  "sim.customers": "Pelanggan",
+  "sim.sold": "Terjual",
+  "sim.missed": "Tidak kebagian",
+  "sim.turnedAway": "Habis",
+  "sim.transactions": "Transaksi jam ini",
+  "sim.byHour": "Hari ini per jam",
+  "sim.col.hour": "Jam",
+  "sim.col.sales": "Penjualan",
+  "sim.col.estimate": "Permintaan (perkiraan)",
+  "sim.col.truth": "Permintaan simulasi",
+  "sim.stock": "Stok",
+  "sim.truthNote":
+    "Permintaan simulasi hanya diketahui di dalam simulasi. Warung nyata hanya melihat perkiraan.",
+  "sim.analysis": "Analisis",
+  "sim.pattern": "Pelanggan per jam, rata-rata per hari simulasi",
+  "sim.peak": "Jam tersibuk mulai pukul {from}.",
+  "sim.barValue": "{sold} terjual, {missed} tidak kebagian",
+  "sim.patternEmpty": "Jalankan minimal satu jam untuk melihat polanya.",
+  "sim.menus": "Menu menurut untung per hari",
+  "sim.next": "Masak berikutnya: {qty} porsi",
+  "sim.menuStats":
+    "Untung per hari {profit}. Habis {soldOut} dari {days} hari. Rata-rata sisa {leftover}. Rata-rata permintaan {demand} (perkiraan).",
+  "sim.menusNote":
+    "Berdasarkan 14 hari normal terakhir yang ditutup untuk tiap menu. Hanya menu yang sudah ada di warung yang dibandingkan.",
+  "sim.signal.loss": "Merugi",
+  "sim.signal.sellsOut": "Sering habis",
+  "sim.signal.leftOver": "Sering bersisa",
+  "sim.signal.steady": "Stabil",
 };

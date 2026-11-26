@@ -1,6 +1,6 @@
 // src/db/schema.ts
 import Dexie, { type EntityTable, type Table, type Transaction } from "dexie";
-import type { DemoScenarioId } from "../demo/catalog.ts";
+import type { DemoMoment, DemoScenarioId } from "../demo/catalog.ts";
 import type {
   DayRecord,
   ISODate,
@@ -16,6 +16,7 @@ export const STALL_ID = "stall";
 export interface DemoMeta {
   scenario: DemoScenarioId;
   generatedFor: ISODate;
+  moment?: DemoMoment;
 }
 
 export interface StallRow {

@@ -1,5 +1,5 @@
 // src/db/exportImport.ts
-import { isDemoScenarioId } from "../demo/catalog.ts";
+import { isDemoMoment, isDemoScenarioId } from "../demo/catalog.ts";
 import { profileHours, validateHours, validateMenu } from "../domain/setup.ts";
 import { formatHHMM, parseHHMM, weekdayOf } from "../domain/time.ts";
 import type {
@@ -10,6 +10,9 @@ import type {
   Menu,
   MenuDay,
   Reason,
+  PayMethod,
+  Sale,
+  SoldOutSource,
   StallSettings,
 } from "../domain/types.ts";
 import { parseCsvText, toCsvText } from "./csv.ts";
@@ -31,6 +34,7 @@ export const MAX_ISSUES = 20;
 const QTY_MAX = 999;
 const DEMAND_MAX = QTY_MAX * 3;
 const MENU_ID_MAX = 64;
+const RECORD_ID_MAX = 64;
 const STALL_NAME_MAX = 40;
 const MINUTES_PER_DAY = 1440;
 const BUSY_LEVELS: readonly number[] = [1, 2, 4];
@@ -41,6 +45,13 @@ const REASON_CODES: readonly string[] = [
   "history",
 ];
 const REASON_SCOPES: readonly string[] = ["weekday", "recent"];
+const SALES_MODES: readonly string[] = ["simple", "pos"];
+const SOLD_OUT_SOURCES: readonly string[] = [
+  "manual",
+  "auto_pos",
+  "unknown_time",
+];
+const PAY_METHODS: readonly string[] = ["cash", "qris"];
 
 export type ExportFormat = "json" | "csv" | "xlsx";
 
@@ -53,6 +64,7 @@ export interface Backup {
   menus: Menu[];
   days: DayRecord[];
   menuDays: MenuDay[];
+  sales: Sale[];
 }
 
 export type ImportIssueCode =
@@ -110,6 +122,7 @@ const STALL_COLUMNS: readonly Column[] = [
   { key: "isDemo", kind: "bool" },
   { key: "setupComplete", kind: "bool" },
   { key: "demo", kind: "json", optional: true },
+  { key: "mode", kind: "text", optional: true },
 ];
 
 const MENU_COLUMNS: readonly Column[] = [
@@ -139,6 +152,19 @@ const MENU_DAY_FIELDS: readonly Column[] = [
   { key: "estimatedDemand", kind: "intOrNull" },
   { key: "demandIsEstimate", kind: "bool" },
   { key: "reason", kind: "json" },
+  { key: "soldOutSource", kind: "text", optional: true },
+];
+
+const SALE_COLUMNS: readonly Column[] = [
+  { key: "id", kind: "text" },
+  { key: "date", kind: "text" },
+  { key: "time", kind: "timeOrNull" },
+  { key: "createdAt", kind: "int" },
+  { key: "groupId", kind: "text" },
+  { key: "menuId", kind: "text" },
+  { key: "qty", kind: "int" },
+  { key: "unitPrice", kind: "int" },
+  { key: "method", kind: "text" },
 ];
 
 const MENU_DAY_COLUMNS: readonly Column[] = [
@@ -153,7 +179,15 @@ const SHEETS = {
   menus: "Menus",
   days: "Days",
   menuDays: "MenuDays",
+  sales: "Sales",
 } as const;
+
+const REQUIRED_SHEETS: readonly string[] = [
+  SHEETS.stall,
+  SHEETS.menus,
+  SHEETS.days,
+  SHEETS.menuDays,
+];
 
 const MIME: Record<ExportFormat, string> = {
   json: "application/json",
@@ -206,6 +240,14 @@ function isTime(value: unknown): value is HHMM {
   }
 }
 
+function isAbsent(value: unknown): boolean {
+  return value === undefined || value === null || value === "";
+}
+
+function isOneOf(value: unknown, options: readonly string[]): boolean {
+  return typeof value === "string" && options.includes(value);
+}
+
 function checkReason(value: unknown): value is Reason {
   return (
     isRecord(value) &&
@@ -237,13 +279,16 @@ function checkStall(raw: unknown, issues: Issues): StallRow | null {
   }
   if (typeof raw.setupComplete !== "boolean") bad("setupComplete");
   if (typeof settings.isDemo !== "boolean") bad("isDemo");
+  const mode = settings.mode;
+  if (!isAbsent(mode) && !isOneOf(mode, SALES_MODES)) bad("mode");
   const demo = raw.demo ?? null;
   const demoValid =
     demo === null ||
     (isRecord(demo) &&
       settings.isDemo === true &&
       isDemoScenarioId(demo.scenario) &&
-      isIsoDate(demo.generatedFor));
+      isIsoDate(demo.generatedFor) &&
+      (isAbsent(demo.moment) || isDemoMoment(demo.moment)));
   if (!demoValid) bad("demo");
   const openAt = settings.openAt;
   const closeAt = settings.closeAt;
@@ -279,6 +324,9 @@ function checkStall(raw: unknown, issues: Issues): StallRow | null {
     busyProfile,
     isDemo: settings.isDemo === true,
   };
+  if (mode === "simple" || mode === "pos") {
+    clean.mode = mode;
+  }
   const row: StallRow = {
     id: STALL_ID,
     name: String(raw.name),
@@ -291,6 +339,9 @@ function checkStall(raw: unknown, issues: Issues): StallRow | null {
     isIsoDate(demo.generatedFor)
   ) {
     row.demo = { scenario: demo.scenario, generatedFor: demo.generatedFor };
+    if (isDemoMoment(demo.moment)) {
+      row.demo.moment = demo.moment;
+    }
   }
   return row;
 }
@@ -391,6 +442,7 @@ function checkMenuDay(
     leftover,
     estimatedDemand,
     demandIsEstimate,
+    soldOutSource,
   } = raw;
   if (!isIsoDate(date)) bad("date");
   if (typeof menuId !== "string" || !menuIds.has(menuId)) {
@@ -413,10 +465,17 @@ function checkMenuDay(
     bad("estimatedDemand");
   }
   if (typeof demandIsEstimate !== "boolean") bad("demandIsEstimate");
+  if (!isAbsent(soldOutSource) && !isOneOf(soldOutSource, SOLD_OUT_SOURCES)) {
+    bad("soldOutSource");
+  }
   if (!ok) {
     return null;
   }
+  const source = isAbsent(soldOutSource)
+    ? {}
+    : { soldOutSource: soldOutSource as SoldOutSource };
   return {
+    ...source,
     date: date as ISODate,
     menuId: menuId as string,
     suggestedQty: suggestedQty as number | null,
@@ -426,6 +485,55 @@ function checkMenuDay(
     leftover: leftover as number | null,
     estimatedDemand: estimatedDemand as number | null,
     demandIsEstimate: demandIsEstimate === true,
+  };
+}
+
+function checkSale(
+  raw: unknown,
+  where: string,
+  menuIds: ReadonlySet<string>,
+  issues: Issues,
+): Sale | null {
+  if (!isRecord(raw)) {
+    issues.add("badValue", where);
+    return null;
+  }
+  let ok = true;
+  const bad = (field: string) => {
+    issues.add("badValue", `${where}.${field}`);
+    ok = false;
+  };
+  const { id, date, time, createdAt, groupId, menuId, qty, unitPrice, method } =
+    raw;
+  const isId = (value: unknown) =>
+    typeof value === "string" &&
+    value.length >= 1 &&
+    value.length <= RECORD_ID_MAX;
+  if (!isId(id)) bad("id");
+  if (!isIsoDate(date)) bad("date");
+  if (!isTime(time)) bad("time");
+  if (!isInt(createdAt, 0, Number.MAX_SAFE_INTEGER)) bad("createdAt");
+  if (!isId(groupId)) bad("groupId");
+  if (typeof menuId !== "string" || !menuIds.has(menuId)) {
+    issues.add("unknownMenu", `${where}.menuId`);
+    ok = false;
+  }
+  if (!isInt(qty, 1, QTY_MAX)) bad("qty");
+  if (!isInt(unitPrice, 0, Number.MAX_SAFE_INTEGER)) bad("unitPrice");
+  if (!isOneOf(method, PAY_METHODS)) bad("method");
+  if (!ok) {
+    return null;
+  }
+  return {
+    id: id as string,
+    date: date as ISODate,
+    time: time as HHMM,
+    createdAt: createdAt as number,
+    groupId: groupId as string,
+    menuId: menuId as string,
+    qty: qty as number,
+    unitPrice: unitPrice as number,
+    method: method as PayMethod,
   };
 }
 
@@ -443,7 +551,12 @@ export function validateBackup(raw: unknown): ImportResult {
       issues: [{ code: "unknownVersion", where: "formatVersion" }],
     };
   }
-  const lists = { menus: raw.menus, days: raw.days, menuDays: raw.menuDays };
+  const lists = {
+    menus: raw.menus,
+    days: raw.days,
+    menuDays: raw.menuDays,
+    sales: raw.sales ?? [],
+  };
   for (const [name, value] of Object.entries(lists)) {
     if (!Array.isArray(value)) {
       issues.add("badValue", name);
@@ -453,7 +566,8 @@ export function validateBackup(raw: unknown): ImportResult {
   if (
     !Array.isArray(lists.menus) ||
     !Array.isArray(lists.days) ||
-    !Array.isArray(lists.menuDays)
+    !Array.isArray(lists.menuDays) ||
+    !Array.isArray(lists.sales)
   ) {
     return { ok: false, issues: issues.list };
   }
@@ -499,6 +613,20 @@ export function validateBackup(raw: unknown): ImportResult {
     menuDays.push(menuDay);
   });
 
+  const sales: Sale[] = [];
+  const saleIds = new Set<string>();
+  lists.sales.forEach((item: unknown, index) => {
+    const where = `sales[${index + 1}]`;
+    const sale = checkSale(item, where, menuIds, issues);
+    if (sale === null) return;
+    if (saleIds.has(sale.id)) {
+      issues.add("duplicate", `${where}.id`);
+      return;
+    }
+    saleIds.add(sale.id);
+    sales.push(sale);
+  });
+
   if (stall === null || !issues.empty) {
     return { ok: false, issues: issues.list };
   }
@@ -515,6 +643,7 @@ export function validateBackup(raw: unknown): ImportResult {
         menus,
         days,
         menuDays,
+        sales,
       },
     },
   };
@@ -627,11 +756,12 @@ export async function buildBackup(
   db: FoodooDb,
   exportedAt: string,
 ): Promise<Backup> {
-  const [stall, menus, days, menuDays] = await Promise.all([
+  const [stall, menus, days, menuDays, sales] = await Promise.all([
     db.stall.get(STALL_ID),
     db.menus.toArray(),
     db.days.orderBy("date").toArray(),
     db.menuDays.orderBy("[date+menuId]").toArray(),
+    db.sales.orderBy("date").toArray(),
   ]);
   if (stall === undefined) {
     throw new Error("Nothing to export");
@@ -645,6 +775,7 @@ export async function buildBackup(
     menus,
     days,
     menuDays,
+    sales,
   };
 }
 
@@ -676,6 +807,7 @@ export function backupSheets(backup: Backup) {
     isDemo: backup.stall.settings.isDemo,
     setupComplete: backup.stall.setupComplete,
     demo: backup.stall.demo ?? null,
+    mode: backup.stall.settings.mode ?? null,
   };
   const records = menuDayRecords(backup);
   return [
@@ -695,6 +827,13 @@ export function backupSheets(backup: Backup) {
       ),
     },
     { name: SHEETS.menuDays, rows: writeTable(records, MENU_DAY_COLUMNS) },
+    {
+      name: SHEETS.sales,
+      rows: writeTable(
+        backup.sales as unknown as Record<string, unknown>[],
+        SALE_COLUMNS,
+      ),
+    },
   ];
 }
 
@@ -745,7 +884,7 @@ async function parseXlsx(data: Uint8Array): Promise<ImportResult> {
     return { ok: false, issues: [{ code: "unreadable", where: "xlsx" }] };
   }
   const issues = new Issues();
-  for (const name of Object.values(SHEETS)) {
+  for (const name of REQUIRED_SHEETS) {
     if (!sheets.has(name)) {
       issues.add("missingSheet", name);
     }
@@ -759,6 +898,9 @@ async function parseXlsx(data: Uint8Array): Promise<ImportResult> {
   const menus = read(SHEETS.menus, MENU_COLUMNS);
   const days = read(SHEETS.days, DAY_COLUMNS);
   const menuDays = read(SHEETS.menuDays, MENU_DAY_COLUMNS);
+  const sales = sheets.has(SHEETS.sales)
+    ? read(SHEETS.sales, SALE_COLUMNS)
+    : [];
   if (!issues.empty) {
     return { ok: false, issues: issues.list };
   }
@@ -780,11 +922,13 @@ async function parseXlsx(data: Uint8Array): Promise<ImportResult> {
         closeAt: stallRecord.closeAt,
         busyProfile: stallRecord.busyProfile,
         isDemo: stallRecord.isDemo,
+        mode: stallRecord.mode,
       },
     },
     menus,
     days,
     menuDays: menuDays.map(withoutName),
+    sales,
   });
 }
 
@@ -892,6 +1036,7 @@ export async function applyImport(
       await db.menus.bulkPut(plan.backup.menus);
       await db.days.bulkPut(plan.backup.days);
       await db.menuDays.bulkPut(plan.backup.menuDays);
+      await db.sales.bulkPut(plan.backup.sales);
       return;
     }
     if ((await db.stall.get(STALL_ID)) === undefined) {

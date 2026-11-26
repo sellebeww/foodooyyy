@@ -8,8 +8,15 @@ import type {
   Reason,
   StallSettings,
 } from "../domain/types.ts";
-import { generateScenarioHistory } from "./generator.ts";
-import { DEFAULT_DEMO_SCENARIO, type DemoScenarioId } from "./catalog.ts";
+import { suggestAll } from "../domain/plan.ts";
+import { formatHHMM, weekdayOf } from "../domain/time.ts";
+import { generateScenarioHistory, type DemoHistory } from "./generator.ts";
+import {
+  DEFAULT_DEMO_SCENARIO,
+  demoMinute,
+  type DemoMoment,
+  type DemoScenarioId,
+} from "./catalog.ts";
 import { demoScenario } from "./scenarios.ts";
 
 export interface DemoRecords {
@@ -76,21 +83,79 @@ export function pickMenuDay(item: MenuDay): MenuDay {
   };
 }
 
+const SOLD_OUT_SHARES: Partial<Record<DemoMoment, readonly number[]>> = {
+  service: [0.5],
+  close: [0.5, 0.85],
+};
+
+function demoToday(
+  history: DemoHistory,
+  date: ISODate,
+  moment: DemoMoment,
+): { days: DayRecord[]; menuDays: MenuDay[] } {
+  const shares = SOLD_OUT_SHARES[moment];
+  if (shares === undefined) {
+    return { days: [], menuDays: [] };
+  }
+  const weekday = weekdayOf(date);
+  const soldOutDays = (menuId: string) =>
+    history.menuDays.filter(
+      (item) => item.menuId === menuId && item.soldOutAt !== null,
+    ).length;
+  const menuDays = suggestAll(
+    history.menus,
+    weekday,
+    history.menuDays,
+    history.days,
+  )
+    .sort((a, b) => soldOutDays(b.menuId) - soldOutDays(a.menuId))
+    .map((suggestion, index): MenuDay => {
+      const share = shares[index];
+      return {
+        date,
+        menuId: suggestion.menuId,
+        suggestedQty: suggestion.qty,
+        reason: suggestion.reason,
+        cookedQty: Math.max(1, suggestion.qty),
+        soldOutAt:
+          share === undefined
+            ? null
+            : formatHHMM(demoMinute(history.settings, share) % 1440),
+        leftover: null,
+        estimatedDemand: null,
+        demandIsEstimate: false,
+      };
+    });
+  return {
+    days: [{ date, weekday, unusual: false, closed: false }],
+    menuDays,
+  };
+}
+
 export function buildDemoRecords(
   today: ISODate,
   scenario: DemoScenarioId = DEFAULT_DEMO_SCENARIO,
+  moment?: DemoMoment,
 ): DemoRecords {
   const history = generateScenarioHistory(today, demoScenario(scenario));
+  const current =
+    moment === undefined
+      ? { days: [], menuDays: [] }
+      : demoToday(history, today, moment);
   return {
     stall: {
       id: STALL_ID,
       name: history.stallName,
       settings: pickSettings(history.settings),
       setupComplete: true,
-      demo: { scenario, generatedFor: today },
+      demo: {
+        scenario,
+        generatedFor: today,
+        ...(moment === undefined ? {} : { moment }),
+      },
     },
     menus: history.menus.map(pickMenu),
-    days: history.days.map(pickDay),
-    menuDays: history.menuDays.map(pickMenuDay),
+    days: [...history.days, ...current.days].map(pickDay),
+    menuDays: [...history.menuDays, ...current.menuDays].map(pickMenuDay),
   };
 }

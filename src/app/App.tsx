@@ -8,6 +8,7 @@ import { RequireStall } from "./RequireStall.tsx";
 import { RootRedirect } from "./RootRedirect.tsx";
 import { useToast } from "./toast.ts";
 import { Splash } from "../components/Splash.tsx";
+import { Tour } from "../components/Tour.tsx";
 
 const Close = lazy(() =>
   import("../screens/Close.tsx").then((m) => ({ default: m.Close })),
@@ -35,6 +36,9 @@ const Today = lazy(() =>
 );
 const Settings = lazy(() =>
   import("../screens/Settings.tsx").then((m) => ({ default: m.Settings })),
+);
+const Simulate = lazy(() =>
+  import("../screens/Simulate.tsx").then((m) => ({ default: m.Simulate })),
 );
 const SetupHours = lazy(() =>
   import("../screens/SetupHours.tsx").then((m) => ({ default: m.SetupHours })),
@@ -99,10 +103,12 @@ export function App() {
             <Route path="/history" element={<History />} />
             <Route path="/day/:date" element={<DayDetail />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/simulate" element={<Simulate />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
+      <Tour />
     </>
   );
 }

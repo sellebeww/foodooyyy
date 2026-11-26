@@ -10,6 +10,7 @@ const ROUTES = [
   "/close",
   "/history",
   "/settings",
+  "/simulate",
 ];
 
 const CASES = ["en", "id"].flatMap((language) =>
@@ -23,7 +24,10 @@ for (const { language, textSize } of CASES) {
     await page.setViewportSize({ width: 320, height: 640 });
     await page.goto("/");
     await page.getByRole("button", { name: "Try demo stall" }).click();
-    await page.getByRole("button", { name: /^Warung Demo/ }).click();
+    await page
+      .getByRole("dialog")
+      .getByRole("button", { name: "Open with the real clock" })
+      .click();
     await page.getByRole("heading", { level: 1, name: "Today" }).waitFor();
     await page.evaluate((value) => {
       localStorage.setItem("foodoo.language", value);
@@ -34,6 +38,11 @@ for (const { language, textSize } of CASES) {
       await expect(page.locator("html")).toHaveAttribute("lang", language);
       await expect(page.getByText(/^(Loading|Memuat)/)).toHaveCount(0);
       await page.addStyleTag({ content: `html { font-size: ${textSize}; }` });
+      if (route === "/simulate") {
+        await page
+          .getByRole("button", { name: /^(Finish day|Selesaikan hari)$/ })
+          .click();
+      }
       const width = await page.evaluate(
         () => document.documentElement.scrollWidth,
       );

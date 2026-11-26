@@ -14,6 +14,7 @@ import {
   pastDays,
   weeklyMetrics,
 } from "../domain/metrics.ts";
+import { weeklyMoney } from "../domain/money.ts";
 import { useI18n } from "../i18n/index.ts";
 
 const PAGE_SIZE = 14;
@@ -53,6 +54,7 @@ export function History() {
         <h2 id="history-week">{t("week.title")}</h2>
         <WeekStats
           metrics={weeklyMetrics(history.menuDays, history.days, date)}
+          money={weeklyMoney(history.menuDays, history.days, menus, date)}
         />
       </section>
 

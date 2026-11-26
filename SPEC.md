@@ -155,6 +155,32 @@ Added by team decision on 2026-11-25 (D-091), which lifts "per-transaction sales
 | CL-11 | `sold = cookedQty − leftover` for the engine. Revenue = sum of `qty × unitPrice` (pos) or `sold × price` (simple) |
 | TP-1 | Morning plus night take at most 20 taps for 5 menus, in both modes (unit-tested) |
 
+### 5.11 Money view, cooking list and navigation cues — Should (2026-11-26, D-096)
+
+Added at the team's request. Everything is derived from data the app already stores; no schema change and no new input.
+
+| ID | Requirement |
+|---|---|
+| MN-1 | The Plan screen shows the cooking cost (Σ quantity × cost) and the sales if every portion sells (Σ quantity × price) for the numbers on screen |
+| MN-2 | The weekly summary shows money lost on leftovers (Σ leftover × max(0, cost − salvage)) and margin missed by selling out (Σ max(0, estimated demand − cooked) × (price − cost), labelled estimate), over the same days as WS-1, at current menu prices |
+| SH-1 | Today lists each cooked menu with its state (available, sold-out time, or leftover). **Share list** hands the date, stall name, portions per menu and total to the device share sheet, or copies it when there is none. Nothing leaves the device without that tap |
+| NV-1 | The navigation marks the current loop step with a visible shape and an accessible description, never colour alone |
+| NV-2 | Service shows how many menus have sold out; Close shows how many menus are ready to close |
+| NV-3 | Settings has a link to each of its sections |
+| DM-6 | JSON and XLSX backups keep register sales, the sales mode and the sell-out source. A backup without them still imports. CSV keeps the sell-out source but not sales or the mode |
+
+### 5.12 Tutorial and hourly simulation — Should (2026-11-27, D-099)
+
+Added at the team member's request. Demo stall only; no schema change.
+
+| ID | Requirement |
+|---|---|
+| TOUR-1 | On the first visit a step-by-step tutorial highlights the element to press and dims the rest. It can be skipped per step, ended at any time and replayed from Settings. It never shows over the owner's own stall |
+| SIM-1 | Simulated customers arrive hour by hour following the busy-hour profile and weekday factor, one portion each, from a fixed seed. Each hour lists its transactions, including customers turned away |
+| SIM-2 | After closing hour the day is estimated and added to the simulation's history; the next day is planned with `suggestQty`. Play repeats until paused |
+| SIM-3 | The analysis updates every hour: average customers per hour, menus ordered by profit per day over the last 14 normal closed days, and the next portions per menu. Estimates are labelled |
+| SIM-4 | Nothing from the simulation is stored |
+
 ## 6. Logic (exact; implement in `src/domain/`)
 
 ### 6.1 Types

@@ -1,6 +1,7 @@
 // src/screens/Register.tsx
 import { useEffect, useRef, useState } from "react";
 import { useClock } from "../app/clock.ts";
+import { useActionTime } from "../app/useActionTime.ts";
 import { toLocalStamp } from "../app/localStamp.ts";
 import { UNDO_MS, useToast } from "../app/toast.ts";
 import { useStallStamp } from "../app/useStallStamp.ts";
@@ -38,6 +39,7 @@ export function Register() {
   const db = useDb();
   const toast = useToast();
   const clock = useClock();
+  const actionTime = useActionTime();
   const { date } = useStallStamp();
   const stall = useStall();
   const menus = useMenus();
@@ -122,12 +124,13 @@ export function Register() {
     const stamp = toLocalStamp(clock.now());
     const saleDate = stallDate(stamp.date, stamp.time, stall.settings);
     const total = cartTotal(lines, menus ?? []);
+    const time = actionTime();
     setBusy(true);
     try {
       const result = await recordSale(
         db,
         saleDate,
-        stamp.time,
+        time,
         clock.now().getTime(),
         lines,
         method,
@@ -139,7 +142,7 @@ export function Register() {
           ? t("register.saved", { total: formatRupiah(total) })
           : t("register.autoSoldOut", {
               name: result.soldOutMenuIds.map(nameOf).join(", "),
-              time: stamp.time,
+              time,
             }),
       );
     } catch {
@@ -212,7 +215,7 @@ export function Register() {
                   setQty(row.menuId, (cart[row.menuId] ?? 0) + 1);
                 }}
                 onSoldOut={() => {
-                  void markSoldOut(row.menuId, toLocalStamp(clock.now()).time);
+                  void markSoldOut(row.menuId, actionTime());
                 }}
               />
             ))}

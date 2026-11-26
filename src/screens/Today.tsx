@@ -1,14 +1,17 @@
 // src/screens/Today.tsx
 import { Link } from "react-router-dom";
+import { DEMO_ENABLED } from "../app/demoConfig.ts";
 import { useStallStamp } from "../app/useStallStamp.ts";
 import { Button } from "../components/Button.tsx";
 import { EmptyState } from "../components/EmptyState.tsx";
 import { LoopProgress } from "../components/LoopProgress.tsx";
 import { Screen } from "../components/Screen.tsx";
+import { TodayMenus } from "../components/TodayMenus.tsx";
 import { WeekStats } from "../components/WeekStats.tsx";
 import { useHistory, useMenus, useStall, useTodayState } from "../db/hooks.ts";
 import { incompleteDays } from "../domain/close.ts";
 import { weeklyMetrics } from "../domain/metrics.ts";
+import { weeklyMoney } from "../domain/money.ts";
 import { summarizeDay, todayPhase, type Phase } from "../domain/phase.ts";
 import { formatLongDate } from "../i18n/format.ts";
 import { useI18n, type MessageKey } from "../i18n/index.ts";
@@ -100,6 +103,17 @@ export function Today() {
           </Button>
         )}
       </section>
+      {DEMO_ENABLED && stall.settings.isDemo ? (
+        <section className="card panel" aria-labelledby="today-sim">
+          <h2 id="today-sim">{t("sim.title")}</h2>
+          <p>{t("sim.cardBody")}</p>
+          <div data-tour="open-sim">
+            <Button variant="secondary" to="/simulate">
+              {t("sim.open")}
+            </Button>
+          </div>
+        </section>
+      ) : null}
       <section className="counts" aria-labelledby="today-counts">
         <h2 id="today-counts">{t("today.counts.title")}</h2>
         <dl className="counts__grid">
@@ -119,6 +133,15 @@ export function Today() {
           </div>
         </dl>
       </section>
+      <TodayMenus
+        heading={[stall.name, formatLongDate(date, language)]
+          .filter((part) => part !== "")
+          .join(" · ")}
+        rows={today.menuDays}
+        nameOf={(menuId) =>
+          menus.find((menu) => menu.id === menuId)?.name ?? menuId
+        }
+      />
       {history === undefined ? null : (
         <section className="card panel" aria-labelledby="today-week">
           <div className="panel__head">
@@ -129,6 +152,7 @@ export function Today() {
           </div>
           <WeekStats
             metrics={weeklyMetrics(history.menuDays, history.days, date)}
+            money={weeklyMoney(history.menuDays, history.days, menus, date)}
           />
         </section>
       )}

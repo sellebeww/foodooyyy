@@ -6,6 +6,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from "react";
+import { createPortal } from "react-dom";
 import { useT } from "../i18n/index.ts";
 import { CloseXIcon } from "./icons/CloseXIcon.tsx";
 
@@ -74,7 +75,7 @@ export function Sheet({ open, title, onClose, children }: SheetProps) {
     }
   }
 
-  return (
+  return createPortal(
     <div className="sheet-backdrop">
       <div
         ref={panel}
@@ -98,6 +99,7 @@ export function Sheet({ open, title, onClose, children }: SheetProps) {
         </div>
         {children}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

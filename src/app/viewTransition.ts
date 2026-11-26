@@ -7,8 +7,10 @@ type TransitionDocument = Document & {
 
 export function runWithViewTransition(update: () => void): void {
   const doc: TransitionDocument = document;
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (typeof doc.startViewTransition !== "function" || reduced) {
+  if (
+    typeof doc.startViewTransition !== "function" ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
     update();
     return;
   }

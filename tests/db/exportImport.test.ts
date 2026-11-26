@@ -14,7 +14,13 @@ import {
   type Backup,
   type ImportResult,
 } from "../../src/db/exportImport.ts";
-import { deleteAll, loadDemo } from "../../src/db/repositories.ts";
+import {
+  deleteAll,
+  loadDemo,
+  recordSale,
+  setMode,
+  savePlan,
+} from "../../src/db/repositories.ts";
 import type { FoodooDb } from "../../src/db/schema.ts";
 import {
   columnIndex,
@@ -43,7 +49,24 @@ async function snapshot() {
     menus: await db.menus.orderBy("id").toArray(),
     days: await db.days.orderBy("date").toArray(),
     menuDays: await db.menuDays.orderBy("[date+menuId]").toArray(),
+    sales: await db.sales.orderBy("id").toArray(),
   };
+}
+
+async function demoWithRegisterSale(): Promise<void> {
+  await loadDemo(db, TODAY);
+  await setMode(db, "pos");
+  await savePlan(db, TODAY, [
+    { menuId: "nasi-uduk", suggestedQty: 2, reason: null, cookedQty: 2 },
+  ]);
+  await recordSale(
+    db,
+    TODAY,
+    "10:32",
+    1_772_422_320_000,
+    [{ menuId: "nasi-uduk", qty: 2 }],
+    "qris",
+  );
 }
 
 function encode(text: string): Uint8Array {
@@ -84,6 +107,62 @@ describe("DM-3/DM-4 round trips", () => {
       expect(await snapshot()).toEqual(before);
     },
   );
+
+  it.each(["json", "xlsx"] as const)(
+    "%s: keeps register sales, sales mode and the sell-out source",
+    async (format) => {
+      await demoWithRegisterSale();
+      const before = await snapshot();
+      expect(before.sales).toHaveLength(1);
+      const file = await exportData(db, format, TODAY, STAMP);
+      await deleteAll(db);
+      const result = await importBytes(file.data);
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      await applyImport(db, result.plan);
+      expect(await snapshot()).toEqual(before);
+    },
+  );
+
+  it("imports an older backup that has no sales list", async () => {
+    const older: Partial<Backup> = { ...(await demoBackup()) };
+    delete older.sales;
+    const result = validateBackup(older);
+    expect(result.ok).toBe(true);
+    if (!result.ok || result.plan.kind !== "replace") return;
+    expect(result.plan.backup.sales).toEqual([]);
+  });
+
+  it("rejects invalid sales, mode and sell-out source", async () => {
+    await demoWithRegisterSale();
+    const backup = await buildBackup(db, STAMP);
+    const sale = backup.sales[0];
+    const bad = (value: unknown) => issuesOf(validateBackup(value));
+    expect(bad({ ...backup, sales: [{ ...sale, qty: 0 }] })).toEqual([
+      { code: "badValue", where: "sales[1].qty" },
+    ]);
+    expect(bad({ ...backup, sales: [sale, sale] })).toEqual([
+      { code: "duplicate", where: "sales[2].id" },
+    ]);
+    expect(bad({ ...backup, sales: "none" })).toEqual([
+      { code: "badValue", where: "sales" },
+    ]);
+    expect(
+      bad({
+        ...backup,
+        stall: {
+          ...backup.stall,
+          settings: { ...backup.stall.settings, mode: "x" },
+        },
+      }),
+    ).toEqual([{ code: "badValue", where: "stall.mode" }]);
+    const rows = backup.menuDays.map((row) =>
+      row.soldOutAt === null ? row : { ...row, soldOutSource: "x" },
+    );
+    expect(bad({ ...backup, menuDays: rows })[0]?.where).toMatch(
+      /soldOutSource$/,
+    );
+  });
 
   it("csv: merges the history back into the same stall", async () => {
     await loadDemo(db, TODAY);

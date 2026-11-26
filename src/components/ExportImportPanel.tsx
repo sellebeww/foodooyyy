@@ -1,5 +1,5 @@
 // src/components/ExportImportPanel.tsx
-import { useId, useRef, useState, type ChangeEvent } from "react";
+import { useRef, useState, type ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStamp } from "../app/clock.ts";
 import { saveFile } from "../app/download.ts";
@@ -27,7 +27,6 @@ export function ExportImportPanel({ compact = false }: ExportImportPanelProps) {
   const toast = useToast();
   const navigate = useNavigate();
   const { date, time } = useLocalStamp();
-  const fileId = useId();
   const input = useRef<HTMLInputElement>(null);
   const [format, setFormat] = useState<ExportFormat>("json");
   const [busy, setBusy] = useState(false);
@@ -105,9 +104,9 @@ export function ExportImportPanel({ compact = false }: ExportImportPanelProps) {
         <p className="field__hint">{t("transfer.import.hint")}</p>
         <input
           ref={input}
-          id={fileId}
-          className="visually-hidden"
           type="file"
+          hidden
+          aria-label={t("transfer.import.file")}
           accept=".json,.csv,.xlsx,application/json,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
           onChange={(event) => {
             void onFile(event);
@@ -122,9 +121,6 @@ export function ExportImportPanel({ compact = false }: ExportImportPanelProps) {
         >
           {t("transfer.import.action")}
         </Button>
-        <label className="visually-hidden" htmlFor={fileId}>
-          {t("transfer.import.file")}
-        </label>
       </div>
 
       {issues.length === 0 ? null : (

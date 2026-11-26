@@ -1,6 +1,22 @@
 // src/i18n/en.ts
 export const en = {
   "app.name": "FOODOO",
+  "nav.currentStep": "Current step of the day",
+  "today.menus.title": "Today's menus",
+  "today.menus.available": "Available",
+  "today.menus.left": "{qty} left over",
+  "today.share.action": "Share list",
+  "today.share.copied": "Cooking list copied",
+  "today.share.failed": "Could not share the list. Please try again.",
+  "week.leftoverCost": "Money lost on leftovers",
+  "week.missedEarnings": "Margin missed by selling out",
+  "week.moneyNote":
+    "Worked out with your current prices and costs. Leftovers count at cost minus leftover value; missed margin is price minus cost.",
+  "plan.cost": "Cooking cost {amount}",
+  "plan.revenue": "If all sell {amount}",
+  "close.progress": "{ready} of {total} menus ready",
+  "service.progress": "{soldOut} of {total} menus sold out",
+  "settings.jump": "Settings sections",
   "app.skip": "Skip to content",
   "app.loading": "Loading…",
   "app.offlineReady": "Ready to work offline.",
@@ -15,6 +31,8 @@ export const en = {
   "nav.settings": "Settings",
 
   "header.demo": "Demo data",
+  "header.demoSwitch": "Change demo",
+  "header.demoTime": "Demo time",
   "header.offline": "Offline. Saved on this device.",
 
   "common.save": "Save",
@@ -48,6 +66,19 @@ export const en = {
     "Night stall open past midnight. Sales after 00:00 still count for the evening the stall opened.",
   "demo.s4.desc":
     "Stall that opened four days ago. There is not enough history yet, so suggestions start from the usual portions and adjust.",
+  "demo.launch.stall": "1. Pick a stall",
+  "demo.launch.moment": "2. Press a moment to open it",
+  "demo.launch.note":
+    "A moment sets a simulated demo time, shown next to the Demo data badge.",
+  "demo.launch.realClock": "Open with the real clock",
+  "demo.moment.plan.title": "Morning plan",
+  "demo.moment.plan.desc": "Suggested portions, ready to accept",
+  "demo.moment.service.title": "Selling",
+  "demo.moment.service.desc": "Food is cooked and one menu has sold out",
+  "demo.moment.close.title": "Closing time",
+  "demo.moment.close.desc": "Two menus sold out, leftovers to enter",
+  "demo.moment.summary.title": "Weekly summary",
+  "demo.moment.summary.desc": "Past days, charts and money",
   "demo.refreshed": "Demo dates moved up to today",
   "welcome.demo": "Try demo stall",
   "welcome.demoNote":
@@ -185,11 +216,11 @@ export const en = {
   "transfer.format.csv": "CSV",
   "transfer.format.xlsx": "XLSX",
   "transfer.hint.json":
-    "Full backup of your stall, menus and every day. Use it to move to a new phone.",
+    "Full backup of your stall, menus, every day and register sales. Use it to move to a new phone.",
   "transfer.hint.csv":
     "Daily records per menu, one row each. Opens in any spreadsheet app.",
   "transfer.hint.xlsx":
-    "Full backup for Excel or Google Sheets, in four sheets: Stall, Menus, Days, MenuDays.",
+    "Full backup for Excel or Google Sheets, in five sheets: Stall, Menus, Days, MenuDays, Sales.",
   "transfer.export.action": "Export file",
   "transfer.exported": "File saved",
   "transfer.exportFailed": "Could not export. Please try again.",
@@ -316,7 +347,7 @@ export const en = {
   "settings.language.title": "Language",
   "settings.data.title": "Data",
   "settings.data.onDevice":
-    "Everything is stored only on this device. Nothing is sent anywhere.",
+    "Everything is stored only on this device. Nothing leaves it unless you share or export it.",
   "settings.data.loadDemo": "Load demo stall",
   "settings.data.resetDemo": "Reset demo data",
   "settings.data.switchDemo": "Choose another demo stall",
@@ -467,7 +498,8 @@ export const en = {
   "how.notTitle": "What FOODOO does not do",
   "how.notAi":
     "It uses no AI model. Every number comes from the fixed rules on this page.",
-  "how.notCloud": "It sends nothing anywhere. Your data stays on this device.",
+  "how.notCloud":
+    "It sends nothing on its own. Your data stays on this device unless you share or export it.",
   "how.back": "Back to the app",
   "close.howLink": "How is this worked out?",
   "settings.about.how": "How FOODOO calculates",
@@ -561,8 +593,6 @@ export const en = {
   "landing.explorer.hint":
     "Drag the slider. Same rules as the app, on an example stall.",
   "landing.demoTitle": "Walk through a demo stall",
-  "landing.demoOpen": "Open demo",
-  "landing.demoOpenLabel": "Open demo: {name}",
   "landing.teamTitle": "The team behind FOODOO",
   "landing.teamBody":
     "Calon Mantu Idaman, building for STACK 2026 by GDGoC ITB, Case 2: Stronger Communities and Everyday Services.",
@@ -581,4 +611,97 @@ export const en = {
   "today.hint.service": "When a menu runs out, tap it so the time is kept.",
   "today.hint.close":
     "Count what is left so later suggestions can learn from today.",
+  "tour.label": "Tutorial",
+  "tour.progress": "Step {step} of {total}",
+  "tour.next": "Next",
+  "tour.skip": "Skip step",
+  "tour.finish": "Finish",
+  "tour.end": "End tutorial",
+  "tour.goThere": "Take me there",
+  "tour.replay": "Replay tutorial",
+  "tour.welcome.title": "Start with the demo",
+  "tour.welcome.body":
+    "Press Try demo stall. The demo uses made-up data, so you can press anything.",
+  "tour.moment.title": "Pick the morning",
+  "tour.moment.body": "Press Morning plan to start the day from the beginning.",
+  "tour.suggestion.title": "A suggestion with a reason",
+  "tour.suggestion.body":
+    "Each card shows how many portions to cook and why. Use + and − to change it.",
+  "tour.accept.title": "Save the plan",
+  "tour.accept.body": "Press Accept all to save today's portions.",
+  "tour.toService.title": "Open selling",
+  "tour.toService.body": "Press Sales in the navigation.",
+  "tour.soldOut.title": "A menu runs out",
+  "tour.soldOut.body":
+    "Tap a menu to record the time it sold out. Undo is offered for 10 seconds.",
+  "tour.toClose.title": "Close the day",
+  "tour.toClose.body": "Press Close in the navigation.",
+  "tour.close.title": "Count what is left",
+  "tour.close.body":
+    "Fill in each menu, press Close day, then Save all. FOODOO estimates demand and suggests tomorrow's portions.",
+  "tour.toHistory.title": "See the results",
+  "tour.toHistory.body": "Press History in the navigation.",
+  "tour.history.title": "The last 7 days",
+  "tour.history.body":
+    "Leftovers, sell-outs and estimated lost sales. Estimates are labelled.",
+  "tour.toSettings.title": "Open Settings",
+  "tour.toSettings.body": "Press the Settings button.",
+  "tour.cashier.title": "Cashier mode",
+  "tour.cashier.body":
+    "Switch on the register here. The cashier taps what is sold, stock goes down, sold-out times are recorded and closing is pre-filled.",
+  "tour.toToday.title": "Back to Today",
+  "tour.toToday.body": "Press Today in the navigation.",
+  "tour.openSim.title": "Simulate whole days",
+  "tour.openSim.body": "Open the hourly simulation.",
+  "tour.play.title": "Run the stall",
+  "tour.play.body": "Press Play. Customers arrive hour by hour, day after day.",
+  "tour.analysis.title": "Live analysis",
+  "tour.analysis.body":
+    "Busy hours, how each menu performs and how many portions to cook next. It updates as the simulation runs.",
+  "sim.title": "Hourly simulation",
+  "sim.cardBody":
+    "Watch simulated customers arrive hour by hour and see the analysis update.",
+  "sim.open": "Open simulation",
+  "sim.note":
+    "Simulation on made-up demo data. Nothing here is saved to the stall.",
+  "sim.emptyTitle": "The simulation needs a demo stall",
+  "sim.emptyBody": "Load a demo stall with at least one active menu.",
+  "sim.day": "Day {day}: {date}",
+  "sim.hours": "{done} of {total} hours simulated",
+  "sim.dayDone": "Day closed. The next suggestions use it.",
+  "sim.play": "Play",
+  "sim.pause": "Pause",
+  "sim.nextHour": "Next hour",
+  "sim.nextDay": "Next day",
+  "sim.finishDay": "Finish day",
+  "sim.restart": "Restart",
+  "sim.hourTitle": "Activity {from} to {to}",
+  "sim.customers": "Customers",
+  "sim.sold": "Sold",
+  "sim.missed": "Turned away",
+  "sim.turnedAway": "Sold out",
+  "sim.transactions": "Transactions this hour",
+  "sim.byHour": "Today by hour",
+  "sim.col.hour": "Hour",
+  "sim.col.sales": "Sales",
+  "sim.col.estimate": "Demand (estimate)",
+  "sim.col.truth": "Simulated demand",
+  "sim.stock": "Stock",
+  "sim.truthNote":
+    "Simulated demand is known only inside the simulation. A real stall sees only the estimate.",
+  "sim.analysis": "Analysis",
+  "sim.pattern": "Customers per hour, average per simulated day",
+  "sim.peak": "Busiest hour starts at {from}.",
+  "sim.barValue": "{sold} sold, {missed} turned away",
+  "sim.patternEmpty": "Run at least one hour to see the pattern.",
+  "sim.menus": "Menus by profit per day",
+  "sim.next": "Cook next: {qty} portions",
+  "sim.menuStats":
+    "Profit per day {profit}. Sold out {soldOut} of {days} days. Average left over {leftover}. Average demand {demand} (estimate).",
+  "sim.menusNote":
+    "Based on the last 14 normal closed days of each menu. Only menus already on the stall are compared.",
+  "sim.signal.loss": "Losing money",
+  "sim.signal.sellsOut": "Often sells out",
+  "sim.signal.leftOver": "Often left over",
+  "sim.signal.steady": "Steady",
 } as const;

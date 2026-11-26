@@ -1,8 +1,7 @@
 // src/screens/Service.tsx
 import { useState } from "react";
-import { useClock } from "../app/clock.ts";
+import { useActionTime } from "../app/useActionTime.ts";
 import { useStallStamp } from "../app/useStallStamp.ts";
-import { toLocalStamp } from "../app/localStamp.ts";
 import { UNDO_MS, useToast } from "../app/toast.ts";
 import { Button } from "../components/Button.tsx";
 import { EmptyState } from "../components/EmptyState.tsx";
@@ -21,7 +20,7 @@ export function Service() {
   const t = useT();
   const db = useDb();
   const toast = useToast();
-  const clock = useClock();
+  const actionTime = useActionTime();
   const { date } = useStallStamp();
   const stall = useStall();
   const menus = useMenus();
@@ -59,6 +58,7 @@ export function Service() {
 
   const closed = today.day?.closed === true;
   const editRow = rows.find((row) => row.menuId === editing);
+  const soldOutCount = rows.filter((row) => row.soldOutAt !== null).length;
 
   async function write(
     menuId: string,
@@ -74,7 +74,7 @@ export function Service() {
   }
 
   function tapSoldOut(menuId: string) {
-    const time = toLocalStamp(clock.now()).time;
+    const time = actionTime();
     if (stall && isEarlySellOut(time, stall.settings)) {
       setEarly({ menuId, time });
       return;
@@ -102,6 +102,20 @@ export function Service() {
       <p className={closed ? "note note--info" : "note"}>
         {closed ? t("service.closedNote") : t("service.intro")}
       </p>
+      <div className="card progress progress--card">
+        <p className="progress__label">
+          {t("service.progress", {
+            soldOut: soldOutCount,
+            total: rows.length,
+          })}
+        </p>
+        <progress
+          className="progress__bar"
+          max={rows.length}
+          value={soldOutCount}
+          aria-hidden="true"
+        />
+      </div>
       <ul className="service-grid">
         {rows.map((row) => (
           <ServiceTile

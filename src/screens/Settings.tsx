@@ -3,6 +3,7 @@ import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocalStamp } from "../app/clock.ts";
 import { DEMO_ENABLED } from "../app/demoConfig.ts";
+import { useOpenDemo } from "../app/useOpenDemo.ts";
 import { README_URL } from "../app/links.ts";
 import { useToast } from "../app/toast.ts";
 import { Button } from "../components/Button.tsx";
@@ -37,8 +38,18 @@ import {
 import { modeOf } from "../domain/pos.ts";
 import { validateHours, type HoursErrors } from "../domain/setup.ts";
 import { useT } from "../i18n/index.ts";
+import { useTour } from "../app/tour.ts";
+import { FIRST_APP_STEP } from "../app/tourSteps.ts";
 
 type Confirm = "delete" | "removeDemo" | null;
+
+const SECTIONS = [
+  { id: "set-stall", label: "settings.stall.title" },
+  { id: "set-mode", label: "settings.mode.title" },
+  { id: "set-lang", label: "settings.language.title" },
+  { id: "set-data", label: "settings.data.title" },
+  { id: "set-about", label: "settings.about.title" },
+] as const;
 
 export function Settings() {
   const t = useT();
@@ -53,6 +64,8 @@ export function Settings() {
   const [confirm, setConfirm] = useState<Confirm>(null);
   const [busy, setBusy] = useState(false);
   const [picking, setPicking] = useState(false);
+  const openDemo = useOpenDemo();
+  const tour = useTour();
 
   if (!stall) {
     return (
@@ -75,7 +88,13 @@ export function Settings() {
 
   function loadDemoEntry(entry: DemoCatalogEntry) {
     return attempt(
-      () => loadDemo(db, demoStallDate(entry, date, time), entry.id),
+      () =>
+        loadDemo(
+          db,
+          demoStallDate(entry, date, time),
+          entry.id,
+          stall?.demo?.moment,
+        ),
       t("settings.data.demoLoaded"),
     );
   }
@@ -127,6 +146,16 @@ export function Settings() {
 
   return (
     <Screen title={t("settings.title")}>
+      <nav className="jump" aria-label={t("settings.jump")}>
+        <ul>
+          {SECTIONS.map((section) => (
+            <li key={section.id}>
+              <a href={`#${section.id}`}>{t(section.label)}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
       <section className="card settings-section" aria-labelledby="set-stall">
         <h2 id="set-stall">{t("settings.stall.title")}</h2>
         <form className="form form--inline" noValidate onSubmit={onSaveName}>
@@ -214,15 +243,41 @@ export function Settings() {
                   >
                     {t("settings.data.switchDemo")}
                   </Button>
+                  <Button
+                    variant="secondary"
+                    disabled={busy}
+                    onClick={() => {
+                      const entry = DEMO_CATALOG.find(
+                        (item) =>
+                          item.id ===
+                          (stall.demo?.scenario ?? DEFAULT_DEMO_SCENARIO),
+                      );
+                      if (entry !== undefined) {
+                        openDemo(entry, "plan").then(
+                          () => {
+                            tour.goTo(FIRST_APP_STEP);
+                          },
+                          () => {
+                            toast.show(t("common.saveFailed"));
+                          },
+                        );
+                      }
+                    }}
+                  >
+                    {t("tour.replay")}
+                  </Button>
                   <DemoPicker
                     open={picking}
                     busy={busy}
                     onClose={() => {
                       setPicking(false);
                     }}
-                    onPick={(entry) => {
+                    initial={stall.demo?.scenario}
+                    onPick={(entry, moment) => {
                       setPicking(false);
-                      void loadDemoEntry(entry);
+                      openDemo(entry, moment).catch(() => {
+                        toast.show(t("common.saveFailed"));
+                      });
                     }}
                   />
                 </>

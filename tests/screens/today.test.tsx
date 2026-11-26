@@ -1,9 +1,11 @@
 // tests/screens/today.test.tsx
 import { cleanup, fireEvent, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { getHistory, loadDemo } from "../../src/db/repositories.ts";
+import { getHistory, listMenus, loadDemo } from "../../src/db/repositories.ts";
 import { weeklyMetrics } from "../../src/domain/metrics.ts";
 import type { FoodooDb } from "../../src/db/schema.ts";
+import { weeklyMoney } from "../../src/domain/money.ts";
+import { formatRupiah } from "../../src/i18n/format.ts";
 import { renderApp } from "../app/renderApp.tsx";
 import { makeTestDb } from "../db/testDb.ts";
 import { makeDay, makeMenuDay } from "../helpers.ts";
@@ -50,7 +52,9 @@ describe("Today", () => {
       await screen.findByRole("button", { name: "Try demo stall" }),
     );
     fireEvent.click(
-      await screen.findByRole("button", { name: /^Warung Demo/ }),
+      within(await screen.findByRole("dialog")).getByRole("button", {
+        name: "Open with the real clock",
+      }),
     );
     expect(
       await screen.findByRole("heading", { level: 1, name: "Today" }),
@@ -166,7 +170,17 @@ describe("Today", () => {
     );
     const lost = within(week).getByText("Lost sales (portions)").nextSibling;
     expect(lost?.textContent).toBe(`≈ ${metrics.estimatedLostSales}estimate`);
-    expect(within(week).getByText("estimate")).toBeTruthy();
+    expect(within(week).getAllByText("estimate")).toHaveLength(2);
+    const money = weeklyMoney(
+      history.menuDays,
+      history.days,
+      await listMenus(db),
+      TODAY,
+    );
+    expect(
+      within(week).getByText("Margin missed by selling out").nextSibling
+        ?.textContent,
+    ).toBe(`≈ ${formatRupiah(money.missedEarnings)} estimate`);
     expect(
       within(week)
         .getByRole("link", { name: "See history" })

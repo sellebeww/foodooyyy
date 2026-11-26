@@ -177,7 +177,7 @@ async function newContext(
   browser: Awaited<ReturnType<typeof chromium.launch>>,
   vp: Viewport,
 ): Promise<BrowserContext> {
-  return browser.newContext({
+  const context = await browser.newContext({
     viewport: { width: vp.width, height: vp.height },
     timezoneId: "Asia/Jakarta",
     hasTouch: vp.width < 768,
@@ -185,6 +185,10 @@ async function newContext(
     deviceScaleFactor: 1,
     reducedMotion: "no-preference",
   });
+  await context.addInitScript(() => {
+    localStorage.setItem("foodoo.tour", "done");
+  });
+  return context;
 }
 
 async function run(): Promise<void> {
@@ -271,9 +275,13 @@ async function run(): Promise<void> {
     await step("demo-picker", async () => {
       await page.goto(`${baseUrl}/`);
       await page.getByRole("button", { name: "Try demo stall" }).click();
-      await page.getByRole("button", { name: /^Warung Demo/ }).waitFor();
+      await page
+        .getByRole("button", { name: "Open with the real clock" })
+        .waitFor();
       await shot(page, "demo-picker");
-      await page.getByRole("button", { name: /^Warung Demo/ }).click();
+      await page
+        .getByRole("button", { name: "Open with the real clock" })
+        .click();
       await page.getByRole("heading", { level: 1, name: "Today" }).waitFor();
     });
     await step("today-plan-phase", async () => {
@@ -355,7 +363,9 @@ async function run(): Promise<void> {
     await step("register", async () => {
       await rp.goto(`${baseUrl}/`);
       await rp.getByRole("button", { name: "Try demo stall" }).click();
-      await rp.getByRole("button", { name: /^Warung Demo/ }).click();
+      await rp
+        .getByRole("button", { name: "Open with the real clock" })
+        .click();
       await rp.getByRole("heading", { level: 1, name: "Today" }).waitFor();
       await rp.goto(`${baseUrl}/settings`);
       await rp

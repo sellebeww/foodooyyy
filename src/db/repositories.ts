@@ -29,7 +29,11 @@ import type {
   SoldOutSource,
   StallSettings,
 } from "../domain/types.ts";
-import { DEFAULT_DEMO_SCENARIO, type DemoScenarioId } from "../demo/catalog.ts";
+import {
+  DEFAULT_DEMO_SCENARIO,
+  type DemoMoment,
+  type DemoScenarioId,
+} from "../demo/catalog.ts";
 import { STALL_ID, type FoodooDb, type StallRow } from "./schema.ts";
 
 export const DEFAULT_OPEN_AT: HHMM = "06:00";
@@ -348,9 +352,10 @@ export async function loadDemo(
   db: FoodooDb,
   today: ISODate,
   scenario: DemoScenarioId = DEFAULT_DEMO_SCENARIO,
+  moment?: DemoMoment,
 ): Promise<void> {
   const { buildDemoRecords } = await import("../demo/seed.ts");
-  const records = buildDemoRecords(today, scenario);
+  const records = buildDemoRecords(today, scenario, moment);
   await db.transaction("rw", allTables(db), async () => {
     const existing = await db.stall.get(STALL_ID);
     if (existing !== undefined && !existing.settings.isDemo) {
@@ -378,7 +383,7 @@ export async function refreshDemo(
   ) {
     return false;
   }
-  await loadDemo(db, today, demo.scenario);
+  await loadDemo(db, today, demo.scenario, demo.moment);
   return true;
 }
 

@@ -1,14 +1,14 @@
 // src/screens/Welcome.tsx
 import { useEffect, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { useLocalStamp } from "../app/clock.ts";
 import { DEMO_ENABLED } from "../app/demoConfig.ts";
-import { useToast } from "../app/toast.ts";
+import { useOpenDemo } from "../app/useOpenDemo.ts";
 import { useScreenArrival } from "../app/useScreenArrival.ts";
 import { Button } from "../components/Button.tsx";
 import { DemandExplorer } from "../components/DemandExplorer.tsx";
 import { DemoPicker } from "../components/DemoPicker.tsx";
-import { DemoShowcase } from "../components/DemoShowcase.tsx";
+import { DemoLauncher } from "../components/DemoLauncher.tsx";
+import { HeroLoop } from "../components/HeroLoop.tsx";
 import { ExportImportPanel } from "../components/ExportImportPanel.tsx";
 import { FeatureCard } from "../components/FeatureCard.tsx";
 import { ArrowIcon } from "../components/icons/ArrowIcon.tsx";
@@ -28,12 +28,8 @@ import { SiteHeader } from "../components/SiteHeader.tsx";
 import { Splash } from "../components/Splash.tsx";
 import { TeamSection } from "../components/TeamSection.tsx";
 import { useDb, useStall } from "../db/hooks.ts";
-import { demoStallDate, type DemoCatalogEntry } from "../demo/catalog.ts";
-import {
-  loadDemo,
-  requestPersistentStorage,
-  startSetup,
-} from "../db/repositories.ts";
+import type { DemoCatalogEntry, DemoMoment } from "../demo/catalog.ts";
+import { startSetup } from "../db/repositories.ts";
 import { useT } from "../i18n/index.ts";
 
 interface WelcomeProps {
@@ -43,11 +39,10 @@ interface WelcomeProps {
 export function Welcome({ about = false }: WelcomeProps) {
   const t = useT();
   const db = useDb();
-  const toast = useToast();
   const navigate = useNavigate();
   const { hash } = useLocation();
   const stall = useStall();
-  const { date, time } = useLocalStamp();
+  const openDemo = useOpenDemo();
   const [busy, setBusy] = useState(false);
   const [picking, setPicking] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -67,18 +62,19 @@ export function Welcome({ about = false }: WelcomeProps) {
     return <Splash />;
   }
   const complete = stall !== null && stall.setupComplete;
-  if (complete && !about) {
+  if (complete && !about && !busy) {
     return <Navigate to="/today" replace />;
   }
   const started = stall !== null;
-  const showDemo = DEMO_ENABLED && !complete;
+  const isDemo = stall?.settings.isDemo === true;
+  const showDemo = DEMO_ENABLED && (!complete || isDemo);
+  const demoBlocked = started && !isDemo;
 
-  async function run(action: () => Promise<void>, to: string) {
+  async function run(action: () => Promise<void>) {
     setBusy(true);
     setFailed(false);
     try {
       await action();
-      navigate(to);
     } catch {
       setFailed(true);
       setBusy(false);
@@ -88,15 +84,13 @@ export function Welcome({ about = false }: WelcomeProps) {
   function setUp() {
     void run(async () => {
       await startSetup(db);
-    }, "/setup/menus");
+      navigate("/setup/menus");
+    });
   }
 
-  function openDemo(entry: DemoCatalogEntry) {
-    void run(async () => {
-      await loadDemo(db, demoStallDate(entry, date, time), entry.id);
-      toast.show(t("settings.data.demoLoaded"));
-      void requestPersistentStorage(navigator.storage);
-    }, "/today");
+  function pickDemo(entry: DemoCatalogEntry, moment: DemoMoment | null) {
+    setPicking(false);
+    void run(() => openDemo(entry, moment));
   }
 
   const failure = failed ? (
@@ -110,6 +104,11 @@ export function Welcome({ about = false }: WelcomeProps) {
       <Button to="/today" icon={<ArrowIcon />}>
         {t("how.back")}
       </Button>
+      {showDemo ? (
+        <a className="btn btn--secondary" href="#demo">
+          {t("header.demoSwitch")}
+        </a>
+      ) : null}
     </div>
   ) : (
     <div className="landing__actions">
@@ -121,6 +120,7 @@ export function Welcome({ about = false }: WelcomeProps) {
           variant="secondary"
           disabled={busy || started}
           aria-describedby="welcome-demo-note"
+          data-tour="try-demo"
           onClick={() => {
             setPicking(true);
           }}
@@ -140,7 +140,7 @@ export function Welcome({ about = false }: WelcomeProps) {
             onClose={() => {
               setPicking(false);
             }}
-            onPick={openDemo}
+            onPick={pickDemo}
           />
         </>
       ) : null}
@@ -153,6 +153,7 @@ export function Welcome({ about = false }: WelcomeProps) {
       <SiteHeader complete={complete} showDemo={showDemo} />
       <main id="main" className="landing" tabIndex={-1}>
         <section className="hero" aria-labelledby="landing-title">
+          <HeroLoop />
           <div className="hero__inner">
             <div className="hero__copy">
               <p className="eyebrow">{t("landing.eyebrow")}</p>
@@ -306,9 +307,15 @@ export function Welcome({ about = false }: WelcomeProps) {
               <div className="band__head">
                 <p className="eyebrow">{t("landing.nav.demo")}</p>
                 <h2 id="landing-demo">{t("landing.demoTitle")}</h2>
-                <p>{t(started ? "welcome.demoBlocked" : "demo.pick.intro")}</p>
+                <p>
+                  {t(demoBlocked ? "welcome.demoBlocked" : "demo.pick.intro")}
+                </p>
               </div>
-              <DemoShowcase disabled={busy || started} onPick={openDemo} />
+              <DemoLauncher
+                initial={stall?.demo?.scenario}
+                disabled={busy || demoBlocked}
+                onOpen={pickDemo}
+              />
               {failure}
             </div>
           </section>

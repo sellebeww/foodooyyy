@@ -21,6 +21,9 @@ Every Core row in `PLAN.md` section 4 is Done. Each one meets its acceptance cri
 | BT       | Backtest report                                  | `npm run backtest` regenerates `docs/BACKTEST.md` byte for byte    |
 | WS       | Weekly summary + history (built early, D-083)    | `tests/screens/history.test.tsx`, `tests/screens/today.test.tsx`   |
 | DM-3/4   | Export / import (built early, D-083)             | `tests/db/exportImport.test.ts`, `e2e/exportImport.spec.ts`        |
+| MN       | Money view (built 2026-11-26, D-096)             | `tests/domain/money.test.ts`, `tests/screens/features.test.tsx`    |
+| SH       | Cooking list and sharing (D-096)                 | `tests/screens/features.test.tsx`                                  |
+| NV       | Navigation and progress cues (D-096)             | `tests/screens/features.test.tsx`                                  |
 
 Also built in F3 and not a separate status row:
 
@@ -37,7 +40,7 @@ Also built in F3 and not a separate status row:
 | R3 Top usability fix from owner testing (UX-FIX)    | Reserved for Final Day, **blocked on owner findings** | No owner testing has been done yet (see section 3, R3)   |
 | Owner testing (PLAN F3 item 1)                      | Not done                                              | No findings were available during F3. None are invented. |
 | Physical phone install                              | Not done                                              | Only Chromium's installability report is checked         |
-| Largest contentful paint < 2 s on simulated Slow 4G | Missed by about 30 ms                                 | Measured; see README section 12                          |
+| Largest contentful paint < 2 s on simulated Slow 4G | Missed by about 50 ms                                 | Measured; see README section 12                          |
 
 ## 3. Completion plan for the reserved tasks
 

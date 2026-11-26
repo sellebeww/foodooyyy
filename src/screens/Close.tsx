@@ -38,18 +38,28 @@ import {
   CORRECTION_DAYS,
 } from "../domain/pos.ts";
 import { addDays } from "../domain/time.ts";
-import type { HHMM, MenuDay } from "../domain/types.ts";
+import type { HHMM, ISODate, MenuDay } from "../domain/types.ts";
 import { formatDelta, formatLongDate } from "../i18n/format.ts";
 import { useI18n, type MessageKey } from "../i18n/index.ts";
 
 export function Close() {
+  const stamp = useStallStamp();
+  const { date: pastDate } = useParams();
+  const date = pastDate ?? stamp.date;
+  return <CloseForDate key={date} date={date} pastDate={pastDate} />;
+}
+
+interface CloseForDateProps {
+  date: ISODate;
+  pastDate: ISODate | undefined;
+}
+
+function CloseForDate({ date, pastDate }: CloseForDateProps) {
   const { t, language } = useI18n();
   const db = useDb();
   const toast = useToast();
   const stamp = useStallStamp();
-  const { date: pastDate } = useParams();
   const isPast = pastDate !== undefined && pastDate !== stamp.date;
-  const date = pastDate ?? stamp.date;
   const stall = useStall();
   const menus = useMenus();
   const today = useTodayState(date);
@@ -220,6 +230,9 @@ export function Close() {
       return error === null ? [] : [[row.menuId, error] as const];
     }),
   );
+  const ready = rows.filter(
+    (row) => !missing.has(row.menuId) && !errors.has(row.menuId),
+  ).length;
   const notesOf = (row: MenuDay): string[] => {
     const notes: string[] = [];
     const entered = leftoverOf(row);
@@ -403,6 +416,17 @@ export function Close() {
         </p>
       </div>
       <div className="action-bar">
+        <div className="progress">
+          <p className="progress__label">
+            {t("close.progress", { ready, total: rows.length })}
+          </p>
+          <progress
+            className="progress__bar"
+            max={rows.length}
+            value={ready}
+            aria-hidden="true"
+          />
+        </div>
         <Button
           wide
           onClick={() => {

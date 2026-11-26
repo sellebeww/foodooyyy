@@ -5,6 +5,7 @@ import type { FoodooDb } from "../db/schema.ts";
 import { I18nProvider } from "../i18n/I18nProvider.tsx";
 import { ClockProvider } from "./ClockProvider.tsx";
 import { ToastProvider } from "./ToastProvider.tsx";
+import { TourProvider } from "./TourProvider.tsx";
 
 interface AppProvidersProps {
   db: FoodooDb;
@@ -23,7 +24,9 @@ export function AppProviders({
     <DbProvider db={db}>
       <I18nProvider storage={storage}>
         <ClockProvider now={now}>
-          <ToastProvider>{children}</ToastProvider>
+          <ToastProvider>
+            <TourProvider storage={storage}>{children}</TourProvider>
+          </ToastProvider>
         </ClockProvider>
       </I18nProvider>
     </DbProvider>

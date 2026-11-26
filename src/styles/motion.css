@@ -8,12 +8,17 @@
   .icon-btn,
   .service-tile,
   .stepper__btn,
-  .demo-option,
+  .launcher__stall,
+  .launcher__moment,
   .busy__cell,
   .segmented__option,
   .toast__action,
-  .showcase__card,
+  .feature-card,
+  .feature-card__icon,
+  .team__card,
+  .team__initials,
   .day-row,
+  .jump a,
   .nav-link,
   .site-nav a,
   .sidebar__about,
@@ -31,7 +36,8 @@
   .icon-btn:active,
   .service-tile:active:not(:disabled),
   .stepper__btn:active:not(:disabled),
-  .demo-option:active:not(:disabled),
+  .launcher__stall:active,
+  .launcher__moment:active:not(:disabled),
   .busy__cell:active,
   .segmented__option:active,
   .toast__action:active {
@@ -49,19 +55,22 @@
   .screen__main > *,
   .card-grid > *,
   .service-grid > *,
-  .demo-picker > * {
+  .sheet .launcher__stalls > *,
+  .launcher__moments > * {
     animation: rise var(--dur-enter) var(--ease-out) backwards;
   }
 
-  :is(.screen__main, .card-grid, .service-grid, .demo-picker) > :nth-child(2) {
+  :is(.screen__main, .card-grid, .service-grid, .launcher__moments)
+    > :nth-child(2) {
     animation-delay: var(--dur-stagger);
   }
 
-  :is(.screen__main, .card-grid, .service-grid, .demo-picker) > :nth-child(3) {
+  :is(.screen__main, .card-grid, .service-grid, .launcher__moments)
+    > :nth-child(3) {
     animation-delay: calc(var(--dur-stagger) * 2);
   }
 
-  :is(.screen__main, .card-grid, .service-grid, .demo-picker)
+  :is(.screen__main, .card-grid, .service-grid, .launcher__moments)
     > :nth-child(n + 4) {
     animation-delay: calc(var(--dur-stagger) * 3);
   }
@@ -82,6 +91,41 @@
   .hero__copy > :nth-child(n + 4),
   .explorer {
     animation-delay: calc(var(--dur-stagger) * 3);
+  }
+
+  .hero__accent {
+    animation: underline var(--dur-sweep) var(--ease-out) var(--dur-enter)
+      backwards;
+  }
+
+  .hero__loop-track {
+    stroke-dasharray: 100;
+    animation: draw var(--dur-draw) var(--ease-out) backwards;
+  }
+
+  .hero__loop-spark {
+    animation: lap var(--dur-draw) var(--ease-std) var(--dur-enter) backwards;
+  }
+
+  .explorer__bar {
+    animation: grow var(--dur-sweep) var(--ease-spring) backwards;
+    transform-origin: bottom;
+  }
+
+  .explorer__hour:nth-child(even) .explorer__bar {
+    animation-delay: var(--dur-slow);
+  }
+
+  .explorer__hour:nth-child(odd) .explorer__bar {
+    animation-delay: var(--dur-base);
+  }
+
+  .launcher__stall:has(input:checked) input {
+    animation: pop var(--dur-slow) var(--ease-spring);
+  }
+
+  .launcher__icon {
+    animation: pop var(--dur-enter) var(--ease-spring) var(--dur-base) backwards;
   }
 
   .explorer__fill {
@@ -137,6 +181,31 @@
     animation: rise var(--dur-slow) var(--ease-out);
   }
 
+  .toast--timed::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background: var(--orange);
+    transform-origin: left;
+    animation: drain var(--toast-ms) linear forwards;
+  }
+
+  .progress__bar::-webkit-progress-value {
+    transition: width var(--dur-slow) var(--ease-out);
+  }
+
+  .menu-status > *,
+  .money > * {
+    animation: rise var(--dur-enter) var(--ease-out) backwards;
+  }
+
+  .nav-link__now {
+    animation: pop var(--dur-enter) var(--ease-spring) backwards;
+  }
+
   .sheet-backdrop {
     animation: appear var(--dur-base) var(--ease-std);
   }
@@ -161,10 +230,40 @@
 }
 
 @media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .feature-card:hover .feature-card__icon,
+  .team__card:hover .team__initials {
+    transform: rotate(-8deg) scale(1.1);
+  }
+
   .service-tile:hover:not(:disabled, :active),
-  .demo-option:hover:not(:disabled, :active),
-  .showcase__card:hover {
+  .launcher__stall:hover:not(:active),
+  .launcher__moment:hover:not(:disabled, :active),
+  .feature-card:hover,
+  .team__card:hover {
     transform: translateY(-3px);
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .site-header::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: -3px;
+      left: 0;
+      height: 3px;
+      background: var(--orange);
+      transform-origin: left;
+      animation: progress linear both;
+      animation-timeline: scroll();
+    }
+
+    .header {
+      animation: edge linear both;
+      animation-timeline: scroll();
+      animation-range: 0 40px;
+    }
   }
 }
 
@@ -173,12 +272,74 @@
     .band__head,
     .features > *,
     .preview > *,
-    .showcase > *,
+    .launcher__stalls > *,
     .team > * {
       animation: reveal linear both;
       animation-timeline: view();
       animation-range: entry 0% entry 70%;
     }
+
+    :is(.features, .team, .preview, .launcher__stalls) > :nth-child(2) {
+      animation-range: entry 0% entry 85%;
+    }
+
+    :is(.features, .team, .preview, .launcher__stalls) > :nth-child(3) {
+      animation-range: entry 0% entry 100%;
+    }
+
+    :is(.features, .team, .preview, .launcher__stalls) > :nth-child(n + 4) {
+      animation-range: entry 0% entry 115%;
+    }
+
+    .preview__screen,
+    .closing {
+      animation: unfold linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+  }
+}
+
+@keyframes underline {
+  from {
+    background-size: 0 3px;
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 100;
+  }
+}
+
+@keyframes lap {
+  from {
+    stroke-dashoffset: 114;
+  }
+}
+
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes unfold {
+  from {
+    rotate: -2.5deg;
+    scale: 0.94;
+  }
+}
+
+@keyframes drain {
+  to {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes edge {
+  to {
+    box-shadow: 0 1px 0 var(--line);
   }
 }
 

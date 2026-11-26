@@ -20,6 +20,7 @@ export function StepButton({
   const step = useRef(onStep);
   const delay = useRef<number | null>(null);
   const repeat = useRef<number | null>(null);
+  const stepped = useRef(false);
 
   useEffect(() => {
     step.current = onStep;
@@ -55,9 +56,13 @@ export function StepButton({
           return;
         }
         stop();
-        step.current();
+        stepped.current = event.pointerType !== "touch";
+        if (stepped.current) {
+          step.current();
+        }
         delay.current = window.setTimeout(() => {
           repeat.current = window.setInterval(() => {
+            stepped.current = true;
             step.current();
           }, REPEAT_EVERY_MS);
         }, REPEAT_DELAY_MS);
@@ -69,9 +74,10 @@ export function StepButton({
         event.preventDefault();
       }}
       onClick={(event) => {
-        if (event.detail === 0) {
+        if (event.detail === 0 || !stepped.current) {
           step.current();
         }
+        stepped.current = false;
       }}
     >
       {children}

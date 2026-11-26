@@ -16,11 +16,14 @@ export function useNow(intervalMs: number = CLOCK_TICK_MS): Date {
   const { now } = useContext(ClockContext);
   const [value, setValue] = useState(now);
   useEffect(() => {
-    const timer = window.setInterval(() => {
+    const tick = () => {
       setValue(now());
-    }, intervalMs);
+    };
+    const timer = window.setInterval(tick, intervalMs);
+    document.addEventListener("visibilitychange", tick);
     return () => {
       window.clearInterval(timer);
+      document.removeEventListener("visibilitychange", tick);
     };
   }, [now, intervalMs]);
   return value;

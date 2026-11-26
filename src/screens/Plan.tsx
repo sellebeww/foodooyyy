@@ -16,8 +16,10 @@ import {
   useTodayState,
 } from "../db/hooks.ts";
 import { savePlan } from "../db/repositories.ts";
+import { planMoney } from "../domain/money.ts";
 import { isPlanLocked, suggestAll } from "../domain/plan.ts";
 import type { Menu, Reason } from "../domain/types.ts";
+import { formatRupiah } from "../i18n/format.ts";
 import { useT } from "../i18n/index.ts";
 import { renderReason } from "../i18n/reason.ts";
 
@@ -29,6 +31,11 @@ interface CardModel {
 }
 
 export function Plan() {
+  const { date } = useStallStamp();
+  return <PlanForDate key={date} />;
+}
+
+function PlanForDate() {
   const t = useT();
   const db = useDb();
   const toast = useToast();
@@ -112,6 +119,9 @@ export function Plan() {
   }
 
   const total = cards.reduce((sum, card) => sum + card.value, 0);
+  const money = planMoney(
+    cards.map((card) => ({ menu: card.menu, qty: card.value })),
+  );
   const anyEdited = cards.some(
     (card) => card.suggestedQty !== null && card.value !== card.suggestedQty,
   );
@@ -175,7 +185,15 @@ export function Plan() {
         ))}
       </ul>
       <div className="action-bar">
-        <p className="action-bar__total">{t("plan.total", { qty: total })}</p>
+        <div className="action-bar__summary">
+          <p className="action-bar__total">{t("plan.total", { qty: total })}</p>
+          <p className="action-bar__money">
+            <span>{t("plan.cost", { amount: formatRupiah(money.cost) })}</span>{" "}
+            <span>
+              {t("plan.revenue", { amount: formatRupiah(money.revenue) })}
+            </span>
+          </p>
+        </div>
         {readOnly ? null : (
           <Button
             disabled={saving}

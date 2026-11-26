@@ -1,6 +1,6 @@
 # DESIGN.md — FOODOO Interface Specification
 
-Visual style: **calm, confident and warm**. The two brand colours from the logo, navy and orange, carry the identity: navy for the dark surfaces that frame the product (landing hero, sidebar, the Today loop card, the toast), orange for the one primary action and for sold-out states, always with dark text. Everything else is a warm off-white page, white cards, warm hairline borders and soft shadows, so the numbers stay in focus. Semantic tints (green, blue, amber, red) are used only for status. The earlier saturated cream page and the yellow, sky and mint accents were replaced on 2026-11-26 (D-095). There are no background blurs and no endless animations in the app, so it still renders cheaply on low-end phones.
+Visual style: **calm, confident and warm**. The two brand colours from the logo, navy and orange, carry the identity: navy for the dark surfaces that frame the product (landing hero, sidebar, the Today loop card, the toast), orange for the one primary action and for sold-out states, always with dark text. Everything else is a warm off-white page, white cards, warm hairline borders and soft shadows, so the numbers stay in focus. Semantic tints (green, blue, amber, red) are used only for status. The earlier saturated cream page and the yellow, sky and mint accents were replaced on 2026-11-26 (D-095). Navy and orange surfaces use the quiet gradients `--surface-navy` and `--surface-action` over a solid fallback colour (D-098). There are no background blurs and no endless animations in the app, so it still renders cheaply on low-end phones.
 
 ## 1. Brand
 
@@ -21,7 +21,7 @@ The file `src/styles/tokens.css` is the source of truth. The colour roles are:
 | Text | `--ink` #10212c, `--muted` #4d5d68, `--on-dark` #ffffff, `--on-dark-muted` #b9cddb |
 | Status | `--success`, `--info`, `--warn`, `--danger`, each with a `-100` tint |
 
-- Radius 6 / 12 / 18 / 28 px and pill. Spacing 4 / 8 / 12 / 16 / 24 / 32 / 48 / 72 px.
+- Radius 6 / 12 / 16 / 24 px and pill. Spacing 4 / 8 / 12 / 16 / 24 / 32 / 48 / 72 px.
 - `npm run contrast` checks every text and background pair in use.
 - Fonts: Space Grotesk (500, 700) for all UI text and numbers, **self-hosted** in `public/fonts/` so the app works offline. The logo letters are Rubik Mono One outlines converted to SVG paths, so that font is not loaded at runtime. Both are under the SIL Open Font License.
 - Type scale: 12 (tags) / 14 / 16 (body) / 20 / 24 / 32 / 44 at the default browser text size, written in `rem` so a larger text setting scales it. Portion numbers use `--font-num` (Space Grotesk 700, tabular figures) at 28–32 px. The landing page adds two fluid sizes: `--text-section` and `--text-display`.
@@ -39,7 +39,9 @@ The file `src/styles/tokens.css` is the source of truth. The colour roles are:
 
 - **Mobile first** (360–430 px): single column, a floating bottom tab bar with 5 tabs (Today, Plan, Sales, Close, History) and Settings in the header. The active tab has an orange pill behind its icon.
 - **Desktop** (≥ 1024 px): dark navy sidebar with the same items, Settings, and a link to the company page. Content max-width 1120 px (820 px for Settings). Cards use `grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))`. Today puts the loop card beside today's counts from 900 px.
-- Header on every screen: app icon (phone), screen title, date, and a **Demo data** badge (amber pill with a dot) when demo data is loaded.
+- Header on every screen: app icon (phone), screen title, date, and a **Demo data** badge (amber pill with a dot) when demo data is loaded. It stays at the top while scrolling, except on screens up to 520 px tall.
+- The current loop step carries a dot on its tab and a **Now** pill in the sidebar, with the same text for screen readers.
+- Screens up to 520 px tall and under 1024 px wide use a one-row tab bar.
 - **Public pages:** the landing page has its own sticky header (section links, language, demo button; a menu button below 1000 px) and a footer.
 
 ## 5. Screens
@@ -56,10 +58,11 @@ Every screen needs these states designed and built: **default, empty, demo, offl
 - A navy card with the stall name, one sentence saying what to do now, and a large infinity loop split into three segments: **Plan**, **Service**, **Close**. The current segment is orange, finished segments are white, upcoming segments are a muted navy; each step also shows its status as text.
 - In the same card, one primary button for the current phase (e.g. "Plan today's portions"). Today's counts sit below it (beside it on wide screens).
 - Empty state (no setup): a prompt to finish setup.
+- Once a day is planned, **Today's menus** lists each menu with its state and a **Share list** button. The weekly card ends with two money tiles (D-096).
 
 ### 5.3 Plan (morning)
 - One card per menu: name, photo slot (an optional user photo; a neutral placeholder if none), the stepper with the number in `--font-num`, the reason line, and an "edited" tag when changed.
-- A sticky bottom bar shows the total portions and **Accept all** / **Save plan**.
+- A sticky bottom bar shows the total portions, the cooking cost, the sales if all sell, and **Accept all** / **Save plan**.
 
 ### 5.4 Service
 - A two-column grid of large tiles (minimum 150 px tall).
@@ -69,6 +72,7 @@ Every screen needs these states designed and built: **default, empty, demo, offl
 - Offline pill: "Offline. Saved on this device."
 
 ### 5.5 Close (night)
+- The action bar shows how many menus are ready to close; the Service screen shows how many have sold out.
 - One row per menu: a sold-out time chip with **Edit**, or a leftover stepper.
 - The missed-sell-out prompt appears inline (amber box with a time input).
 - An **Unusual day** checkbox with a helper text.
@@ -81,7 +85,7 @@ Every screen needs these states designed and built: **default, empty, demo, offl
 - A list of past days opens a read-only day view.
 
 ### 5.7 Settings
-Sections: Stall (menus, hours, busy hours, salvage value), Data (export, import, load/remove demo, delete all, all destructive actions in `--danger` and confirmed), Language, About (version, licences, AI disclosure, "How FOODOO calculates" explainer page).
+A row of links jumps to each section. Sections: Stall (menus, hours, busy hours, salvage value), Data (export, import, load/remove demo, delete all, all destructive actions in `--danger` and confirmed), Language, About (version, licences, AI disclosure, "How FOODOO calculates" explainer page).
 
 ### 5.8 "How FOODOO calculates" page
 A plain-language explanation with the worked example "Sold out at 10:30 → about 52% of customers had arrived → about 81 wanted it". This helps owners trust the suggestions, and judges can verify the logic from the UI.

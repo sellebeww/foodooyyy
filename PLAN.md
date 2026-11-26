@@ -109,6 +109,11 @@ At the cutoff: record the final commit, fill in the README "Final Day log" (star
 | WS | Weekly summary + history | Should | Done |
 | DM-3/4 | Export / import | Should | Done |
 | REG | Register mode, auto sell-out, sales-linked close, 7-day correction | Should | Done |
+| MN | Money view: cooking cost, leftover cost, margin missed | Should | Done |
+| SH | Today's menus list and share the cooking list | Should | Done |
+| NV | Current-step marker, progress cues, settings section links | Should | Done |
+| TOUR | First-run interactive tutorial | Should | Done |
+| SIM | Hourly stall simulation with live demand analysis | Should | Simulated |
 | UX-FIX | Top usability fix from owner testing | Should | Reserved for Final Day |
 
 Allowed status values: `Not started`, `In progress`, `Done`, `Reserved for Final Day`, `Simulated` (works on demo data only).

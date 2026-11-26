@@ -2,6 +2,7 @@
 import { useStall } from "../db/hooks.ts";
 import { stallDate, weekdayOf } from "../domain/time.ts";
 import { useLocalStamp } from "./clock.ts";
+import { demoTimeOf } from "./demoTime.ts";
 import type { LocalStamp } from "./localStamp.ts";
 
 export function useStallStamp(): LocalStamp {
@@ -11,7 +12,8 @@ export function useStallStamp(): LocalStamp {
     return stamp;
   }
   const date = stallDate(stamp.date, stamp.time, stall.settings);
+  const time = demoTimeOf(stall) ?? stamp.time;
   return date === stamp.date
-    ? stamp
-    : { date, time: stamp.time, weekday: weekdayOf(date) };
+    ? { ...stamp, time }
+    : { date, time, weekday: weekdayOf(date) };
 }
