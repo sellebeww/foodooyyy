@@ -4,7 +4,7 @@ Read this file first, then `SPEC.md`, `DESIGN.md`, `PLAN.md`. When files disagre
 
 ## 1. Context
 
-- **Product:** FOODOO, an offline-first Progressive Web App that suggests daily cooking portions for small food stalls (*warung*) and corrects for demand hidden by sold-out days.
+- **Product:** FOODOO, an offline-first Progressive Web App that suggests daily cooking portions for small food stalls (_warung_) and corrects for demand hidden by sold-out days.
 - **Competition:** STACK 2026 by GDGoC ITB, Case 2: Stronger Communities and Everyday Services.
 - **Team:** Calon Mantu Idaman: Samuel Matthew, Vassel Goleyu, Hakim Ulinnuha, Sonny Ferdinand.
 - **Your job:** build the application only. The proposal, video, and pitch deck are out of scope.
@@ -12,16 +12,16 @@ Read this file first, then `SPEC.md`, `DESIGN.md`, `PLAN.md`. When files disagre
 
 ## 2. Locked technical decisions (from the submitted abstract)
 
-| Area | Decision | Do not |
-|---|---|---|
-| App | React 18 + TypeScript (strict) + Vite | Switch to Next.js, React Native, or any other framework |
-| Offline | `vite-plugin-pwa` (service worker + manifest), installable | Require network for any core flow |
-| Storage | Dexie.js over IndexedDB, on-device only | Add a backend, database server, login, or cloud sync |
-| Logic | Deterministic rules in pure TypeScript | Use any AI/ML model or LLM API inside the product |
-| Demo | Synthetic data, clearly labelled | Present synthetic data as real |
-| Tests | Vitest (unit), Playwright (end-to-end) | Ship domain logic without tests |
-| Routing | React Router | |
-| Styling | Plain CSS with CSS custom properties (tokens in `DESIGN.md`) | Add a UI kit that hides the design system |
+| Area    | Decision                                                     | Do not                                                  |
+| ------- | ------------------------------------------------------------ | ------------------------------------------------------- |
+| App     | React 18 + TypeScript (strict) + Vite                        | Switch to Next.js, React Native, or any other framework |
+| Offline | `vite-plugin-pwa` (service worker + manifest), installable   | Require network for any core flow                       |
+| Storage | Dexie.js over IndexedDB, on-device only                      | Add a backend, database server, login, or cloud sync    |
+| Logic   | Deterministic rules in pure TypeScript                       | Use any AI/ML model or LLM API inside the product       |
+| Demo    | Synthetic data, clearly labelled                             | Present synthetic data as real                          |
+| Tests   | Vitest (unit), Playwright (end-to-end)                       | Ship domain logic without tests                         |
+| Routing | React Router                                                 |                                                         |
+| Styling | Plain CSS with CSS custom properties (tokens in `DESIGN.md`) | Add a UI kit that hides the design system               |
 
 Allowed extra dependencies: `react-router-dom`, `dexie`, `dexie-react-hooks`, `vite-plugin-pwa`, `vitest`, `@testing-library/react`, `@playwright/test`, `eslint`, `prettier`, `seedrandom`. Ask before adding anything else, and record every dependency in the README's third-party table.
 
@@ -42,12 +42,12 @@ The competition requires that the registered members develop the substantive sol
 
 - **Module owners** (the team may reassign; update this table if they do):
 
-| Module | Owner | Folder |
-|---|---|---|
-| Domain logic: demand estimation, suggestions, backtest | Hakim Ulinnuha | `src/domain/`, `scripts/` |
-| Data layer: Dexie schema, repositories, export/import | Samuel Matthew | `src/db/` |
-| Screens and components | Vassel Goleyu | `src/screens/`, `src/components/` |
-| PWA, i18n, accessibility, tests, deploy | Sonny Ferdinand | `src/app/`, `src/i18n/`, `e2e/`, config |
+| Module                                                 | Owner           | Folder                                  |
+| ------------------------------------------------------ | --------------- | --------------------------------------- |
+| Domain logic: demand estimation, suggestions, backtest | Hakim Ulinnuha  | `src/domain/`, `scripts/`               |
+| Data layer: Dexie schema, repositories, export/import  | Samuel Matthew  | `src/db/`                               |
+| Screens and components                                 | Vassel Goleyu   | `src/screens/`, `src/components/`       |
+| PWA, i18n, accessibility, tests, deploy                | Sonny Ferdinand | `src/app/`, `src/i18n/`, `e2e/`, config |
 
 - **Stop at every checkpoint** in `PLAN.md`. Summarise what changed and how to verify it, then wait for the owner's approval before continuing.
 - **Commits are made by the owner.** Prepare the change and propose a commit message. If the team asks you to commit, add `Co-Authored-By` for the AI and keep the owner as the author.
