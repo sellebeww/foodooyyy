@@ -94,6 +94,7 @@ export function Simulate() {
     while (next.hoursDone < total) {
       next = stepSimulation(scenario, next);
     }
+    setPlaying(false);
     setAdvanced(next);
   }
 

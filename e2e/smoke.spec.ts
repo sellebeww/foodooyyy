@@ -1,5 +1,6 @@
 // e2e/smoke.spec.ts
 import { expect, test } from "@playwright/test";
+import { openDemoWithRealClock } from "./helpers.ts";
 
 test("demo stall loads, installs its service worker, and survives an offline reload", async ({
   page,
@@ -9,18 +10,15 @@ test("demo stall loads, installs its service worker, and survives an offline rel
   await expect(
     page.getByRole("heading", { level: 1, name: /Cook the right amount/ }),
   ).toBeVisible();
-  await expect(page.getByRole("button", { name: "Start setup" })).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Launch Demo App" }).first(),
+  ).toBeVisible();
 
   await page.evaluate(async () => {
     await navigator.serviceWorker.ready;
   });
 
-  await page.getByRole("button", { name: "Try demo stall" }).click();
-
-  await page
-    .getByRole("dialog")
-    .getByRole("button", { name: "Open with the real clock" })
-    .click();
+  await openDemoWithRealClock(page);
   await expect(
     page.getByRole("heading", { level: 1, name: "Today" }),
   ).toBeVisible();
@@ -74,6 +72,7 @@ test("landing page tells the story and fits a 360 px phone", async ({
     "Every morning is a guess",
     "A daily loop that takes minutes",
     "What you will see",
+    "Explore the interactive demo",
     "Why FOODOO is different",
   ]) {
     await expect(page.getByRole("heading", { level: 2, name })).toBeVisible();

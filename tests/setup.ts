@@ -2,4 +2,4 @@
 import "fake-indexeddb/auto";
 import { configure } from "@testing-library/react";
 
-configure({ asyncUtilTimeout: 5_000 });
+configure({ asyncUtilTimeout: 10_000 });

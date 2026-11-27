@@ -61,7 +61,11 @@ describe("Settings", () => {
       within(dialog).getByRole("button", { name: "Delete everything" }),
     );
     expect(
-      await screen.findByRole("button", { name: "Start setup" }),
+      await screen.findByRole(
+        "button",
+        { name: "Start setup" },
+        { timeout: 15_000 },
+      ),
     ).toBeTruthy();
     expect(await db.menus.count()).toBe(0);
     expect(await db.menuDays.count()).toBe(0);

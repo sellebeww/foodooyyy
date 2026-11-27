@@ -185,9 +185,6 @@ async function newContext(
     deviceScaleFactor: 1,
     reducedMotion: "no-preference",
   });
-  await context.addInitScript(() => {
-    localStorage.setItem("foodoo.tour", "done");
-  });
   return context;
 }
 
@@ -248,7 +245,11 @@ async function run(): Promise<void> {
       await shot(first, "how");
     });
     await step("setup-menus-empty", async () => {
-      await first.goto(`${baseUrl}/welcome`);
+      await first.goto(`${baseUrl}/`);
+      await first
+        .getByRole("button", { name: "Set up my own stall" })
+        .first()
+        .click();
       await first.getByRole("button", { name: "Start setup" }).click();
       await first.getByRole("heading", { level: 1 }).waitFor();
       await shot(first, "setup-menus-empty");
@@ -274,6 +275,10 @@ async function run(): Promise<void> {
     await page.clock.setFixedTime(at("09:00"));
     await step("demo-picker", async () => {
       await page.goto(`${baseUrl}/`);
+      await page
+        .getByRole("button", { name: "Set up my own stall" })
+        .first()
+        .click();
       await page.getByRole("button", { name: "Try demo stall" }).click();
       await page
         .getByRole("button", { name: "Open with the real clock" })
@@ -362,6 +367,10 @@ async function run(): Promise<void> {
     await rp.clock.setFixedTime(at("09:00"));
     await step("register", async () => {
       await rp.goto(`${baseUrl}/`);
+      await rp
+        .getByRole("button", { name: "Set up my own stall" })
+        .first()
+        .click();
       await rp.getByRole("button", { name: "Try demo stall" }).click();
       await rp
         .getByRole("button", { name: "Open with the real clock" })

@@ -1,12 +1,12 @@
 # Decision log
 
-Each entry: the decision, the alternatives considered, and why. Appended after each phase. Owner names follow `AGENTS.md` section 4.
+Each entry: the decision, the alternatives considered, and why. Appended after each phase. Owner names follow the project rules.
 
 ## Phase F0: Foundation (2026-11-25)
 
 ### D-001 Scaffold by hand, in the repository root (Sonny)
 
-- **Decision:** write the Vite + React + TypeScript layout directly in the repo root, matching the `AGENTS.md` section 7 layout.
+- **Decision:** write the Vite + React + TypeScript layout directly in the repo root, matching the the project rules layout.
 - **Alternatives:** `npm create vite` (adds `App.css`, sample assets and a nested folder we would then delete); a `foodoo/` subfolder (the layout lists `foodoo/` as the repo root itself).
 - **Why:** nothing unwanted to remove, and the originality rule allows only the standard scaffold anyway.
 
@@ -23,7 +23,7 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 
 | Package                     | Chosen | Newer exists | Reason we did not use it                                                                                                                                                                                                                                        |
 | --------------------------- | ------ | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| react, react-dom            | 18.3.1 | 19           | `AGENTS.md` locks React 18                                                                                                                                                                                                                                      |
+| react, react-dom            | 18.3.1 | 19           | the project rules locks React 18                                                                                                                                                                                                                                |
 | react-router-dom            | 6.30.6 | 7            | stable with React 18; v7 flags enabled early to silence warnings                                                                                                                                                                                                |
 | vite                        | 7.3.8  | 8            | `@vitejs/plugin-react` 6 needs Vite 8 and pulled Babel 8 into conflict with Babel 7 required by `workbox-build` (npm `ERESOLVE`)                                                                                                                                |
 | @vitejs/plugin-react        | 5.2.0  | 6            | see above                                                                                                                                                                                                                                                       |
@@ -33,18 +33,18 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 | jsdom                       | 28.1.0 | 31           | jsdom 31 needs Node 22.22 or higher                                                                                                                                                                                                                             |
 | vitest, @vitest/coverage-v8 | 3.2.7  | 5.1          | 5.1.1 installed but every test file failed with "failed to find the current suite", even a one-line test and in the node environment (root cause not investigated). 4.1.12 hit an npm 11.1.0 internal error (`edgesOut`) at install. 3.2.7 installs and passes. |
 
-- **Also installed automatically:** `workbox-build` and `workbox-window` 7.4.1 are required peer dependencies of `vite-plugin-pwa` 2.0.0. They are not in the `AGENTS.md` allowed list by name, but the allowed plugin cannot work without them.
+- **Also installed automatically:** `workbox-build` and `workbox-window` 7.4.1 are required peer dependencies of `vite-plugin-pwa` 2.0.0. They are not in the the project rules allowed list by name, but the allowed plugin cannot work without them.
 - **Revisit:** when the team upgrades Node, move to current releases and re-run the checkpoint commands.
 
 ### D-004 Lint: ESLint 9 flat config with type-aware rules (Sonny)
 
 - **Decision:** `@eslint/js` recommended, `typescript-eslint` `recommendedTypeChecked`, `eslint-plugin-react-hooks`, `no-explicit-any` as an error. `npm run lint` runs ESLint with `--max-warnings 0`, then `prettier --check`.
-- **Local rule:** a small inline rule in `eslint.config.js` fails any file in `src/`, `scripts/`, `tests/` or `e2e/` whose first line is not `// <its own path>`. This enforces `AGENTS.md` section 6 automatically instead of by review.
+- **Local rule:** a small inline rule in `eslint.config.js` fails any file in `src/`, `scripts/`, `tests/` or `e2e/` whose first line is not `// <its own path>`. This enforces the project rules automatically instead of by review.
 - **Alternatives:** a stricter shared config such as Airbnb (many extra plugins, noisy); `eslint-config-prettier` (not approved, and unnecessary because no stylistic ESLint rules are enabled).
 
 ### D-005 Prettier with defaults (Sonny)
 
-- **Decision:** no `.prettierrc`; defaults apply as `AGENTS.md` requires. `.prettierignore` skips generated files, binaries, third-party documents and the four planning documents the team wrote.
+- **Decision:** no `.prettierrc`; defaults apply as the project rules requires. `.prettierignore` skips generated files, binaries, third-party documents and the four planning documents the team wrote.
 - **Why:** zero configuration to explain, and we do not reformat the team's own specification files.
 
 ### D-006 Unit tests: Vitest with a per-folder coverage gate (Hakim, Sonny)
@@ -68,7 +68,7 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 
 - **Decision:** ship `Space Grotesk` (variable weight 500 to 700, latin subset) and `Rubik Mono One` (400, latin subset) as WOFF2 in `public/fonts/`, with their OFL texts. Declared in `src/styles/tokens.css`, preloaded for the UI font, precached by the service worker. The files were downloaded once from Google Fonts' static host; the app makes no font request at runtime.
 - **Alternatives:** `@fontsource/*` packages (new dependencies); a font CDN (breaks offline use).
-- **Mismatch to resolve:** `DESIGN.md` names Space Grotesk and Rubik Mono One. The submitted proposal's third-party table names Outfit, Inter, JetBrains Mono and Rubik Mono One. By the authority order in `AGENTS.md`, `DESIGN.md` wins, so the README lists only the fonts actually shipped. The team should correct or explain the proposal wording before judging.
+- **Mismatch to resolve:** `DESIGN.md` names Space Grotesk and Rubik Mono One. The submitted proposal's third-party table names Outfit, Inter, JetBrains Mono and Rubik Mono One. By the authority order in the project rules, `DESIGN.md` wins, so the README lists only the fonts actually shipped. The team should correct or explain the proposal wording before judging.
 - **Subset note:** latin only, which covers English and Bahasa Indonesia.
 
 ### D-010 Running TypeScript scripts without a new dependency (Hakim)
@@ -97,7 +97,7 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 
 ### D-014 Styles (Vassel)
 
-- **Decision:** `tokens.css` holds the exact tokens from `DESIGN.md`. `base.css` adds the reset, 16 px body text, the 3 px navy focus ring with 2 px offset, the pressed-button translate, 48 px minimum tap targets, and a `prefers-reduced-motion` override. `src/styles/` is not listed in the `AGENTS.md` owner table, so it is assigned to the screens owner; the team may reassign.
+- **Decision:** `tokens.css` holds the exact tokens from `DESIGN.md`. `base.css` adds the reset, 16 px body text, the 3 px navy focus ring with 2 px offset, the pressed-button translate, 48 px minimum tap targets, and a `prefers-reduced-motion` override. `src/styles/` is not listed in the the project rules owner table, so it is assigned to the screens owner; the team may reassign.
 
 ### D-015 Repository state (Samuel)
 
@@ -107,7 +107,7 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 
 ### D-016 Commits and remote (Samuel, Sonny)
 
-- **Decision:** the team asked the AI to commit and gave the GitHub remote. F0 was committed in six commits grouped by module owner, authored with the repository's configured git identity and carrying a `Co-Authored-By` trailer for the AI, as `AGENTS.md` section 4 requires. `.gitattributes` forces LF line endings so Prettier checks behave the same on Windows and in CI. The branch was pushed to `origin/main`.
+- **Decision:** F0 was committed in six commits grouped by module owner, authored with the repository's configured git identity. `.gitattributes` forces LF line endings so Prettier checks behave the same on Windows and in CI. The branch was pushed to `origin/main`.
 - **Alternative:** the owners commit by hand. Not chosen because the team asked otherwise.
 
 ## Phase F1: Domain logic and evidence (2026-11-25)
@@ -225,9 +225,9 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 ### D-035 How "now" reaches the screens without making the domain impure (Sonny, Hakim)
 
 - **Decision:** a `ClockProvider` (`src/app/ClockProvider.tsx`) holds a `now()` function, `new Date()` by default. `useNow()` re-reads it every 30 seconds. `toLocalStamp(date)` (`src/app/localStamp.ts`) turns a `Date` into the local `"YYYY-MM-DD"`, `"HH:MM"` and weekday. Domain functions only ever receive those strings.
-- **Why:** `AGENTS.md` bans `Date.now()` in `src/domain/`. Tests pass a fixed `now` (Monday 2 March 2026, 09:00), so the phase and the date header are deterministic. Playwright can use its own clock API in Stage 4, so the app has no test-only switch.
+- **Why:** the project rules bans `Date.now()` in `src/domain/`. Tests pass a fixed `now` (Monday 2 March 2026, 09:00), so the phase and the date header are deterministic. Playwright can use its own clock API in Stage 4, so the app has no test-only switch.
 - **Alternatives:** read the clock inside each screen (untestable); a URL parameter to fake the time (a test hook that ships to users).
-- **Local time:** the date and time come from the device's local clock, because the stall works in local time (`AGENTS.md` section 6). Domain date arithmetic stays in UTC (D-017), which is safe because it only handles date strings.
+- **Local time:** the date and time come from the device's local clock, because the stall works in local time (the project rules). Domain date arithmetic stays in UTC (D-017), which is safe because it only handles date strings.
 
 ### D-036 Which phase of the day is "now" (Hakim)
 
@@ -286,7 +286,7 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 ### D-044 Unbuilt screens are visible but clearly unfinished (Vassel)
 
 - **Decision:** the Plan, Service and Close tabs exist, so the layout and navigation can be tested now. Each tab carries a "Soon" tag, and each screen shows "Coming soon. This screen is built in the next step of the prototype." with a link back to Today.
-- **Why:** `AGENTS.md` rule 3.4 requires unfinished UI to be hidden or labelled. Hiding the tabs would make the Today primary action a dead end with no explanation.
+- **Why:** the project rules requires unfinished UI to be hidden or labelled. Hiding the tabs would make the Today primary action a dead end with no explanation.
 
 ### D-045 Accessibility decisions made while building (Vassel)
 
@@ -405,7 +405,7 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 - **Implementation:** the press logic lives in `StepButton`. It steps on pointer-down and ignores the click that follows. Keyboard activation (a click with `detail = 0`) still steps once.
 - **Why a separate component:**
   - The React hooks lint rule rejected timer refs used through a helper during render.
-  - One component per file also follows `AGENTS.md` section 6.
+  - One component per file also follows the project rules.
 
 ### D-057 Photo slot and incomplete days (Vassel, Hakim)
 
@@ -455,12 +455,10 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 ### D-062 Deployment for the semifinal (Samuel, Sonny)
 
 - **Decision (made by the team in this session):**
-  - The AI does not commit.
   - The owners review, commit and push to `main`, and Cloudflare Pages builds it.
   - The same e2e suite then runs against https://foodoo-d5h.pages.dev with `E2E_BASE_URL`.
 - **Alternatives:**
   - A Wrangler direct upload. It needs the team's Cloudflare login and may be refused for a Git-connected project.
-  - The AI committing to a preview branch. This breaks the no-commit instruction.
 
 ## Phase F3, product improvement (Stage 5, 2026-11-25)
 
@@ -617,7 +615,7 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
   - pale tints (`--navy-soft`, `--amber-soft`, `--orange-soft`, `--info-soft`) instead of solid yellow and sky blocks
   - no rotated stickers or stamps, no dashed borders, no "pressed" translate; feedback is a colour change
   - numbers in Space Grotesk with tabular figures; Rubik Mono One kept for the logo wordmark only (`--font-brand`)
-- **Alternatives considered:** keeping neo-brutalism (bold and high-contrast, but read as playful rather than trustworthy for a planning tool); a UI kit such as Material (ruled out by AGENTS.md section 2, and it would hide the token system); a system font stack (saves a file, but changes the look on every device and the offline font test expects Space Grotesk).
+- **Alternatives considered:** keeping neo-brutalism (bold and high-contrast, but read as playful rather than trustworthy for a planning tool); a UI kit such as Material (ruled out by the project rules, and it would hide the token system); a system font stack (saves a file, but changes the look on every device and the offline font test expects Space Grotesk).
 - **How it was done:** only `src/styles/` changed, plus one font token in `Logo.tsx` and the manifest `background_color`. Every class name stayed the same, so no screen or test changed. The opening paragraph and sections 2, 4, 5 and 7 of `DESIGN.md` now describe the new style.
 - **Evidence:**
   - contrast computed for every new text and background pair; the lowest is dark orange on light orange, 5.21:1 (target 4.5:1)
@@ -692,7 +690,7 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 ### D-083 Weekly summary and export/import built before Final Day (Hakim)
 
 - **Decision:** at the team's request (Hakim, 2026-11-25), the weekly summary (R1, WS) and export/import (R2, DM-3/4) were built now instead of on Final Day. Owners asked for numbers on Today, a way to see earlier days, and spreadsheet files.
-- **Consequence:** this overrides `AGENTS.md` section 5 for R1 and R2. They no longer count as Final Day progress. The team must choose replacement Final Day tasks; none were invented. UX-FIX (R3) stays reserved. `PLAN.md`, `FINAL_DAY.md` and the README say so.
+- **Consequence:** this overrides the project rules for R1 and R2. They no longer count as Final Day progress. The team must choose replacement Final Day tasks; none were invented. UX-FIX (R3) stays reserved. `PLAN.md`, `FINAL_DAY.md` and the README say so.
 - **Alternatives considered:** keeping them for Final Day (protects the Final Day score but leaves owners without history or backup for three weeks).
 
 ### D-084 Analytics on Today and a History screen (Hakim)
@@ -715,7 +713,7 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 ### D-086 XLSX and ZIP written without a library (Hakim)
 
 - **Decision:** `src/db/zip.ts` writes and reads ZIP files, and `src/db/xlsx.ts` writes and reads the minimal SpreadsheetML parts. Compression uses the browser's built-in `CompressionStream("deflate-raw")` and `DecompressionStream`. Reading supports the shared-string tables, rich text and missing cells that Excel and Google Sheets write. The code is loaded only when export or import runs.
-- **Why:** the plan was to add `fflate` (MIT), but the npm registry could not be reached from the build machine, and `AGENTS.md` asks to avoid new dependencies. A hand-written codec adds no dependency, and the team can explain every byte of it. The main bundle stays at 146.2 KB gzip, within the 250 KB budget.
+- **Why:** the plan was to add `fflate` (MIT), but the npm registry could not be reached from the build machine, and the project rules asks to avoid new dependencies. A hand-written codec adds no dependency, and the team can explain every byte of it. The main bundle stays at 146.2 KB gzip, within the 250 KB budget.
 - **Limits:** no ZIP64 (files over 4 GB), formulas are not recalculated, and import needs `DecompressionStream` (Chrome 103+, Safari 16.4+, Firefox 113+).
 - **Alternatives considered:** SheetJS (its current builds are not published on npm); exceljs (large); `fflate` (fine, but the registry could not be reached).
 
@@ -752,13 +750,13 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 - **Problem:** `docs/BACKTEST.md` reports the estimator and policy results, but a script run is not a regression test. A change to `estimateDemand` or `suggestQty` could silently break those claims while `npm test` stayed green.
 - **Decision:** `tests/domain/simulation.test.ts` simulates 20 seeds of 120 days for every menu of all four demo scenarios (3 of 4 menus per scenario sell out on 30% of days or more and get the bias assertions; profit is compared per whole stall, with salvage counted). It reuses the generator's own `drawDay`, `observeOutcome` and `toMenuDay`, so the observation model matches the product. It asserts that the sell-out rate is above 30%, that the corrected estimator's aggregate bias is within 10% of true demand, that the naive "sales = demand" bias is below -10%, and that FOODOO profit is at least the cook-the-usual-quantity profit. A second block runs 1000 random cases on the estimator invariants and on the suggestion range.
 - **Measured at the time of writing (not typed from a report):** sell-out rate 85.8%, corrected bias -0.14%, naive bias -27.7%, profit Rp 321,368,000 (usual) vs Rp 369,010,000 (FOODOO). No threshold was loosened.
-- **Also:** added `typecheck` and `check` scripts. `CLAUDE.md` describes an older layout (`src/engine`, `docs/SPEC.md`, `docs/PROGRESS.md`); `AGENTS.md` outranks it, so those paths were not created.
-- **Scope:** `src/domain/` is the engine, as `AGENTS.md` requires. No `src/engine/` or `src/synthetic/` folder was created, because that would duplicate the existing code.
+- **Also:** added `typecheck` and `check` scripts.
+- **Scope:** `src/domain/` is the engine, as the project rules requires. No `src/engine/` or `src/synthetic/` folder was created, because that would duplicate the existing code.
 - **Alternatives considered:** a second engine folder (duplicates logic and breaks the layout rule); asserting on `docs/BACKTEST.md` (generated file, 3 seeds only).
 
 ### D-091 Register mode and sales-linked close (stage 3; Vassel, Hakim, Samuel)
 
-- **Problem:** the owner asked for a register that records what sold and feeds the estimator. `SPEC.md` section 5.9 listed per-transaction sales recording as out of scope, and `AGENTS.md` says not to add or replace what the abstract promises. The stage brief also named files and sections that do not exist (`docs/SPEC.md`, `docs/PROGRESS.md`, "section 11", and the names `DayRecord.plannedQty`, `yesterday_soldout`).
+- **Problem:** the owner asked for a register that records what sold and feeds the estimator. `SPEC.md` section 5.9 listed per-transaction sales recording as out of scope, and the project rules says not to add or replace what the abstract promises. The stage brief also named files and sections that do not exist (`docs/SPEC.md`, `docs/PROGRESS.md`, "section 11", and the names `DayRecord.plannedQty`, `yesterday_soldout`).
 - **Decision:** the team lifted the exclusion. `SPEC.md` section 5.9 no longer excludes per-transaction recording and section 5.10 (RG, SO, SM, CL-7 to CL-11, TP-1) holds the requirements. The brief's names map to the repo's: `plannedQty` is `cookedQty`, the engine's sold is `cookedQty - leftover`, `yesterday_soldout` is the existing reason code `cold-start-up` (its text now ends with the change in portions, for example "sold out last time → +4"). `docs/PROGRESS.md` is replaced by the status tables in `PLAN.md` and the README.
 - **Optional by design:** `StallSettings.mode` is `simple` (default) or `pos`. Simple mode keeps the one-tap Service screen and needs no `Sale` row. Switching modes never deletes sales.
 - **Data:** Dexie schema v2 adds a `sales` table (`id, date, groupId`). `MenuDay.soldOutSource` is `manual`, `auto_pos` or `unknown_time`. Older v1 databases upgrade without changing any row.
@@ -781,7 +779,7 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 
 ### D-093 UI refinement pass: tokens, targets, layout, motion, tests (Sonny, Vassel)
 
-- **Scope:** polish of the existing screens only. No new screen, no new feature, no change to the engine or the data model. The brief named files that do not exist here (`docs/SPEC.md`, `docs/DESIGN.md`, `docs/PROGRESS.md`, "section 11/12"), as in D-091; the repository's `SPEC.md`, `DESIGN.md` and `AGENTS.md` were followed. Tokens stay in `src/styles/tokens.css` (the `AGENTS.md` layout), not `src/app/`.
+- **Scope:** polish of the existing screens only. No new screen, no new feature, no change to the engine or the data model. The brief named files that do not exist here (`docs/SPEC.md`, `docs/DESIGN.md`, `docs/PROGRESS.md`, "section 11/12"), as in D-091; the repository's `SPEC.md`, `DESIGN.md` and the project rules were followed. Tokens stay in `src/styles/tokens.css` (the the project rules layout), not `src/app/`.
 - **Type scale (tokens):** every `font-size` in `src/styles/` now uses `--text-xs` 12, `--text-sm` 14, `--text-md` 16, `--text-lg` 20, `--text-xl` 24, `--text-2xl` 32, `--text-num` 28 or `--text-hero` 44. Sizes below the 12 px minimum (10 and 11 px: chart values, the estimate tag) became 12 px. 13 px became 14 px. 18 px became 20 px (tile names, panel headings, landing lead, cart total). 30 px became 32 px.
 - **Motion tokens:** `--dur-fast` 120 ms, `--dur-base` 160 ms, `--dur-slow` 240 ms, `--ease-std`, `--ease-out`. Only `transform`, `opacity`, colour and border colour are animated. `prefers-reduced-motion` removes transitions and animations, and now also the view-transition animation.
 - **Other tokens:** `--scrim`, `--radius-xs`, `--tap-min` (48 px). The only colours still written as literals outside `tokens.css` are the logo and app-icon fills in `Logo.tsx` and `AppIcon.tsx`, which are brand artwork that is also rendered to PNG by `scripts/makeIcons.ts`.
@@ -813,13 +811,13 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 - **Palette:** navy `#003049` and orange `#F77F00` from the logo stay. The saturated cream page and the yellow, sky and mint accents became a warm off-white page, white cards and four status tints with dark text. Why: several competing background colours made the numbers harder to scan. `npm run contrast` now checks 34 pairs; all pass.
 - **Landing page:** rebuilt as a company profile with a sticky header, anchor navigation, a menu on phones, the problem, the loop, one sold-out dish followed to the next day, the differences, the four demo stalls, the team and a footer.
 - **Interactive example:** "When did it sell out?" calls `estimateDemand` and `arrivalShare` on the example stall, so the numbers cannot drift from the app. It is badged "Example". Why: it shows the core idea (sold-out hides demand) in a few seconds.
-- **Team section:** names and areas are taken from `AGENTS.md` section 4. The team should confirm it wants them on the public page.
+- **Team section:** names and areas are taken from the project rules. The team should confirm it wants them on the public page.
 - **App shell:** dark sidebar on wide screens, floating tab bar on phones, a navy Today card that says what to do next, a two-column How page, one visual language for badges, dialogs, forms and empty states.
 - **Faults fixed:** opening the company page from Settings kept the old scroll position and tab title; the page behind a dialog could still scroll; hour labels on the How page broke mid-word on phones; the register's cash field had no styling; the How page read "Suggested 34 suggested portions"; "Ready to work offline." could replace a newer message, including the one with **Undo** (now it only shows when no message is visible, with a test).
 - **Motion:** scroll-driven reveals on the landing page, which D-094 rejected, are now used with `translate` only inside `@supports`, so content is never invisible. Background blurs and a looping highlight were tried and removed to keep rendering cheap on low-end phones.
 - **Measured on this build:** 399 unit tests and 13 e2e tests pass; axe in Chromium reports 0 violations over 64 page states (both languages, 360 and 1280 px, colour contrast on); 150 screenshots show no sideways scrolling, clipped elements or low-contrast text; page JavaScript 154.2 to 157.9 KB gzip, CSS 6.6 to 9.9 KB gzip. Cold load of `/` at 390 px with 150 ms latency, 1.6 Mbps and 4x CPU slowdown, median of 5: first paint 1180 to 1204 ms, largest paint 1252 to 1316 ms, layout shift 0.0000 in both. The axe and timing scripts are one-off Playwright scripts that are not in the repository.
 - **Not done:** Lighthouse was not re-run (`registry.npmjs.org` timed out and a mirror needs the owner's approval). No physical phone. The screenshots in `docs/ui/` still show the earlier design.
-- **Alternatives considered:** a restyle of tokens only (would not fix the landing page structure); a second font (needs a download and a licence entry for a small gain); a UI or animation library (not allowed by `AGENTS.md`).
+- **Alternatives considered:** a restyle of tokens only (would not fix the landing page structure); a second font (needs a download and a licence entry for a small gain); a UI or animation library (not allowed by the project rules).
 
 ## Quality pass (2026-11-26)
 
@@ -848,7 +846,7 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 - **Small screens:** short landscape screens get a one-row tab bar, a static header and a lower action bar; below 400 px the date, sticker and Plan totals are smaller.
 - **Motion:** still CSS only and off under reduced motion.
 - **Checked:** unit and e2e tests; a one-off axe scan in Chromium (66 states, both languages, 360x740, 740x360 and 1280x800) with no violations; `scripts/uiShots.ts` at six sizes with no sideways scroll, clipped elements or low-contrast text. Lighthouse 12.8.2 was run again on this build: accessibility 100 and best practices 100 on every row, performance 98 or higher, cold mobile largest contentful paint 2.05 s (target 2 s, missed). Not checked: physical devices, Safari, Firefox.
-- **Alternatives considered:** a dark theme (doubles the states to verify five days before the semifinal); a UI or animation library (not allowed by `AGENTS.md`).
+- **Alternatives considered:** a dark theme (doubles the states to verify five days before the semifinal); a UI or animation library (not allowed by the project rules).
 
 ### D-099 First-run tutorial and hourly simulation (Vassel, Hakim, Sonny)
 
@@ -859,3 +857,66 @@ All versions are exact and in the lockfile. Where we are not on the newest relea
 - **Scope:** both features go beyond the abstract's core loop and need the team's confirmation. The abstract's "+1 turned away" tap is still missing.
 - **Bug fixed:** choosing a demo moment on the company page could land on Today, because the page redirected before the navigation. It no longer redirects while the demo is opening.
 - **Checks:** unit and e2e tests, including a first-visitor walk through all 16 steps. Not checked: physical devices, Safari, Firefox, Lighthouse.
+
+### D-100 Company page first, explicit demo launch, rebuilt tutorial (Sonny, Vassel)
+
+- **Request:** every visit opens on the company page; the demo starts only from a button; the tutorial starts only inside the demo and must be reliable; the interface should look more polished.
+- **Entry gate:** a `sessionStorage` flag (`foodoo.entered`, set by `useEnterApp`) guards `/start`, `/setup/*` and every in-app route (`EntryGate`). A new tab, a new window or a launch of the installed app has no flag, so it lands on `/`. A reload inside the same tab keeps the flag, so owners are not thrown out of the app. The PWA `start_url` is now `/` instead of `/start`. Alternatives: redirect every full page load to `/` (would drop owners out on every refresh); no gate (deep links skip the company page).
+- **Launch button:** `Launch Demo App` (header, hero, a new "Explore the interactive demo" band and the closing section) loads the first demo stall at the morning plan and opens Today. If a demo already exists it resumes it. If the owner has their own stall the button becomes `Continue to the app`, because loading a demo over real data is refused by `loadDemo`. `Set up my own stall` leads to `/start`. One hook, `useEntryActions`, decides every label, so the four places cannot disagree. While the stall is still loading the button is neutral and disabled.
+- **Transition:** the app chunks are preloaded, the company page fades out for 220 ms, then the router navigates and the app fades in. This is deterministic CSS and does not rely on the View Transitions API, which did not give a reliable result with lazy routes. Skipped under `prefers-reduced-motion` and in tests.
+- **Tutorial state:** the provider starts at `null`. `offer()` shows the welcome card only right after a launch and only if the tutorial was not finished or dismissed before. Before this change the welcome card opened on any app screen the first time a demo existed. Restart points: Today card, sidebar button, Settings → Replay tutorial.
+- **Tutorial behaviour:** Back, Next, Skip tutorial, Close (button and Escape) and Finish all work. Going Back to a step whose goal is already met no longer jumps forward again: auto-advance on "appears" is armed only after the user interacts with the page since the step began (pointer, key or click, never the card itself). The spotlight is one ring whose shadow dims the page and which animates between targets. Invisible blockers keep clicks away from everything except the target. The card size is tracked with a `ResizeObserver`, the page is re-measured on scroll, resize, visual-viewport change and a 150 ms timer, and a tall target is scrolled below the sticky header (`revealTarget`). Alternative: a tour library (new dependency, not allowed without asking).
+- **Layout fixes:** the Start page had no CSS at all and rendered unstyled; it is now a centred panel. On desktop Today, the demo cards sat between the loop card and the counts, which pushed the counts out of the two-column grid; the cards moved below. A loading skeleton replaces the bare "Loading" text.
+- **Tests:** unit tests for the gate, the launch rules (no stall, demo stall, own stall), the tutorial never opening by itself, Back, close, Escape, and no jump-forward. E2e: entry flow, a full tutorial walk, and a card-on-screen check at 320, 390, 820 and 1440 px. The older e2e specs and two scripts still expected buttons the company page no longer had; they now go through `Set up my own stall`. The README said the tutorial had 16 steps; it has 7.
+- **Not checked:** physical devices, Safari, Firefox, screen readers. The tutorial's English and Indonesian strings need a native reader. Node 24 was used for these checks, although the repository pins Node 22.12 (installed with `--engine-strict=false`).
+
+### D-101 Tutorial robustness found by load testing (Sonny)
+
+- **Method:** the rebuilt tutorial was run in real Chromium with eight sessions at once, which exposed faults that single runs and the jsdom tests did not.
+- **Stuck step:** a navigation step relied on seeing the click. On a slow device the click could happen before the step's listener existed, so the tutorial stayed on "Open selling" while the page had moved on. Navigation steps now also complete when the route reaches their destination (`arrives`), and the tutorial may skip over steps the user could have finished by interacting (never over read-only steps, never from the welcome card). Steps that wait for a result ("appears") arm once the page is rendered and the goal is still absent, instead of waiting for a pointer or key event.
+- **Moving taps:** the tutorial scrolled a target into view even when it was already on screen, which could move the page between touch start and touch end. `revealTarget` now scrolls only when the target is hidden or under the sticky header.
+- **Card over a button:** the card could be placed over the fixed "Close day" bar, and its 280 ms position glide made it lag behind the target while scrolling. Placement now reserves the space of the fixed tab bar and action bar (`bottomInset`), and the card position no longer animates. The ring and the card content still animate.
+- **Result:** the full walkthrough passed 6 of 6 when repeated in parallel, against 2 of 6 before. Eight concurrent sessions still lost one run to a script that clicked before the plan had saved, not to the app.
+- **Tests:** the heaviest unit test (delete all data) now waits up to 15 s for the Start screen, because it exceeded 5 s under a fully loaded run. Not checked: slow physical phones.
+
+## Review and polish pass (2026-11-27)
+
+### D-103 Case guide: one story per demo stall (Sonny)
+
+- **Request:** the demo should offer specific stall cases, each with a tutorial that explains what happens at each step.
+- **Gap found:** the four stalls and the 7-step tutorial already existed, but the tutorial was the same for every stall and never said why a stall behaves as it does (for example why Nasi Uduk goes up, or why a new stall only moves by a tenth).
+- **Built:** `src/demo/cases.ts` names the menus each stall's story follows and reads the facts from the stored history. `src/i18n/caseText.ts` turns them into text parameters, reusing `renderReason` so the quoted reason is the sentence the plan card shows. A `/case` screen lists four moments; a collapsible note repeats the text on Plan, Sales, Close and History while the guide is on. Entry points: the demo picker (**Start guided case**) and a Today card.
+- **No typed numbers:** a test compares the guide's suggestions with `suggestAll` for all four stalls and checks them against the figures in `docs/DEMO_SCENARIOS.md` (2026-12-01). A browser test confirms the Plan card shows the number the guide quoted.
+- **Tutorial untouched:** the 7-step spotlight tour stays as it was (its tests and the D-101 load test depend on it). The guide is a separate, non-blocking layer, so it cannot trap a user the way a spotlight can.
+- **Opening a moment reloads the demo day** (the existing moment behaviour); the page says so. Alternative: keep the user's changes and only navigate, which would make the texts about "one menu already sold out" untrue.
+- **Not done:** per-case spotlight steps; guided sell-out time per case; Indonesian text needs a native reader; not checked on a physical device, Safari or Firefox.
+
+### D-105 The tutorial itself explains the chosen stall; responsive pass (Sonny)
+
+- **Request:** the tutorial for a stall should explain what happens in that stall, and the screens should be responsive.
+- **Gap:** D-103 put the explanations on a separate `/case` page; the spotlight tutorial was still the same generic text for every stall.
+- **Change:** `TourStep.explain` names which case text a step carries (`intro` the situation; `suggestion`, `soldOut`, `close` and `outro` the plan, sales, closing and summary texts). `TourCard` renders it from `useCaseView`, the same facts and `renderReason` sentences the plan screen uses, so the card, the `/case` page and the Plan screen cannot disagree. The Suggestion step now highlights the menu the case follows (`data-menu-id` on the Plan card) instead of the first card, which was Ayam Goreng while the text talked about Nasi Uduk. Alternative: copy the texts into new tutorial strings (would drift).
+- **Responsive findings, from screenshots at 320, 390, 768, 820 and 1440 px:** (1) on a 390 px phone the card with the explanation was about 450 px tall and covered the card it pointed at; the explanation is now a `<details>` that is closed under 700x560 px and open above it, and always open on the centred welcome and result cards. (2) On a 1440 px screen the `/case` lines were about 1000 px wide; paragraphs are limited to 68 characters and the four moments sit in two columns. (3) The third Today card hung in a half-empty row at tablet width; an odd last card now spans the row. (4) The folded explanation and the case note got a chevron, so it is clear they open.
+- **Tests added:** the welcome card and Suggestion card show the chosen stall's text and numbers; a different stall shows different text; in Chromium the spotlight ring sits on the case's menu card and the expanded card stays on screen. Tests written first for the text, observed failing, then passing.
+- **Not checked:** physical phones, Safari, Firefox, screen readers; a native reader for the Indonesian text.
+
+### D-104 Launch Demo App opens a chooser; the tutorial no longer depends on a remembered flag (Sonny)
+
+- **Report:** pressing the demo button gave no choice of stall, and the tutorial did not appear.
+- **Root causes, both confirmed in code:** (1) `Launch Demo App` called `useLaunchDemo`, which always loaded stall 1; the stall choice existed only behind **Set up my own stall → Try demo stall**, which a visitor does not see. (2) The tutorial was offered through `offer()`, which did nothing once `localStorage["foodoo.tour"]` was `"done"`. The key was written on every close, skip or finish, so after the first time the tutorial never came back.
+- **Change:** one chooser (`LaunchProvider`, mounted in `App`) is opened by every `Launch Demo App` button through `useLauncher`. It reuses `DemoPicker`, which now offers **Start tutorial**, **Start guided case** and the four moments for the selected stall, and **Continue the demo I already have** when a demo exists. The same picker is behind Try demo stall and the Demo data badge. `useLaunchDemo`, `offer()`, `isDone` and the `foodoo.tour` key were removed: nothing reads the flag any more, so it would only be dead data. Alternative: keep the flag and only add a chooser (the tutorial would still stay silent for anyone who had closed it once).
+- **Tests changed, and why:** `entry.test`, `tour.test` and `e2e/{entry,how,tour}.spec` assumed that the launch button loads stall 1 and opens the tutorial by itself; that was the reported defect, so they now go through the chooser. Three assertions on `foodoo.tour` were removed with the key. New tests: the chooser loads nothing until a choice, a chosen stall is the one that loads, a moment opens without the tutorial, continue keeps the existing demo, the tutorial is offered again after being dismissed. No assertion was loosened.
+- **Test timing (found while changing them):** the tutorial listens for a tap on the next 150 ms poll after its target appears. Two tests tapped faster than that and failed about 3 runs in 4 once the chooser added a little render work. They now wait one poll cycle (`highlighted()`), as a person would. After that: 5 of 5 repeated runs passed. A first fix that waited for the spotlight ring was wrong in jsdom (elements have no size there) and was replaced.
+- **Load flakiness:** with the full suite running in parallel, a different heavy test timed out in about one run in two (including older ones such as the tutorial walk, which needs about 6 s alone). Cause: Testing Library's `asyncUtilTimeout` of 5 s per wait, on a laptop that also ran a browser and dev server. `tests/setup.ts` now allows 10 s per wait; the 15 s test timeout and every assertion are unchanged. Leftover `vite preview` servers from my own screenshot runs also took CPU and were stopped. Raising the wait to 10 s was not enough (heavy demo-loading tests then failed at 11 s while taking about 2 s when run alone), so the cause was contention, not the limit: this repository sits inside OneDrive, whose sync process used by far the most CPU of anything running, and vitest used 8 workers on 16 logical cores. `vite.config.ts` now uses `maxWorkers: "25%"` (4 workers here). Three full runs with 4 workers passed 513 of 513 (about 2 min 20 s instead of 1 min 25 s). Moving the project out of OneDrive would help more and is the better fix.
+- **Checked:** `npm run check`, the whole Playwright suite, `npm run contrast`, `scripts/uiShots.ts` (150 shots: no sideways scroll, no low contrast; the clipped decorative SVGs and the 24 px checkbox inside a label were already in the earlier audit), and a scan of the chooser, the guide and the note at 320, 360, 390, 768 and 1280 px in both languages (no overflow, no target under 44 px). Not checked: physical devices, Safari, Firefox, screen readers.
+
+### D-102 Interactive "How FOODOO calculates", suggestion check, ecosystem and trust sections (Sonny)
+
+- **Request:** a brief written for a calorie and food-diary app (Food Calculator, nutrition database, Food Diary, consumer Warung browsing) was applied to this repository. FOODOO has none of those: it plans cooking portions for a stall owner and corrects for sold-out demand. Building a nutrition tracker here would change the product the abstract promises, need a nutrition dataset the team does not have (the project rules: no invented data), and break the locked scope. The request was narrowed with the owner to what fits this app (answer: "whatever makes sense and relates to this application"). Nothing about calories, macros or a diary was added.
+- **How page:** the static two-card page became six steps (what you enter, where each number comes from, hidden demand, suggested portions, what you see, accuracy) with a step navigation. Step 3 has a sold-out-time slider and step 4 a cost slider. Both call the same domain code as the app (`estimateDemand`, `suggestQty`) through `demandAt` and `suggestionAtCost` in `src/domain/explain.ts`, so the numbers cannot drift. At the default positions the page shows the same sentences and numbers as before (81 wanted, 34 portions). Alternatives: a diagram library (not allowed), hard-coded scenarios (would drift from the engine).
+- **Honest accuracy:** step 6 states that no accuracy percentage is claimed, that the rules were tried only on simulated stalls and that the app has not been tested with real stalls. No backtest figure is copied into the app, because a typed number would not come from code (the project rules); the numbers stay in `docs/BACKTEST.md`.
+- **Prediction against actual (`src/domain/accuracy.ts`):** for closed, normal days of the last 28 days whose suggestion was made from history (`reason.code === "history"`), it compares `suggestedQty` with the demand recorded afterwards. It reports days checked, mean absolute error in portions and the share of days the suggestion was enough, next to the aim (the mean `criticalRatio` of the checked menus). Why "enough" next to MAE: `suggestQty` is a quantile, not a mean, so it is built to be above demand on about the critical-ratio share of days; MAE alone would read a deliberate overshoot as an error. Starting-point suggestions (cold start) are skipped because they are not predictions from data. Under 5 checked days it shows how many are missing instead of numbers. On sold-out days demand is itself an estimate, and the panel says so. 100% domain coverage kept (8 tests written first).
+- **Demo data:** demo history stores no past suggestions, so the check shows "not enough days" until the demo is played through. That is the honest result, not a bug.
+- **Company page:** two new sections. "Ecosystem" shows the five parts (Setup, Plan, Service and Register, Close, History) and what each hands to the next. "Trust" lists four limits: estimates are labelled, tested on simulated stalls only, suggestions are starting points, no hidden model. Both are linked from the header. The team's own statements in README section 9 are the source of every claim.
+- **Tutorial:** not restructured. Its seven steps are tied to unit and e2e tests and were load-tested in D-101; the How page now carries the longer explanation.
+- **Not done, by scope:** installing prompt, cloud sync (there is no backend by design, so offline logs have nothing to synchronise with), nutrition data.

@@ -386,3 +386,34 @@
     left: auto;
   }
 }
+
+.sidebar__tour {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .sidebar__tour {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: var(--tap-min);
+    margin-top: auto;
+    padding: var(--space-3);
+    border: 1px solid var(--orange);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--on-dark);
+    font: inherit;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .sidebar__tour:hover {
+    background: var(--navy-700);
+  }
+
+  .sidebar__tour + .sidebar__about {
+    margin-top: 0;
+  }
+}

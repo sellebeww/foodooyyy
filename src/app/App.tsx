@@ -4,11 +4,16 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { useT } from "../i18n/index.ts";
 import { Welcome } from "../screens/Welcome.tsx";
 import { registerPwa } from "./registerPwa.ts";
+import { EntryGate } from "./EntryGate.tsx";
 import { RequireStall } from "./RequireStall.tsx";
 import { useToast } from "./toast.ts";
 import { Splash } from "../components/Splash.tsx";
+import { LaunchProvider } from "../components/LaunchProvider.tsx";
 import { Tour } from "../components/Tour.tsx";
 
+const Case = lazy(() =>
+  import("../screens/Case.tsx").then((m) => ({ default: m.Case })),
+);
 const Close = lazy(() =>
   import("../screens/Close.tsx").then((m) => ({ default: m.Close })),
 );
@@ -70,32 +75,49 @@ export function App() {
   }, []);
 
   return (
-    <>
+    <LaunchProvider>
       <a className="skip-link" href="#main">
         {t("app.skip")}
       </a>
       <Suspense fallback={<Splash />}>
         <Routes>
           <Route path="/" element={<Welcome />} />
-          <Route path="/start" element={<Start />} />
+          <Route
+            path="/start"
+            element={
+              <EntryGate>
+                <Start />
+              </EntryGate>
+            }
+          />
           <Route path="/how" element={<HowItWorks />} />
           <Route
             path="/setup/menus"
             element={
-              <RequireStall>
-                <SetupMenus />
-              </RequireStall>
+              <EntryGate>
+                <RequireStall>
+                  <SetupMenus />
+                </RequireStall>
+              </EntryGate>
             }
           />
           <Route
             path="/setup/hours"
             element={
-              <RequireStall>
-                <SetupHours />
-              </RequireStall>
+              <EntryGate>
+                <RequireStall>
+                  <SetupHours />
+                </RequireStall>
+              </EntryGate>
             }
           />
-          <Route element={<Layout />}>
+          <Route
+            element={
+              <EntryGate>
+                <Layout />
+              </EntryGate>
+            }
+          >
             <Route path="/today" element={<Today />} />
             <Route path="/plan" element={<Plan />} />
             <Route path="/service" element={<Sales />} />
@@ -105,11 +127,12 @@ export function App() {
             <Route path="/day/:date" element={<DayDetail />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/simulate" element={<Simulate />} />
+            <Route path="/case" element={<Case />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
       <Tour />
-    </>
+    </LaunchProvider>
   );
 }

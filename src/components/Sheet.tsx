@@ -21,7 +21,9 @@ interface SheetProps {
 }
 
 function focusables(node: HTMLElement): HTMLElement[] {
-  return Array.from(node.querySelectorAll<HTMLElement>(FOCUSABLE));
+  return Array.from(node.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+    (item) => item.getClientRects().length > 0 && !item.matches(":disabled"),
+  );
 }
 
 export function Sheet({ open, title, onClose, children }: SheetProps) {
@@ -38,10 +40,13 @@ export function Sheet({ open, title, onClose, children }: SheetProps) {
         ? document.activeElement
         : null;
     const node = panel.current;
-    const firstField = node?.querySelector<HTMLElement>(
-      "input, select, textarea",
-    );
-    (firstField ?? node)?.focus();
+    if (node) {
+      const controls = focusables(node);
+      const firstField =
+        controls.find((item) => item.hasAttribute("data-initial-focus")) ??
+        controls.find((item) => item.matches("input, select, textarea"));
+      (firstField ?? node).focus({ preventScroll: true });
+    }
     return () => {
       previous?.focus();
     };
@@ -66,7 +71,11 @@ export function Sheet({ open, title, onClose, children }: SheetProps) {
     if (first === undefined || last === undefined) {
       return;
     }
-    if (event.shiftKey && document.activeElement === first) {
+    if (
+      event.shiftKey &&
+      (document.activeElement === first ||
+        document.activeElement === panel.current)
+    ) {
       event.preventDefault();
       last.focus();
     } else if (!event.shiftKey && document.activeElement === last) {

@@ -29,6 +29,7 @@ export const en = {
   "nav.service": "Sales",
   "nav.close": "Close",
   "nav.settings": "Settings",
+  "nav.tutorial": "Tutorial",
 
   "header.demo": "Demo data",
   "header.demoSwitch": "Change demo",
@@ -57,7 +58,7 @@ export const en = {
   "welcome.continue": "Continue setup",
   "demo.pick.title": "Choose a demo stall",
   "demo.pick.intro":
-    "All four stalls use made-up data. Their history always ends yesterday, on whatever day you open the app.",
+    "Choose a stall to open its demo and guided tutorial. Each stall uses practice data.",
   "demo.pick.hours": "Open {open}–{close}",
   "demo.pick.history": "{days} days of history",
   "demo.s1.desc":
@@ -68,19 +69,40 @@ export const en = {
     "Night stall open past midnight. Sales after 00:00 still count for the evening the stall opened.",
   "demo.s4.desc":
     "Stall that opened four days ago. There is not enough history yet, so suggestions start from the usual portions and adjust.",
-  "demo.launch.stall": "1. Pick a stall",
-  "demo.launch.moment": "2. Press a moment to open it",
+  "tour.s1.exercise": "Track a sold-out dish",
+  "tour.s2.exercise": "Compare weekday demand",
+  "tour.s3.exercise": "Follow the overnight shift",
+  "tour.s4.exercise": "Plan the first week",
+  "tour.s1.closeTask":
+    "Count the portions left for each dish still available. Close the day and save the counts to compare leftovers with missed sales.",
+  "tour.s2.closeTask":
+    "Enter the leftovers from lunch. If a holiday or unusual event affected sales, mark the day as unusual before closing and saving.",
+  "tour.s3.closeTask":
+    "Enter leftovers from this shift, including sales after midnight. Close and save the day under its opening date.",
+  "tour.s4.closeTask":
+    "Count the portions left, including any unsold {menu}. Close and save this day to add an observation for the next plan.",
+  "demo.launch.practice": "Stall for practice",
+  "tour.s1.task":
+    "Compare {menu} with {menu2}. Look for the dish that often sells out before closing.",
+  "tour.s2.task":
+    "Read the reason for {menu}. Compare today’s suggestion with its usual portions before the lunch rush.",
+  "tour.s3.task":
+    "Check the opening date and the plan for {menu}. This shift runs from {open} until {close} the next morning.",
+  "tour.s4.task":
+    "Find the usual quantity for {menu}. Use + or − to try a starting quantity while the stall builds its history.",
+  "demo.launch.stall": "Choose your stall",
+  "demo.launch.moment": "Practice a stage independently",
   "demo.launch.note":
     "A moment sets a simulated demo time, shown next to the Demo data badge.",
   "demo.launch.realClock": "Open with the real clock",
   "demo.moment.plan.title": "Morning plan",
-  "demo.moment.plan.desc": "Suggested portions, ready to accept",
+  "demo.moment.plan.desc": "Review the suggested portions and save a plan.",
   "demo.moment.service.title": "Selling",
-  "demo.moment.service.desc": "Food is cooked and one menu has sold out",
+  "demo.moment.service.desc": "Select a dish to record when it sells out.",
   "demo.moment.close.title": "Closing time",
-  "demo.moment.close.desc": "Two menus sold out, leftovers to enter",
+  "demo.moment.close.desc": "Enter leftover portions, then close the day.",
   "demo.moment.summary.title": "Weekly summary",
-  "demo.moment.summary.desc": "Past days, charts and money",
+  "demo.moment.summary.desc": "Open a day to review sales and leftovers.",
   "demo.refreshed": "Demo dates moved up to today",
   "welcome.demo": "Try demo stall",
   "welcome.demoNote":
@@ -369,7 +391,7 @@ export const en = {
   "settings.about.title": "About",
   "settings.about.version": "Version {version}",
   "settings.about.body":
-    "FOODOO suggests portions with fixed, explainable rules. It uses no AI model. The licences of the libraries and fonts, and the AI assistance used to build the app, are listed in the project README.",
+    "FOODOO suggests portions with fixed, explainable rules. It uses no AI model. The licences of the libraries and fonts are listed in the project README.",
   "settings.about.link": "Open the project README",
 
   "register.title": "Register",
@@ -464,7 +486,7 @@ export const en = {
     "FOODOO uses a few fixed rules. This page shows them on an example, worked out by the same code the app uses for your stall.",
   "how.exampleNote":
     "Example stall. These numbers are an example, not your data.",
-  "how.demandTitle": "1. How many people wanted a menu that sold out",
+  "how.demandTitle": "3. How many people wanted a menu that sold out",
   "how.demandSetup":
     "Example: Nasi Uduk. {cooked} portions were cooked, and the last one was sold at {time}.",
   "how.barBefore": "(before {time})",
@@ -482,7 +504,7 @@ export const en = {
     "The guess is never more than 3 times what was cooked ({cap} here).",
   "how.ruleBusy":
     "A busy hour counts 4 times, a normal hour 2 times and a quiet hour once. You set them in Settings.",
-  "how.suggestTitle": "2. How tomorrow's portions are suggested",
+  "how.suggestTitle": "4. How tomorrow's portions are suggested",
   "how.suggestMoney":
     "Each extra portion sold earns {gain}. Each portion left over loses {loss}, what it cost to cook.",
   "how.suggestCover":
@@ -503,6 +525,104 @@ export const en = {
   "how.notCloud":
     "It sends nothing on its own. Your data stays on this device unless you share or export it.",
   "how.back": "Back to the app",
+  "how.nav.label": "Steps on this page",
+  "how.nav.inputs": "What you enter",
+  "how.nav.sources": "Where numbers come from",
+  "how.nav.demand": "Hidden demand",
+  "how.nav.suggest": "Suggested portions",
+  "how.nav.result": "What you see",
+  "how.nav.accuracy": "Accuracy",
+  "how.inputsTitle": "1. What you tell FOODOO",
+  "how.inputsLead":
+    "FOODOO has no food database and no nutrition figures. It starts from what you enter about your own stall.",
+  "how.input.menusTitle": "Menus",
+  "how.input.menusBody":
+    "Name, selling price, cost to cook and usual portions. Set once, change any time.",
+  "how.input.hoursTitle": "Busy hours",
+  "how.input.hoursBody": "Mark each opening hour as quiet, normal or busy.",
+  "how.input.nightTitle": "Each day",
+  "how.input.nightBody":
+    "Tap Sold out during service, or ring up sales in Register mode. At night, enter the leftovers.",
+  "how.input.unusualTitle": "Unusual days",
+  "how.input.unusualBody":
+    "Mark a rainy day or a holiday as unusual so it does not shape later suggestions.",
+  "how.sourcesTitle": "2. Where each number comes from",
+  "how.sourcesLead":
+    "Nothing comes from outside your phone. Each number is either typed by you or worked out by a fixed rule.",
+  "how.sources.col.number": "Number",
+  "how.sources.col.from": "Comes from",
+  "how.sources.col.kind": "Kind",
+  "how.kind.entered": "You entered",
+  "how.kind.calculated": "Calculated",
+  "how.source.cooked": "Portions cooked",
+  "how.source.cookedFrom":
+    "The morning plan: suggested first, then edited by you.",
+  "how.source.soldOut": "Sold-out time",
+  "how.source.soldOutFrom":
+    "Your tap in Service, or the last sale in Register mode.",
+  "how.source.leftover": "Leftover portions",
+  "how.source.leftoverFrom": "You, when you close the day.",
+  "how.source.demand": "People who wanted a menu",
+  "how.source.demandFrom":
+    "Cooked minus leftover. If the menu sold out, an estimate from the busy hours.",
+  "how.source.suggestion": "Suggested portions",
+  "how.source.suggestionFrom": "Past demand, with your price and cost.",
+  "how.source.money": "Money figures",
+  "how.source.moneyFrom": "Your prices and costs as they are today.",
+  "how.demandTry": "Move the sold-out time and watch the estimate change.",
+  "how.demandSlider": "Sold out at",
+  "how.ruleNow.scaled":
+    "Rule in use: the busy hours scale the {cooked} sold portions up to a whole day.",
+  "how.ruleNow.late":
+    "Rule in use: it sold out at closing time, so wanted = cooked ({cooked}).",
+  "how.ruleNow.capped":
+    "Rule in use: the cap. Almost nobody had arrived yet, so the guess stops at {cap}.",
+  "how.suggestTry":
+    "Change what one portion costs to cook and see how the suggestion moves.",
+  "how.costSlider": "Cost to cook one portion",
+  "how.suggestPrice": "Selling price in the example: {price}.",
+  "how.resultTitle": "5. What you see in the app",
+  "how.resultBody":
+    "On the Plan screen, each menu card shows the suggested portions with a one-line reason, like the one in step 4.",
+  "how.resultMore":
+    "The reason says how many past days were used, how many of them sold out or had leftovers, and how the number compares with last time.",
+  "how.resultLoop":
+    "After you cook and close the day, the real numbers go back into step 3 and tomorrow's suggestion is worked out again.",
+  "how.accuracyTitle": "6. How accurate is this?",
+  "how.accuracyLead":
+    "FOODOO states no accuracy percentage. It has not been tested with real stalls. The rules were tried only on simulated stalls, and those results describe the simulation, not your warung.",
+  "how.affectTitle": "What makes it less accurate",
+  "how.affect1":
+    "Fewer than 5 days of history: the suggestion is only a starting point.",
+  "how.affect2":
+    "A missed or guessed sell-out time: the demand is then an estimate.",
+  "how.affect3": "Unusual days that were not marked.",
+  "how.affect4": "Busy hours that do not match your real day.",
+  "how.affect5":
+    "Changed prices or costs: money figures use today's values, also for past days.",
+  "how.improveTitle": "What you can do",
+  "how.improve1": "Enter the leftovers every night.",
+  "how.improve2": "Confirm the sell-out time when you can.",
+  "how.improve3": "Mark unusual days.",
+  "how.improve4": "Adjust the busy hours in Settings.",
+  "check.title": "Suggestions against what happened",
+  "check.lead":
+    "For each closed normal day with a suggestion made from history, FOODOO compares the suggestion with how many people wanted that menu. Only the last 28 days are used.",
+  "check.empty":
+    "Not enough days yet: {count} of {min} days checked. The check appears once {min} days with a suggestion made from history have been closed.",
+  "check.days": "Days checked",
+  "check.error": "Average miss",
+  "check.errorValue": "{value} portions",
+  "check.covered": "Suggestion was enough",
+  "check.coveredValue": "{value}% of days",
+  "check.target":
+    "Aim: {value}% of days. Your price and cost set this aim, because FOODOO does not try to cover every day.",
+  "check.overUnder":
+    "Above what people wanted on {over} days, below on {under} days.",
+  "check.estimateNote":
+    "On sold-out days, how many people wanted the menu is itself an estimate.",
+  "check.scopeNote":
+    "This checks your own records. It is not a promise about tomorrow.",
   "close.howLink": "How is this worked out?",
   "settings.about.how": "How FOODOO calculates",
   "settings.data.storageKept":
@@ -571,8 +691,68 @@ export const en = {
   "landing.nav.menu": "Menu",
   "landing.nav.problem": "The problem",
   "landing.nav.loop": "How it works",
+  "landing.nav.ecosystem": "Ecosystem",
+  "landing.nav.trust": "Trust",
+  "landing.eco.title": "One loop, five connected parts",
+  "landing.eco.lead":
+    "FOODOO is for owners of warung and small food stalls who decide portions by feel. No part stands alone: what you record in one becomes the input of the next.",
+  "landing.eco.passes": "Passes on:",
+  "landing.eco.setupTitle": "Setup",
+  "landing.eco.setupBody": "Menus, prices, costs and busy hours, entered once.",
+  "landing.eco.setupOut":
+    "the numbers every suggestion and estimate is built on.",
+  "landing.eco.planTitle": "Plan",
+  "landing.eco.planBody": "Suggests portions for each menu, with a reason.",
+  "landing.eco.planOut": "the portions you cook, after your edits.",
+  "landing.eco.serviceTitle": "Service and Register",
+  "landing.eco.serviceBody":
+    "One tap when a menu sells out, or sales rung up in Register mode.",
+  "landing.eco.serviceOut": "the time customers could no longer be served.",
+  "landing.eco.closeTitle": "Close",
+  "landing.eco.closeBody": "Leftovers, and the sell-out time if it was missed.",
+  "landing.eco.closeOut":
+    "how many people wanted each menu, counted or estimated.",
+  "landing.eco.historyTitle": "History",
+  "landing.eco.historyBody":
+    "Past days, the weekly summary and a check of suggestions against what happened.",
+  "landing.eco.historyOut": "closed normal days that shape tomorrow's plan.",
+  "landing.eco.loop":
+    "Then the loop starts again with a better-informed morning plan.",
+  "landing.trust.title": "What FOODOO claims, and what it does not",
+  "landing.trust.lead":
+    "A stall owner needs numbers that can be checked. These are the limits.",
+  "landing.trust.estimateTitle": "Estimates are labelled",
+  "landing.trust.estimateBody":
+    "When a menu sold out, how many people wanted it is a guess from your busy hours. It always carries the word estimate.",
+  "landing.trust.simulatedTitle": "Tested on simulated stalls only",
+  "landing.trust.simulatedBody":
+    "The backtest and the demo stalls use made-up data. FOODOO has not been tested with real stall owners, so it states no accuracy percentage.",
+  "landing.trust.yoursTitle": "Suggestions are starting points",
+  "landing.trust.yoursBody":
+    "You change every number before cooking. FOODOO does not promise more profit or fewer leftovers for your stall.",
+  "landing.trust.rulesTitle": "No hidden model",
+  "landing.trust.rulesBody":
+    "No AI model and no server. The same fixed rules are walked through, step by step, on the page below.",
   "landing.nav.team": "Team",
   "landing.nav.openApp": "Open the app",
+  "landing.cta.launch": "Launch Demo App",
+  "landing.cta.continue": "Continue to the app",
+  "landing.cta.setup": "Set up my own stall",
+  "landing.cta.note":
+    "Choose a stall to start its tutorial. Practice data stays on this device.",
+  "landing.try.eyebrow": "Try it now",
+  "landing.try.title": "Explore the interactive demo",
+  "landing.try.lead":
+    "Explore how four stalls plan portions, record sales and count leftovers at closing time.",
+  "landing.try.openTitle": "Four stalls to choose from",
+  "landing.try.openBody":
+    "A busy morning stall, an office lunch stall, a night stall and a brand-new one, each with made-up history on this device.",
+  "landing.try.tourTitle": "A tutorial and a guided case",
+  "landing.try.tourBody":
+    "Seven short steps through one day, or a case that explains what happens in that stall and why. Stop or replay any time.",
+  "landing.try.freeTitle": "Then explore freely",
+  "landing.try.freeBody":
+    "Change numbers, mark sell-outs, close the day, or switch to another demo stall.",
   "landing.problemLead":
     "Cook too much and money is wasted. Cook too little and customers leave, and the records never show how many.",
   "landing.loopLead": "Four small moments a day, each only a few taps.",
@@ -608,11 +788,17 @@ export const en = {
   "today.hint.close":
     "Count what is left so later suggestions can learn from today.",
   "tour.label": "Tutorial",
+  "tour.back": "Back",
+  "tour.close": "Close tutorial",
+  "tour.skipAll": "Skip tutorial",
+  "tour.tryIt": "Press the highlighted item to continue.",
+  "tour.card.title": "Walk through a full day",
+  "tour.card.body":
+    "Seven short steps through one full day: plan, sell, close and review.",
+  "tour.caseLabel": "What happens in this stall",
   "tour.progress": "Step {step} of {total}",
   "tour.next": "Next",
-  "tour.skip": "Skip step",
   "tour.finish": "Finish",
-  "tour.end": "End tutorial",
   "tour.goThere": "Take me there",
   "tour.replay": "Replay tutorial",
   "tour.start": "Start tutorial",
@@ -621,7 +807,7 @@ export const en = {
   "tour.sim": "Try the simulation",
   "tour.intro.title": "One day in 7 steps",
   "tour.intro.body":
-    "Plan, sell, close, then see the result. The demo restarts at the morning, and its data is made up.",
+    "Plan, sell, close, then see the result. The demo restarts at the morning, and its data is made up. Each step also explains what happens in this stall.",
   "tour.suggestion.title": "A suggestion with a reason",
   "tour.suggestion.body":
     "Each card shows how many portions to cook and why. Change a number with + and −.",
@@ -648,7 +834,7 @@ export const en = {
     "Watch simulated customers arrive hour by hour and see the analysis update.",
   "sim.open": "Open simulation",
   "sim.note":
-    "Simulation on made-up demo data. Nothing here is saved to the stall.",
+    "Select Next hour to see how sales change, or Play to advance automatically. Finish day updates the suggested portions for tomorrow. Your stall data stays separate.",
   "sim.emptyTitle": "The simulation needs a demo stall",
   "sim.emptyBody": "Load a demo stall with at least one active menu.",
   "sim.day": "Day {day}: {date}",
@@ -689,4 +875,114 @@ export const en = {
   "sim.signal.sellsOut": "Often sells out",
   "sim.signal.leftOver": "Often left over",
   "sim.signal.steady": "Steady",
+  "case.title": "Case guide",
+  "case.eyebrow": "Guided case",
+  "case.intro":
+    "Each demo stall is built to show one situation. Follow the four moments of its day. Each one says what to try and what FOODOO does, with numbers from this stall's own history.",
+  "case.try": "Try this",
+  "case.happens": "What happens",
+  "case.open.plan": "Open the morning plan",
+  "case.open.service": "Open sales",
+  "case.open.close": "Open closing time",
+  "case.open.summary": "Open the weekly summary",
+  "case.resetNote":
+    "Opening a moment sets the demo to that time of day and loads it again, so changes you made to the demo day are reset. The history stays the same.",
+  "case.another":
+    "To follow another case, press the Demo data badge at the top and choose a stall.",
+  "case.stop": "Stop the guide",
+  "case.back": "Back to the case guide",
+  "case.note.label": "Case guide note",
+  "case.card.title": "Follow a case",
+  "case.card.body":
+    "Each demo stall tells one story. Follow it moment by moment, with an explanation of what happens and why.",
+  "case.card.open": "Open the case guide",
+  "case.emptyTitle": "The case guide needs a demo stall",
+  "case.emptyBody":
+    "The guide follows the story of a demo stall. Your own stall is never changed. Open a demo stall first.",
+  "case.unavailableTitle": "No menu to follow",
+  "case.unavailableBody":
+    "Every menu of this demo stall is archived. Restore one in Settings, or load the demo again.",
+  "demo.launch.learnTitle": "Learn how it works with this stall",
+  "demo.launch.tourName": "7-step tutorial",
+  "demo.launch.tourBody":
+    "Press the highlighted items through one full day. Each step also explains what happens in this stall and why.",
+  "demo.launch.resume": "Continue the demo I already have",
+  "demo.launch.resumeNote":
+    "Opens Today without loading anything again. Or pick a stall below to start over.",
+  "demo.launch.guideBody":
+    "A step-by-step guide explains what happens in this stall at each moment of the day, using the numbers from its own history.",
+  "case.start": "Start guided case",
+  "case.s1.title": "A sold-out menu hides demand",
+  "case.s1.situation":
+    "{menu} is usually cooked at {usual} portions, yet it keeps selling out. A sold-out day only records what sold, not what people wanted, so a stall like this quietly loses sales. {menu2} is the opposite case, with portions left over. This stall shows FOODOO correcting both.",
+  "case.s1.plan.try":
+    "Open the morning plan. Compare the card for {menu} with the card for {menu2}.",
+  "case.s1.plan.happens":
+    "{menu}: “{why}”. FOODOO suggests {qty} portions instead of the usual {usual}. {menu2}: “{why2}”. It suggests {qty2} instead of {usual2}. The numbers come from the days the owner recorded, with the sold-out days corrected upwards.",
+  "case.s1.service.try":
+    "Open the Sales screen. The menu that runs out most often has already sold out. Tap another menu to mark it sold out as well.",
+  "case.s1.service.happens":
+    "A tap keeps one thing: the minute the menu ran out. FOODOO combines that minute with the stall's busy hours. If only half of the day's customers had arrived when it ran out, the real demand was about twice the portions cooked. Undo stays for 10 seconds.",
+  "case.s1.close.try":
+    "Open closing time. Enter what is left of the menus that did not sell out, then press Close day.",
+  "case.s1.close.happens":
+    "With leftovers, demand is the portions cooked minus the leftover, so it is exact. For a menu that sold out, FOODOO estimates demand from the sell-out time, never more than three times the portions cooked, and labels it an estimate. These numbers feed tomorrow's suggestion.",
+  "case.s1.summary.try":
+    "Open the weekly summary. Look at the leftovers, the sell-outs and the estimated lost sales.",
+  "case.s1.summary.happens":
+    "Menus that sell out, like {menu}, show estimated lost sales here. Menus with leftovers, like {menu2}, show money lost on wasted food. Tomorrow's number weighs the profit lost by running out against the cost of leftovers, so each menu gets its own number.",
+  "case.s2.title": "One weekday is not another",
+  "case.s2.situation":
+    "An office lunch stall with one sharp noon rush. It is busy on weekdays and quiet at weekends, so one average would be wrong on most days. FOODOO compares each day with the same weekday instead.",
+  "case.s2.plan.try":
+    "Open the morning plan and read the reason on the {menu} card.",
+  "case.s2.plan.happens":
+    "{menu}: “{why}”. FOODOO looks at the same weekday in recent weeks, so {hiDay} get {hiQty} portions and {loDay} only {loQty}. {menu2} is a different story: “{why2}”. It suggests {qty2} against the usual {usual2}.",
+  "case.s2.service.try":
+    "Open the Sales screen and tap a menu that has not run out to mark it sold out.",
+  "case.s2.service.happens":
+    "The stall is open {open} to {close}, with its rush around noon. A menu that runs out before the rush peaks hides far more demand than one that runs out near closing, because most customers were still to come. FOODOO weighs the sell-out time by the busy hours.",
+  "case.s2.close.try":
+    "Open closing time. Enter the leftovers. If something odd happened today, such as rain or a holiday, switch on Unusual day.",
+  "case.s2.close.happens":
+    "A day marked unusual stays in the history but is ignored when suggesting. Ordinary weekday and weekend differences are not exceptions, because comparing the same weekday already handles them.",
+  "case.s2.summary.try":
+    "Open the weekly summary, then open one past day from the list.",
+  "case.s2.summary.happens":
+    "Each day shows what was cooked, what was suggested and the demand. Compare a weekday with a weekend day. The amounts differ because the demand differs, not because the owner changed their mind.",
+  "case.s3.title": "A stall that closes after midnight",
+  "case.s3.situation":
+    "A night stall open {open} to {close}. Its day crosses midnight, so a sale at 01:00 belongs to the evening the stall opened, not to the next calendar day. Without that rule one night would be split into two days.",
+  "case.s3.plan.try":
+    "Open the plan. It is dated for the evening the stall opens, even if the clock has passed midnight.",
+  "case.s3.plan.happens":
+    "{menu}: “{why}”. FOODOO suggests {qty} against the usual {usual}. It compares with the same weekday of the evening the stall opened, so a Friday night that ends on Saturday at 01:00 still counts as Friday. {menu2}: {qty2} instead of {usual2}.",
+  "case.s3.service.try": "Open the Sales screen and mark a menu sold out.",
+  "case.s3.service.happens":
+    "The time is kept on the stall's own clock, where after midnight counts as later than 23:00. A menu that runs out at 00:30 is correctly seen as running out late, near closing, not early in the day.",
+  "case.s3.close.try":
+    "Open closing time. Enter the leftovers and close the day, even when it is already past midnight.",
+  "case.s3.close.happens":
+    "The closed day is saved under the evening the stall opened. Demand is worked out the same way as for a daytime stall, using the busy hours between {open} and {close}.",
+  "case.s3.summary.try": "Open the weekly summary and look at the latest days.",
+  "case.s3.summary.happens":
+    "Each night appears once, under the day it started. {hiDay} are the busiest evenings here, with {hiQty} portions of {menu}, and {loDay} the quietest, with {loQty}.",
+  "case.s4.title": "A new stall with little history",
+  "case.s4.situation":
+    "This stall opened only {days} days ago. There is not enough history to learn from yet, so FOODOO starts from the usual portions and adjusts a little after each day.",
+  "case.s4.plan.try":
+    "Open the morning plan. Read the reasons on the {menu} and {menu2} cards.",
+  "case.s4.plan.happens":
+    "{menu}: “{why}”, so {qty} instead of {usual}. {menu2}: “{why2}”, so {qty2} instead of {usual2}. With so few days FOODOO moves by about a tenth and no more, because a few days can mislead. A suggestion based on a real pattern needs at least 5 comparable days.",
+  "case.s4.service.try": "Open the Sales screen and mark a menu sold out.",
+  "case.s4.service.happens":
+    "The sell-out time is saved from the first day. It is turned into a demand estimate when the day is closed, and that estimate is what later suggestions are built from.",
+  "case.s4.close.try":
+    "Open closing time. Enter the leftovers and close the day.",
+  "case.s4.close.happens":
+    "Each closed day adds one more data point. {menu3} still earns {salvage3} for every unsold portion, so leftovers cost it little. Once there is enough history FOODOO leans towards cooking more of it, because its critical ratio is {ratio3}%.",
+  "case.s4.summary.try":
+    "Open the weekly summary. There are only a few days to show.",
+  "case.s4.summary.happens":
+    "With {days} days the charts are short, and that is honest. FOODOO labels estimates and does not pretend to know more than the days recorded. Keep recording and the suggestions turn from a starting point into a pattern.",
 } as const;

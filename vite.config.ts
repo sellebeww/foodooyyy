@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => {
           description:
             "Daily portion planning that counts the customers a sold-out menu hides.",
           id: "/",
-          start_url: "/start",
+          start_url: "/",
           scope: "/",
           display: "standalone",
           theme_color: "#00212f",
@@ -51,7 +51,7 @@ export default defineConfig(({ mode }) => {
       include: ["tests/**/*.test.{ts,tsx}"],
       setupFiles: ["tests/setup.ts"],
       testTimeout: 15_000,
-      maxWorkers: "50%",
+      maxWorkers: "25%",
       minWorkers: 1,
       env: { VITE_DEMO: "on" },
       coverage: {

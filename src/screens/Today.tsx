@@ -1,8 +1,8 @@
 // src/screens/Today.tsx
 import { Link } from "react-router-dom";
-import { DEMO_ENABLED } from "../app/demoConfig.ts";
 import { useStallStamp } from "../app/useStallStamp.ts";
 import { Button } from "../components/Button.tsx";
+import { DemoCards } from "../components/DemoCards.tsx";
 import { EmptyState } from "../components/EmptyState.tsx";
 import { LoopProgress } from "../components/LoopProgress.tsx";
 import { Screen } from "../components/Screen.tsx";
@@ -103,15 +103,6 @@ export function Today() {
           </Button>
         )}
       </section>
-      {DEMO_ENABLED && stall.settings.isDemo ? (
-        <section className="card panel" aria-labelledby="today-sim">
-          <h2 id="today-sim">{t("sim.title")}</h2>
-          <p>{t("sim.cardBody")}</p>
-          <Button variant="secondary" to="/simulate">
-            {t("sim.open")}
-          </Button>
-        </section>
-      ) : null}
       <section className="counts" aria-labelledby="today-counts">
         <h2 id="today-counts">{t("today.counts.title")}</h2>
         <dl className="counts__grid">
@@ -131,6 +122,7 @@ export function Today() {
           </div>
         </dl>
       </section>
+      <DemoCards />
       <TodayMenus
         heading={[stall.name, formatLongDate(date, language)]
           .filter((part) => part !== "")

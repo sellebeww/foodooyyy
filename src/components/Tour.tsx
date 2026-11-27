@@ -1,16 +1,24 @@
 // src/components/Tour.tsx
-import { startTransition, useEffect, useRef, useState } from "react";
+import {
+  startTransition,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { DEMO_ENABLED } from "../app/demoConfig.ts";
+import { bottomInset } from "../app/bottomInset.ts";
 import { findTarget } from "../app/findTarget.ts";
 import { placeCard, type Box } from "../app/placeCard.ts";
+import { revealTarget } from "../app/revealTarget.ts";
 import { useTour } from "../app/tour.ts";
 import { TOUR_STEPS, TOUR_TOTAL } from "../app/tourSteps.ts";
-import { useStartTour } from "../app/useStartTour.ts";
+import { useCaseView } from "../app/useCaseView.ts";
 import { useStall } from "../db/hooks.ts";
-import { useT } from "../i18n/index.ts";
-import { Button } from "./Button.tsx";
+import { TourCard, type TourPlacement } from "./TourCard.tsx";
 
 const POLL_MS = 150;
 const PAD = 6;
@@ -19,8 +27,15 @@ const PUBLIC_PATHS = ["/", "/start", "/how"];
 interface View {
   step: number;
   box: Box | null;
-  card: { width: number; height: number };
   blocked: boolean;
+  width: number;
+  height: number;
+  inset: number;
+}
+
+interface Size {
+  width: number;
+  height: number;
 }
 
 function boxOf(node: HTMLElement): Box {
@@ -35,7 +50,35 @@ function boxOf(node: HTMLElement): Box {
   };
 }
 
-function shadesAround(box: Box) {
+function sameView(a: View | null, b: View): boolean {
+  return (
+    a !== null &&
+    a.step === b.step &&
+    a.blocked === b.blocked &&
+    a.width === b.width &&
+    a.height === b.height &&
+    a.inset === b.inset &&
+    a.box?.top === b.box?.top &&
+    a.box?.left === b.box?.left &&
+    a.box?.width === b.box?.width &&
+    a.box?.height === b.box?.height
+  );
+}
+
+function arrivalStep(from: number, pathname: string): number {
+  for (let at = from; at < TOUR_STEPS.length; at += 1) {
+    const advance = TOUR_STEPS[at]?.advance;
+    if (advance === null || advance === undefined) {
+      return -1;
+    }
+    if ("arrives" in advance && advance.arrives === pathname) {
+      return at;
+    }
+  }
+  return -1;
+}
+
+function blockersAround(box: Box) {
   const bottom = box.top + box.height;
   return [
     { top: 0, left: 0, right: 0, height: box.top },
@@ -46,14 +89,16 @@ function shadesAround(box: Box) {
 }
 
 export function Tour() {
-  const t = useT();
   const stall = useStall();
+  const caseView = useCaseView();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { step: index, goTo, finish } = useTour();
-  const startTour = useStartTour();
   const [view, setView] = useState<View | null>(null);
-  const card = useRef<HTMLElement>(null);
+  const [size, setSize] = useState<Size>({ width: 0, height: 0 });
+  const card = useRef<HTMLElement | null>(null);
+  const sizeWatcher = useRef<ResizeObserver | null>(null);
+  const lastPath = useRef(pathname);
   const step = index === null ? undefined : TOUR_STEPS[index];
   const visible =
     DEMO_ENABLED &&
@@ -62,35 +107,93 @@ export function Tour() {
     !PUBLIC_PATHS.includes(pathname);
   const onPath =
     step !== undefined && (step.path === null || step.path === pathname);
+  // The suggestion step points at the menu the stall's case talks about.
+  const focusMenu =
+    step?.id === "suggestion" && caseView?.facts
+      ? caseView.facts.primary.menuId
+      : null;
+  const targets = useMemo(
+    () =>
+      step === undefined
+        ? []
+        : focusMenu === null
+          ? step.targets
+          : [`.card-grid > li[data-menu-id="${focusMenu}"]`, ...step.targets],
+    [step, focusMenu],
+  );
+  const blocked = view?.blocked === true;
+
+  const attach = useCallback((node: HTMLElement | null) => {
+    sizeWatcher.current?.disconnect();
+    card.current = node;
+    if (node === null) {
+      return;
+    }
+    const read = () => {
+      const width = node.offsetWidth;
+      const height = node.offsetHeight;
+      setSize((current) =>
+        current.width === width && current.height === height
+          ? current
+          : { width, height },
+      );
+    };
+    read();
+    if (typeof ResizeObserver === "function") {
+      sizeWatcher.current = new ResizeObserver(read);
+      sizeWatcher.current.observe(node);
+    }
+  }, []);
+
+  useEffect(() => {
+    const changed = lastPath.current !== pathname;
+    lastPath.current = pathname;
+    if (!changed || !visible || index === null || index < 1) {
+      return;
+    }
+    const reached = arrivalStep(index, pathname);
+    if (reached >= 0) {
+      goTo(reached + 1);
+    }
+  }, [pathname, index, visible, goTo]);
 
   useEffect(() => {
     if (!visible || index === null || step === undefined) {
       return undefined;
     }
+    const appears =
+      step.advance !== null && "appears" in step.advance
+        ? step.advance.appears
+        : null;
+    let armed = false;
     let shown: HTMLElement | null = null;
     let focused = false;
+    let frame = 0;
+
     const measure = () => {
-      const blocked = document.querySelector('[role="dialog"]') !== null;
-      if (
-        onPath &&
-        step.advance !== null &&
-        "appears" in step.advance &&
-        document.querySelector(step.advance.appears) !== null
-      ) {
-        goTo(index + 1);
-        return;
+      const dialogOpen = document.querySelector('[role="dialog"]') !== null;
+      if (onPath && appears !== null) {
+        const reached = document.querySelector(appears) !== null;
+        if (reached && armed) {
+          goTo(index + 1);
+          return;
+        }
+        if (
+          !reached &&
+          targets.some((selector) => document.querySelector(selector) !== null)
+        ) {
+          armed = true;
+        }
       }
       const held =
         step.free === true &&
         shown?.isConnected === true &&
         shown.contains(document.activeElement);
       const target =
-        !onPath || blocked ? null : held ? shown : findTarget(step.targets);
+        !onPath || dialogOpen ? null : held ? shown : findTarget(targets);
       if (target !== null && target !== shown) {
         shown = target;
-        const tall =
-          target.getBoundingClientRect().height > window.innerHeight * 0.6;
-        target.scrollIntoView?.({ block: tall ? "start" : "center" });
+        revealTarget(target);
         if (step.advance !== null && step.free !== true) {
           target.focus({ preventScroll: true });
         }
@@ -104,16 +207,24 @@ export function Tour() {
       const next: View = {
         step: index,
         box: target === null ? null : boxOf(target),
-        card: {
-          width: card.current?.offsetWidth ?? 0,
-          height: card.current?.offsetHeight ?? 0,
-        },
-        blocked,
+        blocked: dialogOpen,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        inset: bottomInset(),
       };
-      setView((current) =>
-        JSON.stringify(current) === JSON.stringify(next) ? current : next,
-      );
+      setView((current) => (sameView(current, next) ? current : next));
     };
+
+    const schedule = () => {
+      if (frame !== 0) {
+        return;
+      }
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        measure();
+      });
+    };
+
     const onClick = (event: MouseEvent) => {
       if (
         onPath &&
@@ -127,42 +238,63 @@ export function Tour() {
         });
       }
     };
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && !event.defaultPrevented) {
+        finish();
+      }
+    };
+
+    const resizeObserver =
+      typeof ResizeObserver === "function"
+        ? new ResizeObserver(schedule)
+        : undefined;
+    resizeObserver?.observe(document.body);
+
     measure();
     const timer = window.setInterval(measure, POLL_MS);
-    window.addEventListener("scroll", measure, true);
-    window.addEventListener("resize", measure);
+    window.addEventListener("scroll", schedule, true);
+    window.addEventListener("resize", schedule);
+    window.visualViewport?.addEventListener("resize", schedule);
     document.addEventListener("click", onClick, true);
+    document.addEventListener("keydown", onKey);
     return () => {
       window.clearInterval(timer);
-      window.removeEventListener("scroll", measure, true);
-      window.removeEventListener("resize", measure);
+      window.cancelAnimationFrame(frame);
+      resizeObserver?.disconnect();
+      window.removeEventListener("scroll", schedule, true);
+      window.removeEventListener("resize", schedule);
+      window.visualViewport?.removeEventListener("resize", schedule);
       document.removeEventListener("click", onClick, true);
+      document.removeEventListener("keydown", onKey);
     };
-  }, [visible, onPath, index, step, goTo]);
+  }, [visible, onPath, index, step, targets, goTo, finish]);
 
-  if (!visible || index === null || view?.blocked === true) {
+  if (!visible || index === null || step === undefined || blocked) {
     return null;
   }
 
   const current = view?.step === index ? view : null;
-  const centred = onPath && step.targets.length === 0;
+  const centred = onPath && targets.length === 0;
   const box = onPath && !centred ? (current?.box ?? null) : null;
   const spot =
-    box === null || current === null
+    box === null || size.width === 0
       ? undefined
-      : placeCard(box, current.card, {
-          width: window.innerWidth,
-          height: window.innerHeight,
+      : placeCard(box, size, {
+          width: current?.width ?? window.innerWidth,
+          height:
+            (current?.height ?? window.innerHeight) - (current?.inset ?? 0),
         });
-  const modifier = centred
-    ? " tour__card--center"
+  const placement: TourPlacement = centred
+    ? "center"
     : spot === undefined
-      ? " tour__card--dock"
-      : "";
-  const forward = () => {
-    const path = TOUR_STEPS[index + 1]?.path;
+      ? "dock"
+      : "spot";
+
+  const move = (to: number) => {
+    const path = TOUR_STEPS[to]?.path;
     startTransition(() => {
-      goTo(index + 1);
+      goTo(to);
       if (path && path !== pathname) {
         navigate(path);
       }
@@ -175,83 +307,43 @@ export function Tour() {
 
   return createPortal(
     <div className="tour">
-      {centred ? <div className="tour__shade tour__shade--full" /> : null}
+      {centred ? <div className="tour__veil" /> : null}
       {box === null || step.free === true
         ? null
-        : shadesAround(box).map((style, side) => (
-            <div key={side} className="tour__shade" style={style} />
+        : blockersAround(box).map((style, side) => (
+            <div key={side} className="tour__blocker" style={style} />
           ))}
-      {box === null ? null : <div className="tour__ring" style={box} />}
-      <section
-        ref={card}
-        className={`tour__card${modifier}`}
-        aria-label={t("tour.label")}
-        aria-live="polite"
-        style={spot}
-      >
-        {index >= 1 && index <= TOUR_TOTAL ? (
-          <p className="eyebrow">
-            {t("tour.progress", { step: index, total: TOUR_TOTAL })}
-          </p>
-        ) : null}
-        <h2 className="tour__title">{t(`tour.${step.id}.title`)}</h2>
-        <p>{t(`tour.${step.id}.body`)}</p>
-        <div className="tour__actions">
-          <button type="button" className="tour__end" onClick={finish}>
-            {t(
-              step.id === "intro"
-                ? "tour.notNow"
-                : step.id === "outro"
-                  ? "tour.finish"
-                  : "tour.end",
-            )}
-          </button>
-          {step.id === "intro" ? (
-            <Button className="btn--small" onClick={startTour}>
-              {t("tour.start")}
-            </Button>
-          ) : !onPath ? (
-            <Button
-              className="btn--small"
-              onClick={() => {
-                if (step.path !== null) {
-                  navigate(step.path);
-                }
-              }}
-            >
-              {t("tour.goThere")}
-            </Button>
-          ) : step.id === "outro" ? (
-            <>
-              <Button
-                className="btn--small"
-                variant="secondary"
-                onClick={() => {
-                  leave("/settings");
-                }}
-              >
-                {t("tour.register")}
-              </Button>
-              <Button
-                className="btn--small"
-                onClick={() => {
-                  leave("/simulate");
-                }}
-              >
-                {t("tour.sim")}
-              </Button>
-            </>
-          ) : (
-            <Button
-              className="btn--small"
-              variant={step.advance === null ? "primary" : "secondary"}
-              onClick={forward}
-            >
-              {t(step.advance === null ? "tour.next" : "tour.skip")}
-            </Button>
-          )}
-        </div>
-      </section>
+      {box === null ? null : (
+        <div
+          className={
+            step.free === true ? "tour__ring tour__ring--free" : "tour__ring"
+          }
+          style={box}
+        />
+      )}
+      <TourCard
+        ref={attach}
+        step={step}
+        index={index}
+        total={TOUR_TOTAL}
+        onPath={onPath}
+        placement={placement}
+        position={spot}
+        onBack={() => {
+          move(index - 1);
+        }}
+        onNext={() => {
+          move(index + 1);
+        }}
+        onEnd={finish}
+        onStart={() => move(1)}
+        onGoThere={() => {
+          if (step.path !== null) {
+            navigate(step.path);
+          }
+        }}
+        onLeave={leave}
+      />
     </div>,
     document.body,
   );

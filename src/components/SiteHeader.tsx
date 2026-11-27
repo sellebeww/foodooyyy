@@ -1,24 +1,24 @@
 // src/components/SiteHeader.tsx
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEntryActions } from "../app/useEntryActions.ts";
 import { useT, type MessageKey } from "../i18n/index.ts";
 import { AppIcon } from "./AppIcon.tsx";
 import { CloseXIcon } from "./icons/CloseXIcon.tsx";
 import { MenuIcon } from "./icons/MenuIcon.tsx";
 import { LanguageSwitch } from "./LanguageSwitch.tsx";
+import { Button } from "./Button.tsx";
 
 const SECTIONS: readonly { id: string; label: MessageKey }[] = [
   { id: "problem", label: "landing.nav.problem" },
   { id: "loop", label: "landing.nav.loop" },
+  { id: "ecosystem", label: "landing.nav.ecosystem" },
+  { id: "trust", label: "landing.nav.trust" },
   { id: "team", label: "landing.nav.team" },
 ];
 
-interface SiteHeaderProps {
-  complete: boolean;
-}
-
-export function SiteHeader({ complete }: SiteHeaderProps) {
+export function SiteHeader() {
   const t = useT();
+  const { primary, busy } = useEntryActions();
   const [open, setOpen] = useState(false);
   return (
     <header
@@ -55,9 +55,13 @@ export function SiteHeader({ complete }: SiteHeaderProps) {
           </ul>
         </nav>
         <LanguageSwitch compact />
-        <Link className="btn btn--primary site-header__cta" to="/start">
-          {t(complete ? "how.back" : "landing.nav.openApp")}
-        </Link>
+        <Button
+          className="site-header__cta"
+          disabled={busy}
+          onClick={primary.run}
+        >
+          {t(primary.label)}
+        </Button>
         <button
           type="button"
           className="icon-btn site-header__menu"

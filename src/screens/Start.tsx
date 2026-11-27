@@ -8,6 +8,7 @@ import { AppIcon } from "../components/AppIcon.tsx";
 import { Button } from "../components/Button.tsx";
 import { DemoPicker } from "../components/DemoPicker.tsx";
 import { ExportImportPanel } from "../components/ExportImportPanel.tsx";
+import { HeroLoop } from "../components/HeroLoop.tsx";
 import { ArrowIcon } from "../components/icons/ArrowIcon.tsx";
 import { LanguageSwitch } from "../components/LanguageSwitch.tsx";
 import { OfflinePill } from "../components/OfflinePill.tsx";
@@ -62,6 +63,7 @@ export function Start() {
 
   return (
     <div className="hero start">
+      <HeroLoop />
       <header className="start__top">
         <Link className="start__back" to="/">
           {t("settings.about.landing")}

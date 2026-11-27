@@ -120,10 +120,6 @@
     animation-delay: var(--dur-base);
   }
 
-  .launcher__stall:has(input:checked) input {
-    animation: pop var(--dur-slow) var(--ease-spring);
-  }
-
   .launcher__icon {
     animation: pop var(--dur-enter) var(--ease-spring) var(--dur-base) backwards;
   }
@@ -407,5 +403,95 @@
 
   to {
     transform: translateX(250%);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site,
+  .start {
+    transition:
+      opacity var(--dur-slow) var(--ease-std),
+      transform var(--dur-slow) var(--ease-out);
+  }
+
+  .is-leaving .site,
+  .is-leaving .start {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.992);
+  }
+
+  .layout {
+    animation: appear var(--dur-enter) var(--ease-std) backwards;
+  }
+
+  .start__main > * {
+    animation: settle var(--dur-enter) var(--ease-out) backwards;
+  }
+
+  .start__main > :nth-child(2) {
+    animation-delay: var(--dur-stagger);
+  }
+
+  .start__main > :nth-child(3) {
+    animation-delay: calc(var(--dur-stagger) * 2);
+  }
+
+  .start__main > :nth-child(n + 4) {
+    animation-delay: calc(var(--dur-stagger) * 3);
+  }
+
+  .skeleton {
+    background: linear-gradient(
+      100deg,
+      var(--sunken) 30%,
+      var(--paper) 50%,
+      var(--sunken) 70%
+    );
+    background-size: 220% 100%;
+    animation: shimmer 1.4s var(--ease-std) infinite;
+  }
+
+  .tour__veil,
+  .tour__card {
+    animation: appear var(--dur-slow) var(--ease-std) backwards;
+  }
+
+  .tour__ring {
+    transition:
+      top var(--dur-slow) var(--ease-out),
+      left var(--dur-slow) var(--ease-out),
+      width var(--dur-slow) var(--ease-out),
+      height var(--dur-slow) var(--ease-out);
+    animation: appear var(--dur-slow) var(--ease-std) backwards;
+  }
+
+  .tour__content {
+    animation: rise var(--dur-slow) var(--ease-out) backwards;
+  }
+
+  .tour__dot {
+    transition: background-color var(--dur-base) var(--ease-std);
+  }
+
+  .tour__close,
+  .tour__end,
+  .sidebar__tour {
+    transition:
+      background-color var(--dur-base) var(--ease-std),
+      color var(--dur-base) var(--ease-std);
+  }
+
+  .tour__ring--free {
+    animation: none;
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -100% 0;
   }
 }

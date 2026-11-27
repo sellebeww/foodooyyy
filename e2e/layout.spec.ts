@@ -1,5 +1,6 @@
 // e2e/layout.spec.ts
 import { expect, test } from "@playwright/test";
+import { openDemoWithRealClock } from "./helpers.ts";
 
 const ROUTES = [
   "/about",
@@ -23,11 +24,7 @@ for (const { language, textSize } of CASES) {
   }) => {
     await page.setViewportSize({ width: 320, height: 640 });
     await page.goto("/");
-    await page.getByRole("button", { name: "Try demo stall" }).click();
-    await page
-      .getByRole("dialog")
-      .getByRole("button", { name: "Open with the real clock" })
-      .click();
+    await openDemoWithRealClock(page);
     await page.getByRole("heading", { level: 1, name: "Today" }).waitFor();
     await page.evaluate((value) => {
       localStorage.setItem("foodoo.language", value);

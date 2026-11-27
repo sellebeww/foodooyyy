@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { loadDemo, startSetup } from "../../src/db/repositories.ts";
 import type { FoodooDb } from "../../src/db/schema.ts";
 import { renderApp } from "../app/renderApp.tsx";
+import { freshStall } from "../db/pos.helpers.ts";
 import { makeTestDb } from "../db/testDb.ts";
 
 vi.mock("../../src/app/registerPwa.ts", () => ({
@@ -25,38 +26,130 @@ afterEach(async () => {
 const headline = () =>
   screen.findByRole("heading", { level: 1, name: /Cook the right amount/ });
 
-function expectNoDemoControls() {
-  expect(screen.queryByRole("button", { name: /demo/i })).toBeNull();
-  expect(screen.queryByRole("link", { name: /demo/i })).toBeNull();
-  expect(screen.queryByRole("radio", { name: /Demo|Warung/ })).toBeNull();
-  expect(screen.queryByRole("button", { name: "Start setup" })).toBeNull();
+const noTour = () => screen.queryByRole("region", { name: "Tutorial" });
+
+async function openChooser() {
+  const buttons = await screen.findAllByRole("button", {
+    name: "Launch Demo App",
+  });
+  fireEvent.click(buttons[0] as HTMLElement);
+  return screen.findByRole("dialog", { name: "Choose a demo stall" });
 }
 
 describe("company page", () => {
-  it("opens first, without any demo, and leads to the app entry", async () => {
-    renderApp({ db, tour: true });
+  it("opens first and offers the demo launch and an own setup", async () => {
+    renderApp({ db, entered: false });
     await headline();
-    expectNoDemoControls();
-    expect(screen.queryByRole("region", { name: "Tutorial" })).toBeNull();
-    const open = screen.getAllByRole("link", { name: "Open the app" });
-    expect(open.every((link) => link.getAttribute("href") === "/start")).toBe(
-      true,
-    );
-    fireEvent.click(open[0] as HTMLElement);
+    expect(noTour()).toBeNull();
+    expect(
+      (await screen.findAllByRole("button", { name: "Launch Demo App" }))
+        .length,
+    ).toBeGreaterThan(0);
+    const setup = await screen.findAllByRole("button", {
+      name: "Set up my own stall",
+    });
+    fireEvent.click(setup[0] as HTMLElement);
     expect(
       await screen.findByRole("button", { name: "Try demo stall" }),
     ).toBeTruthy();
   });
 
-  it("stays the first page when a stall exists and offers the way back", async () => {
-    await loadDemo(db, TODAY);
-    renderApp({ db, tour: true });
+  it.each(["/today", "/plan", "/start", "/settings", "/setup/menus"])(
+    "sends a visitor who has not entered the app from %s to the company page",
+    async (path) => {
+      renderApp({ db, path, entered: false });
+      await headline();
+    },
+  );
+
+  it("the launch button opens a chooser first and loads nothing until a choice is made", async () => {
+    renderApp({ db, entered: false });
+    await headline();
+    const dialog = await openChooser();
+    expect(await db.stall.count()).toBe(0);
+    expect(
+      within(dialog).getAllByRole("button", { name: /^(Demo |Warung Demo)/ }),
+    ).toHaveLength(4);
+    for (const name of [/^Warung Demo/, /^Morning plan/, /^Selling/]) {
+      expect(within(dialog).getByRole("button", { name })).toBeTruthy();
+    }
+    expect(
+      within(dialog).queryByRole("button", {
+        name: "Continue the demo I already have",
+      }),
+    ).toBeNull();
+    expect(noTour()).toBeNull();
+  });
+
+  it("loads the chosen stall and offers the tutorial", async () => {
+    renderApp({ db, entered: false });
+    await headline();
+    const dialog = await openChooser();
+    fireEvent.click(
+      within(dialog).getByRole("button", { name: /^Demo Warung Makan Kantor/ }),
+    );
+
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "Today" }),
+    ).toBeTruthy();
+    const region = await screen.findByRole("region", { name: "Tutorial" });
+    expect(within(region).getByRole("heading").textContent).toBe(
+      "One day in 7 steps",
+    );
+    const stall = (await db.stall.toArray())[0];
+    expect(stall?.settings.isDemo).toBe(true);
+    expect(stall?.demo?.scenario).toBe(2);
+  });
+
+  it("opens a stall at a moment without starting the tutorial", async () => {
+    renderApp({ db, entered: false });
+    await headline();
+    const dialog = await openChooser();
+    fireEvent.change(within(dialog).getByRole("combobox"), {
+      target: { value: "3" },
+    });
+    fireEvent.click(
+      within(dialog).getByRole("button", { name: /^Closing time/ }),
+    );
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "Close" }),
+    ).toBeTruthy();
+    expect(noTour()).toBeNull();
+    expect((await db.stall.toArray())[0]?.demo?.scenario).toBe(3);
+  });
+
+  it("can continue a demo stall that already exists, or start over", async () => {
+    await loadDemo(db, TODAY, 3);
+    renderApp({ db, entered: false });
+    await headline();
+    const dialog = await openChooser();
+    fireEvent.click(
+      within(dialog).getByRole("button", {
+        name: "Continue the demo I already have",
+      }),
+    );
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "Today" }),
+    ).toBeTruthy();
+    expect((await db.stall.toArray())[0]?.demo?.scenario).toBe(3);
+    expect(noTour()).toBeNull();
+  });
+
+  it("offers a way back, not the demo, when the stall is the owner's own", async () => {
+    await freshStall(db, "simple");
+    renderApp({ db, entered: false });
     await headline();
     expect(
-      (await screen.findAllByRole("link", { name: "Back to the app" })).length,
-    ).toBeGreaterThan(0);
-    expectNoDemoControls();
-    expect(screen.queryByRole("region", { name: "Tutorial" })).toBeNull();
+      screen.queryByRole("button", { name: "Launch Demo App" }),
+    ).toBeNull();
+    const back = await screen.findAllByRole("button", {
+      name: "Continue to the app",
+    });
+    fireEvent.click(back[0] as HTMLElement);
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "Today" }),
+    ).toBeTruthy();
+    expect(noTour()).toBeNull();
   });
 });
 

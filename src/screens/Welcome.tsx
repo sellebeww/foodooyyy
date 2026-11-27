@@ -3,6 +3,9 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useScreenArrival } from "../app/useScreenArrival.ts";
 import { Button } from "../components/Button.tsx";
+import { EntryActions } from "../components/EntryActions.tsx";
+import { DemoBand } from "../components/DemoBand.tsx";
+import { EcosystemSection } from "../components/EcosystemSection.tsx";
 import { DemandExplorer } from "../components/DemandExplorer.tsx";
 import { HeroLoop } from "../components/HeroLoop.tsx";
 import { FeatureCard } from "../components/FeatureCard.tsx";
@@ -21,13 +24,12 @@ import { ScreenPreview } from "../components/ScreenPreview.tsx";
 import { SiteFooter } from "../components/SiteFooter.tsx";
 import { SiteHeader } from "../components/SiteHeader.tsx";
 import { TeamSection } from "../components/TeamSection.tsx";
-import { useStall } from "../db/hooks.ts";
+import { TrustSection } from "../components/TrustSection.tsx";
 import { useT } from "../i18n/index.ts";
 
 export function Welcome() {
   const t = useT();
   const { hash } = useLocation();
-  const complete = useStall()?.setupComplete === true;
 
   useScreenArrival(t("landing.pageTitle"));
 
@@ -39,15 +41,9 @@ export function Welcome() {
     }
   }, [hash]);
 
-  const openApp = (
-    <Button to="/start" icon={<ArrowIcon />}>
-      {t(complete ? "how.back" : "landing.nav.openApp")}
-    </Button>
-  );
-
   return (
     <div className="site">
-      <SiteHeader complete={complete} />
+      <SiteHeader />
       <main id="main" className="landing" tabIndex={-1}>
         <section className="hero" aria-labelledby="landing-title">
           <HeroLoop />
@@ -61,7 +57,7 @@ export function Welcome() {
                 </span>
               </h1>
               <p className="hero__lead">{t("app.valueLine")}</p>
-              <div className="landing__actions">{openApp}</div>
+              <EntryActions className="entry--hero" />
               <ul className="hero__pills">
                 <li>
                   <WifiOffIcon />
@@ -167,6 +163,10 @@ export function Welcome() {
           </div>
         </section>
 
+        <EcosystemSection />
+
+        <DemoBand />
+
         <section className="band band--paper" aria-labelledby="landing-why">
           <div className="band__inner">
             <div className="band__head">
@@ -198,6 +198,8 @@ export function Welcome() {
           </div>
         </section>
 
+        <TrustSection />
+
         <TeamSection />
 
         <section className="band" aria-labelledby="landing-closing">
@@ -205,7 +207,7 @@ export function Welcome() {
             <div className="closing">
               <h2 id="landing-closing">{t("landing.closingTitle")}</h2>
               <p>{t("landing.closingBody")}</p>
-              <div className="closing__actions">{openApp}</div>
+              <EntryActions className="entry--closing" />
               <p className="closing__hint">{t("landing.installHint")}</p>
             </div>
           </div>

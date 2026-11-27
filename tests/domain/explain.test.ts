@@ -1,7 +1,12 @@
 // tests/domain/explain.test.ts
 import { describe, expect, it } from "vitest";
 import { arrivalShare, estimateDemand } from "../../src/domain/estimate.ts";
-import { EXAMPLE_SETTINGS, workedExample } from "../../src/domain/explain.ts";
+import {
+  demandAt,
+  EXAMPLE_SETTINGS,
+  suggestionAtCost,
+  workedExample,
+} from "../../src/domain/explain.ts";
 import { quantile } from "../../src/domain/suggest.ts";
 import { referenceSettings } from "../helpers.ts";
 
@@ -61,5 +66,55 @@ describe("workedExample", () => {
       delta: 34 - example.historyCooked,
     });
     expect(example.weekday).toBe(1);
+  });
+});
+
+describe("demandAt", () => {
+  it("matches the worked example at 10:30", () => {
+    const result = demandAt("10:30");
+    expect(result.demand).toBe(81);
+    expect(result.arrivedPercent).toBe(52);
+    expect(result.cap).toBe(126);
+    expect(result.rule).toBe("scaled");
+  });
+
+  it("is capped when almost nobody had arrived", () => {
+    const result = demandAt("06:30");
+    expect(result.demand).toBe(126);
+    expect(result.rule).toBe("capped");
+  });
+
+  it("is the cooked amount when it sold out at closing time", () => {
+    const result = demandAt("14:00");
+    expect(result.demand).toBe(42);
+    expect(result.arrivedPercent).toBe(100);
+    expect(result.rule).toBe("late");
+  });
+
+  it("agrees with estimateDemand for every half hour of the day", () => {
+    for (let minute = 6 * 60 + 30; minute <= 14 * 60; minute += 30) {
+      const time = `${String(Math.floor(minute / 60)).padStart(2, "0")}:${String(minute % 60).padStart(2, "0")}`;
+      expect(demandAt(time).demand).toBe(
+        estimateDemand(42, 0, time, referenceSettings)?.demand,
+      );
+    }
+  });
+});
+
+describe("suggestionAtCost", () => {
+  it("matches the worked example at the example cost", () => {
+    const result = suggestionAtCost(4500);
+    expect(result.suggestion.qty).toBe(34);
+    expect(result.coverPercent).toBe(44);
+    expect(result.gainPerPortion).toBe(3500);
+    expect(result.lossPerLeftover).toBe(4500);
+  });
+
+  it("suggests more portions when cooking is cheaper", () => {
+    const cheap = suggestionAtCost(1500).suggestion.qty;
+    const dear = suggestionAtCost(7500).suggestion.qty;
+    expect(cheap).toBeGreaterThan(34);
+    expect(dear).toBeLessThan(34);
+    expect(suggestionAtCost(1500).coverPercent).toBeGreaterThan(80);
   });
 });

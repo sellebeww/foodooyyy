@@ -1,5 +1,6 @@
 // e2e/noNetwork.spec.ts
 import { expect, test } from "@playwright/test";
+import { openDemoWithRealClock } from "./helpers.ts";
 
 test.use({ timezoneId: "Asia/Jakarta" });
 
@@ -25,11 +26,7 @@ test("local fallback: every screen works with all non-local requests blocked", a
   await expect(
     page.getByRole("heading", { level: 1, name: /Cook the right amount/ }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "Try demo stall" }).click();
-  await page
-    .getByRole("dialog")
-    .getByRole("button", { name: "Open with the real clock" })
-    .click();
+  await openDemoWithRealClock(page);
   await expect(
     page.getByRole("heading", { level: 1, name: "Today" }),
   ).toBeVisible();

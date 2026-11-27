@@ -3,6 +3,8 @@ import {
   arrivalWeights,
   DEMAND_CAP_FACTOR,
   estimateDemand,
+  FULL_SHARE_DENOMINATOR,
+  FULL_SHARE_NUMERATOR,
   hourWeight,
 } from "./estimate.ts";
 import { profileHours } from "./setup.ts";
@@ -131,6 +133,67 @@ export function workedExample(): WorkedExample {
     weekday: EXAMPLE_WEEKDAY,
     suggestion: suggestQty(
       EXAMPLE_MENU,
+      EXAMPLE_WEEKDAY,
+      history.menuDays,
+      history.days,
+    ),
+  };
+}
+
+export type DemandRule = "late" | "capped" | "scaled";
+
+export interface DemandCase {
+  soldOutAt: HHMM;
+  arrivedPercent: number;
+  demand: number;
+  cap: number;
+  rule: DemandRule;
+}
+
+export function demandAt(soldOutAt: HHMM): DemandCase {
+  const { arrived, total } = arrivalWeights(EXAMPLE_SETTINGS, soldOutAt);
+  const demand = (
+    estimateDemand(
+      EXAMPLE_COOKED,
+      0,
+      soldOutAt,
+      EXAMPLE_SETTINGS,
+    ) as DemandEstimate
+  ).demand;
+  const cap = EXAMPLE_COOKED * DEMAND_CAP_FACTOR;
+  let rule: DemandRule = "scaled";
+  if (arrived * FULL_SHARE_DENOMINATOR >= total * FULL_SHARE_NUMERATOR) {
+    rule = "late";
+  } else if (demand === cap) {
+    rule = "capped";
+  }
+  return {
+    soldOutAt,
+    arrivedPercent: Math.round((100 * arrived) / total),
+    demand,
+    cap,
+    rule,
+  };
+}
+
+export interface CostCase {
+  cost: number;
+  gainPerPortion: number;
+  lossPerLeftover: number;
+  coverPercent: number;
+  suggestion: Suggestion;
+}
+
+export function suggestionAtCost(cost: number): CostCase {
+  const menu: Menu = { ...EXAMPLE_MENU, cost };
+  const history = exampleHistory();
+  return {
+    cost,
+    gainPerPortion: menu.price - menu.cost,
+    lossPerLeftover: menu.cost - menu.salvage,
+    coverPercent: Math.round(100 * criticalRatio(menu)),
+    suggestion: suggestQty(
+      menu,
       EXAMPLE_WEEKDAY,
       history.menuDays,
       history.days,

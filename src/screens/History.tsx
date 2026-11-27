@@ -6,6 +6,7 @@ import { CookedDemandChart } from "../components/CookedDemandChart.tsx";
 import { EstimateNumber } from "../components/EstimateNumber.tsx";
 import { DayRow } from "../components/DayRow.tsx";
 import { Screen } from "../components/Screen.tsx";
+import { SuggestionCheckPanel } from "../components/SuggestionCheckPanel.tsx";
 import { WeekStats } from "../components/WeekStats.tsx";
 import { useHistory, useMenus } from "../db/hooks.ts";
 import {
@@ -57,6 +58,8 @@ export function History() {
           money={weeklyMoney(history.menuDays, history.days, menus, date)}
         />
       </section>
+
+      <SuggestionCheckPanel />
 
       {chartMenus.length === 0 ? null : (
         <section className="card panel" aria-labelledby="history-menus">

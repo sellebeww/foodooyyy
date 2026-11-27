@@ -28,7 +28,12 @@ async function openPicker(trigger: string) {
 }
 
 function pickStall(dialog: HTMLElement, name: RegExp) {
-  fireEvent.click(within(dialog).getByRole("radio", { name }));
+  const option = within(dialog).getByRole("option", {
+    name,
+  });
+  fireEvent.change(within(dialog).getByRole("combobox"), {
+    target: { value: option.getAttribute("value") },
+  });
 }
 
 function press(dialog: HTMLElement, name: string | RegExp) {
@@ -39,21 +44,22 @@ describe("demo stall picker", () => {
   it("offers four demo stalls, each with hours, history and a short description", async () => {
     renderApp({ db, path: "/start" });
     const dialog = await openPicker("Try demo stall");
-    const options = within(dialog).getAllByRole("radio");
-    expect(
-      options.map((option) => option.closest("label")?.textContent),
-    ).toEqual([
+    const options = within(dialog).getAllByRole("button", {
+      name: /^(Warung Demo|Demo )/,
+    });
+    expect(options.map((option) => option.textContent)).toEqual([
       expect.stringContaining("Warung Demo"),
       expect.stringContaining("Demo Warung Makan Kantor"),
       expect.stringContaining("Demo Angkringan Malam"),
       expect.stringContaining("Demo Warung Baru Buka"),
     ]);
-    const night = options[2]?.closest("label")?.textContent;
+    const night = options[2]?.textContent;
     expect(night).toContain("Open 18:00–02:00");
-    expect(night).toContain("Night stall open past midnight");
-    expect(options[3]?.closest("label")?.textContent).toContain(
-      "4 days of history",
-    );
+    pickStall(dialog, /^Demo Angkringan Malam/);
+    expect(
+      within(dialog).getByText(/Night stall open past midnight/),
+    ).toBeTruthy();
+    expect(options[3]?.textContent).toContain("4 days of history");
   });
 
   it("loads the chosen stall; a night stall picked at 09:00 belongs to the night before", async () => {

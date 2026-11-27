@@ -37,3 +37,9 @@ export function formatLongDate(date: ISODate, language: Language): string {
     timeZone: "UTC",
   }).format(new Date(utc));
 }
+
+export function formatDecimal(value: number, language: Language): string {
+  return new Intl.NumberFormat(LOCALES[language], {
+    maximumFractionDigits: 1,
+  }).format(value);
+}

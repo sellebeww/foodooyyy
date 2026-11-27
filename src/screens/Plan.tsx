@@ -166,6 +166,7 @@ function PlanForDate() {
         {cards.map((card) => (
           <MenuCard
             key={card.menu.id}
+            menuId={card.menu.id}
             name={card.menu.name}
             value={card.value}
             suggested={card.suggestedQty}

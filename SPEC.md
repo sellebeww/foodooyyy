@@ -125,7 +125,7 @@ WS-1 is shown on the Today screen and on the History screen; WS-2 to WS-4 are on
 
 ### 5.8 Settings — Core
 
-Edit menus, hours, busy profile, salvage value per menu (default 0); language toggle; about (version, licences, AI disclosure link).
+Edit menus, hours, busy profile, salvage value per menu (default 0); language toggle; about (version, licences link).
 
 ### 5.9 Out of scope
 
@@ -175,11 +175,26 @@ Added at the team member's request. Demo stall only; no schema change.
 
 | ID | Requirement |
 |---|---|
-| TOUR-1 | On the first visit a step-by-step tutorial highlights the element to press and dims the rest. It can be skipped per step, ended at any time and replayed from Settings. It never shows over the owner's own stall |
+| TOUR-1 | A step-by-step tutorial, started from the demo chooser or Today, highlights the element to press and dims the rest. It can be skipped per step, ended at any time and replayed from Settings. It never shows over the owner's own stall |
 | SIM-1 | Simulated customers arrive hour by hour following the busy-hour profile and weekday factor, one portion each, from a fixed seed. Each hour lists its transactions, including customers turned away |
 | SIM-2 | After closing hour the day is estimated and added to the simulation's history; the next day is planned with `suggestQty`. Play repeats until paused |
 | SIM-3 | The analysis updates every hour: average customers per hour, menus ordered by profit per day over the last 14 normal closed days, and the next portions per menu. Estimates are labelled |
 | SIM-4 | Nothing from the simulation is stored |
+
+### 5.13 Case guide — Should (2026-11-27, D-103)
+
+Added at the team member's request. Demo stall only; no schema change. Each demo stall (§7) is built to show one situation; the guide explains it.
+
+| ID | Requirement |
+|---|---|
+| CASE-0 | **Launch Demo App** (company page, header, bands) opens the demo chooser: the four stalls, **Start tutorial**, **Start guided case**, the four moments, and **Continue the demo I already have** when a demo exists. Nothing is loaded before a choice. The tutorial opens every time it is asked for; no earlier dismissal is remembered |
+| CASE-1 | **Try demo stall** (Start, Settings and the Demo data badge) offers **Start guided case** for the selected stall. Today shows an **Open the case guide** card on a demo stall |
+| CASE-2 | `/case` explains the stall's case in four moments (plan, sales, closing time, weekly summary). Each moment has "Try this", "What happens" and a button that opens that moment on the demo |
+| CASE-3 | Every number in the texts is read from the stored stall through the domain functions the plan screen uses (`suggestQty`, `criticalRatio`), never typed. Menus are named by id; if one is archived the first active menu is used |
+| CASE-4 | While the guide is on, a collapsible note with the same texts shows on Plan, Sales, Close and History. **Stop the guide** removes it. The flag is one `localStorage` key |
+| CASE-5 | An owner's own stall is never changed: `/case` shows an explanation and nothing is loaded. Opening a moment reloads the demo day at that time, and the page says so |
+| CASE-6 | Texts exist in English and Bahasa Indonesia with the same placeholders |
+| CASE-7 | The spotlight tutorial carries the case: the welcome card states the chosen stall's situation, and the steps Suggestion, Sold out, Close and Result add "What happens in this stall" with the same texts and numbers. The Suggestion step highlights the menu the case follows. On screens under 700 px wide or 560 px tall the explanation is one tap away (collapsed), so the card does not cover what it points at; on larger screens it is open |
 
 ## 6. Logic (exact; implement in `src/domain/`)
 

@@ -2,8 +2,11 @@
 import { cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
 import { axe, toHaveNoViolations } from "jest-axe";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { CASE_ON, CASE_STORAGE_KEY } from "../../src/app/caseGuide.ts";
+import { loadDemo } from "../../src/db/repositories.ts";
 import type { FoodooDb } from "../../src/db/schema.ts";
-import { renderApp } from "../app/renderApp.tsx";
+import { LANGUAGE_STORAGE_KEY } from "../../src/i18n/index.ts";
+import { memoryStorage, renderApp } from "../app/renderApp.tsx";
 import { freshStall, planDay } from "../db/pos.helpers.ts";
 import { makeTestDb } from "../db/testDb.ts";
 
@@ -69,6 +72,36 @@ describe("axe: no serious or critical violations", () => {
         expect(await violations(container)).toEqual([]);
       },
     );
+  });
+
+  describe("case guide", () => {
+    beforeEach(async () => {
+      await loadDemo(db, DAY, 4);
+    });
+
+    it("the guide page, in both languages", async () => {
+      for (const language of ["en", "id"]) {
+        const storage = memoryStorage();
+        storage.setItem(LANGUAGE_STORAGE_KEY, language);
+        const { container, unmount } = renderApp({
+          db,
+          path: "/case",
+          at: AT_9,
+          storage,
+        });
+        await screen.findByRole("heading", { level: 2, name: /^1./ });
+        expect(await violations(container)).toEqual([]);
+        unmount();
+      }
+    });
+
+    it("the note on a loop screen", async () => {
+      const storage = memoryStorage();
+      storage.setItem(CASE_STORAGE_KEY, CASE_ON);
+      const { container } = renderApp({ db, path: "/plan", at: AT_9, storage });
+      await screen.findByRole("note");
+      expect(await violations(container)).toEqual([]);
+    });
   });
 
   it("control: the checker does flag a known violation", async () => {

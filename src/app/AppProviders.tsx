@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { DbProvider } from "../db/DbProvider.tsx";
 import type { FoodooDb } from "../db/schema.ts";
 import { I18nProvider } from "../i18n/I18nProvider.tsx";
+import { CaseProvider } from "./CaseProvider.tsx";
 import { ClockProvider } from "./ClockProvider.tsx";
 import { ToastProvider } from "./ToastProvider.tsx";
 import { TourProvider } from "./TourProvider.tsx";
@@ -25,7 +26,9 @@ export function AppProviders({
       <I18nProvider storage={storage}>
         <ClockProvider now={now}>
           <ToastProvider>
-            <TourProvider storage={storage}>{children}</TourProvider>
+            <TourProvider>
+              <CaseProvider storage={storage}>{children}</CaseProvider>
+            </TourProvider>
           </ToastProvider>
         </ClockProvider>
       </I18nProvider>

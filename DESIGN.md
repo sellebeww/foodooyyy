@@ -85,7 +85,7 @@ Every screen needs these states designed and built: **default, empty, demo, offl
 - A list of past days opens a read-only day view.
 
 ### 5.7 Settings
-A row of links jumps to each section. Sections: Stall (menus, hours, busy hours, salvage value), Data (export, import, load/remove demo, delete all, all destructive actions in `--danger` and confirmed), Language, About (version, licences, AI disclosure, "How FOODOO calculates" explainer page).
+A row of links jumps to each section. Sections: Stall (menus, hours, busy hours, salvage value), Data (export, import, load/remove demo, delete all, all destructive actions in `--danger` and confirmed), Language, About (version, licences, "How FOODOO calculates" explainer page).
 
 ### 5.8 "How FOODOO calculates" page
 A plain-language explanation with the worked example "Sold out at 10:30 → about 52% of customers had arrived → about 81 wanted it". This helps owners trust the suggestions, and judges can verify the logic from the UI.

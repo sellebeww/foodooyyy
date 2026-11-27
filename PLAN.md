@@ -11,8 +11,8 @@ Scope: the application only. Dates follow the STACK 2026 timeline (all 23:59 WIB
 
 ## 1. How to work
 
-- Work phase by phase. At each **CHECKPOINT**, stop and report: what changed, the commands to verify, what is not done yet. Wait for the module owner to approve (see `AGENTS.md` §4).
-- After each phase, update the status table (§4), the README status section, `docs/DECISIONS.md`, and the AI usage log.
+- Work phase by phase. At each **CHECKPOINT**, stop and report: what changed, the commands to verify, what is not done yet. Wait for the module owner to approve.
+- After each phase, update the status table (§4), the README status section, `docs/DECISIONS.md`.
 - Never mark a row Done unless its acceptance criteria in `SPEC.md` pass.
 
 ## 2. Phases
@@ -20,7 +20,7 @@ Scope: the application only. Dates follow the STACK 2026 timeline (all 23:59 WIB
 ### F0 — Foundation (target 25 Nov)
 1. Scaffold Vite React-TS. Add ESLint, Prettier, Vitest, Playwright, and TypeScript strict mode.
 2. Scripts: `dev`, `build`, `preview`, `lint`, `test`, `test:coverage`, `e2e`, `backtest`, `seed`.
-3. Folder layout from `AGENTS.md` §7. Tokens and base CSS. Self-hosted fonts.
+3. Standard folder layout. Tokens and base CSS. Self-hosted fonts.
 4. CI workflow (GitHub Actions): lint, test, build on every push.
 5. Deploy the empty shell to a static host (Vercel or Cloudflare Pages) and put the URL in the README.
 6. Write the README skeleton with all required sections.
@@ -113,6 +113,10 @@ At the cutoff: record the final commit, fill in the README "Final Day log" (star
 | SH | Today's menus list and share the cooking list | Should | Done |
 | NV | Current-step marker, progress cues, settings section links | Should | Done |
 | TOUR | First-run interactive tutorial | Should | Done |
+| CASE | Case guide: one story per demo stall, with the numbers from its own history | Should | Simulated |
+| HOW | Interactive How FOODOO calculates: inputs, sources, two live examples, accuracy limits | Should | Done |
+| CHK | Suggestions checked against what happened, on the stall's own history | Should | Done |
+| PROF | Company page: ecosystem and trust sections | Should | Done |
 | SIM | Hourly stall simulation with live demand analysis | Should | Simulated |
 | UX-FIX | Top usability fix from owner testing | Should | Reserved for Final Day |
 
@@ -122,7 +126,7 @@ Allowed status values: `Not started`, `In progress`, `Done`, `Reserved for Final
 
 - [x] Deployed URL reachable; demo data loads from the first screen (smoke e2e against https://foodoo-d5h.pages.dev, 2026-11-25; it still serves the pre-F2 build until the team pushes)
 - [ ] `npm ci && npm run build && npm run preview` works offline on a clean machine (verified in a clean copy with non-local requests blocked; a run with the network adapter off is still to do)
-- [x] README: setup, dependencies, supported environment, demo access, third-party resources, AI assistance, known limitations, simulated items
+- [x] README: setup, dependencies, supported environment, demo access, third-party resources, known limitations, simulated items
 - [x] No secrets in the repo history (file-name and content scan, 2026-11-25)
 - [ ] `final-day-start` tag created and recorded
 - [x] `FINAL_DAY.md` lists completed features, unfinished features, and R1–R3

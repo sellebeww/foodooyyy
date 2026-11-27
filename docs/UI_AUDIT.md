@@ -4,7 +4,7 @@ Written for the team (Sonny, Vassel). Every number below was produced by a comma
 
 ## 1. Scope and what the brief did not match
 
-This was a polish pass over the screens that already exist. No screen, feature, engine formula or data model was added or changed. The brief named files and sections that this repository does not have (`docs/SPEC.md`, `docs/DESIGN.md`, `docs/PROGRESS.md`, "section 11", "section 12", `src/app/tokens.css`). As in D-091, the repository's own `AGENTS.md`, `SPEC.md` and `DESIGN.md` were followed, and tokens stay in `src/styles/tokens.css`. The decision record is D-093 in `docs/DECISIONS.md`.
+This was a polish pass over the screens that already exist. No screen, feature, engine formula or data model was added or changed. The brief named files and sections that this repository does not have (`docs/SPEC.md`, `docs/DESIGN.md`, `docs/PROGRESS.md`, "section 11", "section 12", `src/app/tokens.css`). As in D-091, the repository's own the project rules, `SPEC.md` and `DESIGN.md` were followed, and tokens stay in `src/styles/tokens.css`. The decision record is D-093 in `docs/DECISIONS.md`.
 
 ## 2. How the audit was done
 

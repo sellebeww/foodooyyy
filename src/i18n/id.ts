@@ -31,6 +31,7 @@ export const id: Record<keyof typeof en, string> = {
   "nav.service": "Penjualan",
   "nav.close": "Tutup",
   "nav.settings": "Pengaturan",
+  "nav.tutorial": "Tutorial",
 
   "header.demo": "Data demo",
   "header.demoSwitch": "Ganti demo",
@@ -59,7 +60,7 @@ export const id: Record<keyof typeof en, string> = {
   "welcome.continue": "Lanjutkan pengaturan",
   "demo.pick.title": "Pilih warung demo",
   "demo.pick.intro":
-    "Keempat warung memakai data buatan. Riwayatnya selalu berakhir kemarin, kapan pun aplikasi dibuka.",
+    "Pilih warung untuk langsung membuka demo dan tutorialnya. Setiap warung memakai data latihan.",
   "demo.pick.hours": "Buka {open}–{close}",
   "demo.pick.history": "Riwayat {days} hari",
   "demo.s1.desc":
@@ -70,19 +71,41 @@ export const id: Record<keyof typeof en, string> = {
     "Angkringan yang buka sampai lewat tengah malam. Penjualan setelah 00:00 tetap dihitung untuk malam warung itu buka.",
   "demo.s4.desc":
     "Warung yang baru buka empat hari. Riwayat belum cukup, jadi saran dimulai dari porsi biasa lalu disesuaikan.",
-  "demo.launch.stall": "1. Pilih warung",
-  "demo.launch.moment": "2. Pencet momen untuk membukanya",
+  "tour.s1.exercise": "Telusuri menu yang habis",
+  "tour.s2.exercise": "Bandingkan permintaan antarhari",
+  "tour.s3.exercise": "Ikuti penjualan lewat tengah malam",
+  "tour.s4.exercise": "Susun rencana minggu pertama",
+  "tour.s1.closeTask":
+    "Hitung sisa tiap menu yang masih tersedia. Tutup hari lalu simpan agar sisa porsi bisa dibandingkan dengan perkiraan penjualan yang terlewat.",
+  "tour.s2.closeTask":
+    "Isi sisa makan siang. Jika hari libur atau kejadian khusus memengaruhi penjualan, tandai hari ini sebagai hari tidak biasa sebelum menutup dan menyimpan.",
+  "tour.s3.closeTask":
+    "Hitung sisa setelah penjualan lewat tengah malam. Tutup hari lalu simpan. Hasilnya masuk ke tanggal saat warung mulai buka.",
+  "tour.s4.closeTask":
+    "Hitung sisa tiap menu, termasuk {menu}. Tutup hari lalu simpan agar rencana berikutnya memiliki satu hari tambahan sebagai acuan.",
+  "demo.launch.practice": "Warung untuk latihan",
+  "tour.s1.task":
+    "Bandingkan {menu} dengan {menu2}. Cari menu yang sering habis sebelum warung tutup.",
+  "tour.s2.task":
+    "Baca alasan saran untuk {menu}. Bandingkan saran hari ini dengan porsi biasanya sebelum jam makan siang.",
+  "tour.s3.task":
+    "Periksa tanggal buka dan rencana untuk {menu}. Satu giliran jualan berlangsung dari pukul {open} hingga {close} keesokan harinya.",
+  "tour.s4.task":
+    "Lihat porsi biasa untuk {menu}. Coba tombol + atau − untuk menentukan jumlah awal sambil mengumpulkan riwayat penjualan.",
+  "demo.launch.stall": "Pilih warung Anda",
+  "demo.launch.moment": "Latihan mandiri per tahap",
   "demo.launch.note":
-    "Momen memakai jam demo simulasi, tertulis di samping label Data demo.",
-  "demo.launch.realClock": "Buka dengan jam asli",
+    "Setiap tahap menggunakan waktu simulasi yang tertera di sebelah label Data demo.",
+  "demo.launch.realClock": "Gunakan waktu perangkat",
   "demo.moment.plan.title": "Rencana pagi",
-  "demo.moment.plan.desc": "Saran porsi, siap diterima",
+  "demo.moment.plan.desc": "Periksa saran porsi lalu simpan rencana masak.",
   "demo.moment.service.title": "Jam jualan",
-  "demo.moment.service.desc": "Masakan siap dan satu menu sudah habis",
+  "demo.moment.service.desc": "Pilih menu untuk mencatat waktu habisnya.",
   "demo.moment.close.title": "Waktu tutup",
-  "demo.moment.close.desc": "Dua menu habis, tinggal isi sisa",
+  "demo.moment.close.desc": "Masukkan jumlah porsi tersisa lalu tutup hari.",
   "demo.moment.summary.title": "Ringkasan minggu",
-  "demo.moment.summary.desc": "Hari-hari lalu, grafik, dan uang",
+  "demo.moment.summary.desc":
+    "Pilih tanggal untuk melihat penjualan dan sisa porsi.",
   "demo.refreshed": "Tanggal demo disesuaikan ke hari ini",
   "welcome.demo": "Coba warung demo",
   "welcome.demoNote":
@@ -377,7 +400,7 @@ export const id: Record<keyof typeof en, string> = {
   "settings.about.title": "Tentang",
   "settings.about.version": "Versi {version}",
   "settings.about.body":
-    "FOODOO menyarankan porsi dengan aturan tetap yang bisa dijelaskan. Tidak memakai model AI. Lisensi pustaka dan huruf, serta bantuan AI yang dipakai untuk membangun aplikasi ini, tercantum di README proyek.",
+    "FOODOO menyarankan porsi dengan aturan tetap yang bisa dijelaskan. Tidak memakai model AI. Lisensi pustaka dan huruf tercantum di README proyek.",
   "settings.about.link": "Buka README proyek",
 
   "register.title": "Kasir",
@@ -472,7 +495,7 @@ export const id: Record<keyof typeof en, string> = {
     "FOODOO memakai beberapa aturan tetap. Halaman ini menunjukkannya pada sebuah contoh, dihitung dengan kode yang sama yang dipakai aplikasi untuk warung Anda.",
   "how.exampleNote":
     "Warung contoh. Angka-angka ini hanya contoh, bukan data Anda.",
-  "how.demandTitle": "1. Berapa orang yang ingin membeli menu yang habis",
+  "how.demandTitle": "3. Berapa orang yang ingin membeli menu yang habis",
   "how.demandSetup":
     "Contoh: Nasi Uduk. {cooked} porsi dimasak, dan porsi terakhir terjual pukul {time}.",
   "how.barBefore": "(sebelum {time})",
@@ -490,7 +513,7 @@ export const id: Record<keyof typeof en, string> = {
     "Perkiraan tidak pernah lebih dari 3 kali jumlah yang dimasak ({cap} di sini).",
   "how.ruleBusy":
     "Jam ramai dihitung 4 kali, jam biasa 2 kali, dan jam sepi 1 kali. Anda mengaturnya di Pengaturan.",
-  "how.suggestTitle": "2. Cara porsi besok disarankan",
+  "how.suggestTitle": "4. Cara porsi besok disarankan",
   "how.suggestMoney":
     "Setiap porsi tambahan yang terjual memberi untung {gain}. Setiap porsi yang tersisa merugikan {loss}, yaitu biaya memasaknya.",
   "how.suggestCover":
@@ -511,6 +534,103 @@ export const id: Record<keyof typeof en, string> = {
   "how.notCloud":
     "Tidak mengirim apa pun sendiri. Data Anda tetap di perangkat ini kecuali Anda bagikan atau ekspor.",
   "how.back": "Kembali ke aplikasi",
+  "how.nav.label": "Langkah di halaman ini",
+  "how.nav.inputs": "Yang Anda isi",
+  "how.nav.sources": "Asal angka",
+  "how.nav.demand": "Peminat tersembunyi",
+  "how.nav.suggest": "Porsi yang disarankan",
+  "how.nav.result": "Yang Anda lihat",
+  "how.nav.accuracy": "Ketepatan",
+  "how.inputsTitle": "1. Yang Anda sampaikan ke FOODOO",
+  "how.inputsLead":
+    "FOODOO tidak punya database makanan dan tidak punya angka gizi. FOODOO berangkat dari apa yang Anda isi tentang warung Anda sendiri.",
+  "how.input.menusTitle": "Menu",
+  "how.input.menusBody":
+    "Nama, harga jual, biaya masak, dan porsi biasa. Diisi sekali, bisa diubah kapan saja.",
+  "how.input.hoursTitle": "Jam ramai",
+  "how.input.hoursBody":
+    "Tandai setiap jam buka sebagai sepi, biasa, atau ramai.",
+  "how.input.nightTitle": "Setiap hari",
+  "how.input.nightBody":
+    "Ketuk Habis saat berjualan, atau catat penjualan di mode Kasir. Malam hari, isi sisa porsi.",
+  "how.input.unusualTitle": "Hari tidak biasa",
+  "how.input.unusualBody":
+    "Tandai hari hujan atau hari libur sebagai tidak biasa agar tidak memengaruhi saran berikutnya.",
+  "how.sourcesTitle": "2. Dari mana setiap angka berasal",
+  "how.sourcesLead":
+    "Tidak ada yang datang dari luar ponsel Anda. Setiap angka diketik oleh Anda atau dihitung dengan aturan tetap.",
+  "how.sources.col.number": "Angka",
+  "how.sources.col.from": "Berasal dari",
+  "how.sources.col.kind": "Jenis",
+  "how.kind.entered": "Anda isi",
+  "how.kind.calculated": "Dihitung",
+  "how.source.cooked": "Porsi dimasak",
+  "how.source.cookedFrom": "Rencana pagi: disarankan dulu, lalu Anda ubah.",
+  "how.source.soldOut": "Jam habis",
+  "how.source.soldOutFrom":
+    "Ketukan Anda di Jualan, atau penjualan terakhir di mode Kasir.",
+  "how.source.leftover": "Sisa porsi",
+  "how.source.leftoverFrom": "Anda, saat menutup hari.",
+  "how.source.demand": "Orang yang ingin membeli menu",
+  "how.source.demandFrom":
+    "Dimasak dikurangi sisa. Jika menu habis, perkiraan dari jam ramai.",
+  "how.source.suggestion": "Porsi yang disarankan",
+  "how.source.suggestionFrom":
+    "Peminat hari-hari lalu, dengan harga dan biaya Anda.",
+  "how.source.money": "Angka uang",
+  "how.source.moneyFrom": "Harga dan biaya Anda seperti hari ini.",
+  "how.demandTry": "Geser jam habis dan lihat perkiraannya berubah.",
+  "how.demandSlider": "Habis pukul",
+  "how.ruleNow.scaled":
+    "Aturan yang dipakai: jam ramai menaikkan {cooked} porsi terjual menjadi satu hari penuh.",
+  "how.ruleNow.late":
+    "Aturan yang dipakai: habis saat jam tutup, jadi peminat = dimasak ({cooked}).",
+  "how.ruleNow.capped":
+    "Aturan yang dipakai: batas atas. Hampir belum ada pembeli yang datang, jadi perkiraan berhenti di {cap}.",
+  "how.suggestTry": "Ubah biaya memasak satu porsi dan lihat saran bergeser.",
+  "how.costSlider": "Biaya masak satu porsi",
+  "how.suggestPrice": "Harga jual pada contoh: {price}.",
+  "how.resultTitle": "5. Yang Anda lihat di aplikasi",
+  "how.resultBody":
+    "Di layar Rencana, setiap kartu menu menampilkan porsi yang disarankan dengan alasan satu baris, seperti pada langkah 4.",
+  "how.resultMore":
+    "Alasan itu menyebut berapa hari lalu yang dipakai, berapa di antaranya habis atau bersisa, dan bagaimana angkanya dibanding terakhir kali.",
+  "how.resultLoop":
+    "Setelah Anda memasak dan menutup hari, angka sebenarnya kembali ke langkah 3 dan saran besok dihitung ulang.",
+  "how.accuracyTitle": "6. Seberapa tepat ini?",
+  "how.accuracyLead":
+    "FOODOO tidak menyebut persentase ketepatan. FOODOO belum diuji pada warung sungguhan. Aturannya hanya dicoba pada warung simulasi, dan hasilnya menggambarkan simulasi, bukan warung Anda.",
+  "how.affectTitle": "Yang membuatnya kurang tepat",
+  "how.affect1": "Riwayat kurang dari 5 hari: saran hanyalah titik awal.",
+  "how.affect2":
+    "Jam habis yang terlewat atau ditebak: peminat menjadi perkiraan.",
+  "how.affect3": "Hari tidak biasa yang tidak ditandai.",
+  "how.affect4": "Jam ramai yang tidak cocok dengan hari nyata Anda.",
+  "how.affect5":
+    "Harga atau biaya yang berubah: angka uang memakai nilai hari ini, juga untuk hari lalu.",
+  "how.improveTitle": "Yang bisa Anda lakukan",
+  "how.improve1": "Isi sisa porsi setiap malam.",
+  "how.improve2": "Konfirmasi jam habis jika Anda bisa.",
+  "how.improve3": "Tandai hari tidak biasa.",
+  "how.improve4": "Atur jam ramai di Pengaturan.",
+  "check.title": "Saran dibandingkan dengan kenyataan",
+  "check.lead":
+    "Untuk setiap hari biasa yang sudah ditutup dan sarannya dibuat dari riwayat, FOODOO membandingkan saran dengan jumlah orang yang ingin membeli menu itu. Hanya 28 hari terakhir yang dipakai.",
+  "check.empty":
+    "Belum cukup hari: {count} dari {min} hari diperiksa. Pemeriksaan muncul setelah {min} hari dengan saran dari riwayat sudah ditutup.",
+  "check.days": "Hari diperiksa",
+  "check.error": "Rata-rata selisih",
+  "check.errorValue": "{value} porsi",
+  "check.covered": "Saran sudah cukup",
+  "check.coveredValue": "{value}% hari",
+  "check.target":
+    "Sasaran: {value}% hari. Harga dan biaya Anda menentukan sasaran ini, karena FOODOO tidak berusaha mencukupi setiap hari.",
+  "check.overUnder":
+    "Di atas jumlah peminat pada {over} hari, di bawahnya pada {under} hari.",
+  "check.estimateNote":
+    "Pada hari menu habis, jumlah peminat itu sendiri adalah perkiraan.",
+  "check.scopeNote":
+    "Ini memeriksa catatan Anda sendiri. Ini bukan janji untuk besok.",
   "close.howLink": "Bagaimana ini dihitung?",
   "settings.about.how": "Cara FOODOO menghitung",
   "settings.data.storageKept":
@@ -578,8 +698,69 @@ export const id: Record<keyof typeof en, string> = {
   "landing.nav.menu": "Menu",
   "landing.nav.problem": "Masalah",
   "landing.nav.loop": "Cara kerja",
+  "landing.nav.ecosystem": "Ekosistem",
+  "landing.nav.trust": "Kepercayaan",
+  "landing.eco.title": "Satu putaran, lima bagian yang saling terhubung",
+  "landing.eco.lead":
+    "FOODOO untuk pemilik warung dan usaha makanan kecil yang menentukan porsi dengan perasaan. Tidak ada bagian yang berdiri sendiri: apa yang Anda catat di satu bagian menjadi masukan bagian berikutnya.",
+  "landing.eco.passes": "Diteruskan:",
+  "landing.eco.setupTitle": "Pengaturan",
+  "landing.eco.setupBody": "Menu, harga, biaya, dan jam ramai, diisi sekali.",
+  "landing.eco.setupOut":
+    "angka yang menjadi dasar setiap saran dan perkiraan.",
+  "landing.eco.planTitle": "Rencana",
+  "landing.eco.planBody": "Menyarankan porsi tiap menu, lengkap dengan alasan.",
+  "landing.eco.planOut": "porsi yang Anda masak, setelah Anda ubah.",
+  "landing.eco.serviceTitle": "Jualan dan Kasir",
+  "landing.eco.serviceBody":
+    "Satu ketukan saat menu habis, atau catat penjualan di mode Kasir.",
+  "landing.eco.serviceOut": "jam ketika pembeli tidak bisa lagi dilayani.",
+  "landing.eco.closeTitle": "Tutup",
+  "landing.eco.closeBody": "Sisa porsi, dan jam habis jika terlewat.",
+  "landing.eco.closeOut":
+    "berapa orang yang ingin membeli tiap menu, terhitung atau diperkirakan.",
+  "landing.eco.historyTitle": "Riwayat",
+  "landing.eco.historyBody":
+    "Hari-hari lalu, ringkasan mingguan, dan pemeriksaan saran terhadap kenyataan.",
+  "landing.eco.historyOut":
+    "hari biasa yang sudah ditutup dan membentuk rencana besok.",
+  "landing.eco.loop":
+    "Lalu putaran dimulai lagi dengan rencana pagi yang lebih terinformasi.",
+  "landing.trust.title": "Yang diklaim FOODOO, dan yang tidak",
+  "landing.trust.lead":
+    "Pemilik warung butuh angka yang bisa diperiksa. Inilah batasnya.",
+  "landing.trust.estimateTitle": "Perkiraan diberi label",
+  "landing.trust.estimateBody":
+    "Saat menu habis, jumlah orang yang ingin membelinya adalah tebakan dari jam ramai Anda. Selalu ada kata perkiraan.",
+  "landing.trust.simulatedTitle": "Hanya diuji pada warung simulasi",
+  "landing.trust.simulatedBody":
+    "Backtest dan warung demo memakai data buatan. FOODOO belum diuji pada pemilik warung sungguhan, jadi tidak menyebut persentase ketepatan.",
+  "landing.trust.yoursTitle": "Saran adalah titik awal",
+  "landing.trust.yoursBody":
+    "Anda mengubah setiap angka sebelum memasak. FOODOO tidak menjanjikan untung lebih besar atau sisa lebih sedikit untuk warung Anda.",
+  "landing.trust.rulesTitle": "Tanpa model tersembunyi",
+  "landing.trust.rulesBody":
+    "Tanpa model AI dan tanpa server. Aturan tetapnya dijelaskan langkah demi langkah di halaman di bawah ini.",
   "landing.nav.team": "Tim",
   "landing.nav.openApp": "Buka aplikasi",
+  "landing.cta.launch": "Jalankan Aplikasi Demo",
+  "landing.cta.continue": "Lanjut ke aplikasi",
+  "landing.cta.setup": "Atur warung saya sendiri",
+  "landing.cta.note":
+    "Pilih warung untuk memulai tutorialnya. Data latihan tersimpan di perangkat ini.",
+  "landing.try.eyebrow": "Coba sekarang",
+  "landing.try.title": "Jelajahi demo interaktif",
+  "landing.try.lead":
+    "Coba alur kerja empat warung, dari merencanakan porsi hingga mencatat sisa saat tutup.",
+  "landing.try.openTitle": "Empat warung untuk dipilih",
+  "landing.try.openBody":
+    "Pilih warung pagi, warung makan siang, angkringan malam, atau warung yang baru buka.",
+  "landing.try.tourTitle": "Panduan sesuai jenis warung",
+  "landing.try.tourBody":
+    "Ikuti kegiatan warung dalam tujuh langkah, atau coba latihan khusus untuk warung pilihan Anda.",
+  "landing.try.freeTitle": "Coba sendiri",
+  "landing.try.freeBody":
+    "Ubah angka, tandai menu habis, tutup hari, atau pindah ke warung demo lain.",
   "landing.problemLead":
     "Masak kebanyakan, uang terbuang. Masak kekurangan, pembeli pergi, dan catatan tidak pernah menunjukkan berapa orang.",
   "landing.loopLead":
@@ -615,11 +796,17 @@ export const id: Record<keyof typeof en, string> = {
   "today.hint.close":
     "Hitung sisanya supaya saran berikutnya belajar dari hari ini.",
   "tour.label": "Tutorial",
+  "tour.back": "Kembali",
+  "tour.close": "Tutup tutorial",
+  "tour.skipAll": "Lewati tutorial",
+  "tour.tryIt": "Tekan bagian yang disorot untuk lanjut.",
+  "tour.card.title": "Telusuri satu hari penuh",
+  "tour.card.body":
+    "Tujuh langkah singkat satu hari penuh: rencana, jual, tutup, dan tinjau.",
+  "tour.caseLabel": "Yang terjadi di warung ini",
   "tour.progress": "Langkah {step} dari {total}",
   "tour.next": "Lanjut",
-  "tour.skip": "Lewati langkah",
   "tour.finish": "Selesai",
-  "tour.end": "Akhiri tutorial",
   "tour.goThere": "Antar saya ke sana",
   "tour.replay": "Ulangi tutorial",
   "tour.start": "Mulai tutorial",
@@ -628,7 +815,7 @@ export const id: Record<keyof typeof en, string> = {
   "tour.sim": "Coba simulasi",
   "tour.intro.title": "Satu hari dalam 7 langkah",
   "tour.intro.body":
-    "Rencana, jualan, tutup, lalu lihat hasilnya. Demo diulang dari pagi, dan datanya buatan.",
+    "Rencana, jualan, tutup, lalu lihat hasilnya. Demo diulang dari pagi, dan datanya buatan. Tiap langkah juga menjelaskan apa yang terjadi di warung ini.",
   "tour.suggestion.title": "Saran beserta alasannya",
   "tour.suggestion.body":
     "Tiap kartu menunjukkan jumlah porsi yang dimasak dan alasannya. Ubah angka dengan + dan −.",
@@ -654,7 +841,7 @@ export const id: Record<keyof typeof en, string> = {
     "Lihat pelanggan simulasi datang jam demi jam dan analisisnya berubah.",
   "sim.open": "Buka simulasi",
   "sim.note":
-    "Simulasi dengan data demo buatan. Tidak ada yang disimpan ke warung.",
+    "Pilih Jam berikutnya untuk melihat perubahan penjualan, atau Putar untuk menjalankan simulasi otomatis. Pilih Selesaikan hari untuk memperbarui saran porsi besok. Data simulasi terpisah dari catatan warung.",
   "sim.emptyTitle": "Simulasi butuh warung demo",
   "sim.emptyBody": "Muat warung demo dengan minimal satu menu aktif.",
   "sim.day": "Hari {day}: {date}",
@@ -695,4 +882,112 @@ export const id: Record<keyof typeof en, string> = {
   "sim.signal.sellsOut": "Sering habis",
   "sim.signal.leftOver": "Sering bersisa",
   "sim.signal.steady": "Stabil",
+  "case.title": "Panduan kasus",
+  "case.eyebrow": "Kasus terpandu",
+  "case.intro":
+    "Tiap warung demo dibuat untuk memperlihatkan satu situasi. Ikuti empat momen dalam harinya. Setiap momen menjelaskan apa yang dicoba dan apa yang dilakukan FOODOO, dengan angka dari riwayat warung ini sendiri.",
+  "case.try": "Coba ini",
+  "case.happens": "Yang terjadi",
+  "case.open.plan": "Buka rencana pagi",
+  "case.open.service": "Buka penjualan",
+  "case.open.close": "Buka jam tutup",
+  "case.open.summary": "Buka ringkasan mingguan",
+  "case.resetNote":
+    "Membuka sebuah momen mengatur demo ke jam itu dan memuatnya ulang, jadi perubahan yang Anda buat pada hari demo kembali seperti semula. Riwayatnya tetap sama.",
+  "case.another":
+    "Untuk mengikuti kasus lain, tekan lencana Data demo di bagian atas lalu pilih warung.",
+  "case.stop": "Hentikan panduan",
+  "case.back": "Kembali ke panduan kasus",
+  "case.note.label": "Catatan panduan kasus",
+  "case.card.title": "Ikuti sebuah kasus",
+  "case.card.body":
+    "Tiap warung demo punya satu cerita. Ikuti momen demi momen, dengan penjelasan apa yang terjadi dan kenapa.",
+  "case.card.open": "Buka panduan kasus",
+  "case.emptyTitle": "Panduan kasus butuh warung demo",
+  "case.emptyBody":
+    "Panduan mengikuti cerita sebuah warung demo. Warung Anda sendiri tidak pernah diubah. Buka warung demo dulu.",
+  "case.unavailableTitle": "Tidak ada menu untuk diikuti",
+  "case.unavailableBody":
+    "Semua menu warung demo ini diarsipkan. Pulihkan satu di Pengaturan, atau muat demo lagi.",
+  "demo.launch.learnTitle": "Pelajari cara kerjanya dengan warung ini",
+  "demo.launch.tourName": "Tutorial 7 langkah",
+  "demo.launch.tourBody":
+    "Tekan bagian yang disorot selama satu hari penuh. Tiap langkah juga menjelaskan apa yang terjadi di warung ini dan kenapa.",
+  "demo.launch.resume": "Lanjutkan demo yang sudah ada",
+  "demo.launch.resumeNote":
+    "Membuka Hari ini tanpa memuat ulang. Atau pilih warung di bawah untuk mulai dari awal.",
+  "demo.launch.guideBody":
+    "Panduan langkah demi langkah menjelaskan apa yang terjadi di warung ini pada tiap momen hari, memakai angka dari riwayatnya sendiri.",
+  "case.start": "Mulai kasus terpandu",
+  "case.s1.title": "Menu yang habis menyembunyikan permintaan",
+  "case.s1.situation":
+    "{menu} biasanya dimasak {usual} porsi, tetapi terus saja habis. Hari yang habis hanya mencatat apa yang terjual, bukan apa yang diinginkan pembeli, jadi warung seperti ini diam-diam kehilangan penjualan. {menu2} kebalikannya, porsinya bersisa. Warung ini memperlihatkan FOODOO mengoreksi keduanya.",
+  "case.s1.plan.try":
+    "Buka rencana pagi. Bandingkan kartu {menu} dengan kartu {menu2}.",
+  "case.s1.plan.happens":
+    "{menu}: “{why}”. FOODOO menyarankan {qty} porsi, bukan {usual} yang biasa. {menu2}: “{why2}”. Sarannya {qty2}, bukan {usual2}. Angkanya berasal dari hari-hari yang dicatat pemilik, dengan hari yang habis dikoreksi ke atas.",
+  "case.s1.service.try":
+    "Buka layar Penjualan. Menu yang paling sering habis sudah habis. Ketuk menu lain untuk menandainya habis juga.",
+  "case.s1.service.happens":
+    "Satu ketukan menyimpan satu hal: menit menu itu habis. FOODOO menggabungkan menit itu dengan jam ramai warung. Kalau baru separuh pembeli hari itu yang datang saat menu habis, permintaan sebenarnya sekitar dua kali porsi yang dimasak. Batalkan tersedia selama 10 detik.",
+  "case.s1.close.try":
+    "Buka jam tutup. Isi sisa menu yang tidak habis, lalu tekan Tutup hari.",
+  "case.s1.close.happens":
+    "Kalau ada sisa, permintaan adalah porsi yang dimasak dikurangi sisa, jadi pasti. Untuk menu yang habis, FOODOO memperkirakan permintaan dari jam habisnya, paling banyak tiga kali porsi yang dimasak, dan menandainya sebagai perkiraan. Angka ini menjadi dasar saran besok.",
+  "case.s1.summary.try":
+    "Buka ringkasan mingguan. Lihat sisa, menu yang habis, dan perkiraan penjualan yang hilang.",
+  "case.s1.summary.happens":
+    "Menu yang habis, seperti {menu}, menampilkan perkiraan penjualan yang hilang di sini. Menu yang bersisa, seperti {menu2}, menampilkan uang yang hilang karena makanan terbuang. Angka besok menimbang untung yang hilang karena kehabisan terhadap biaya sisa, jadi tiap menu punya angkanya sendiri.",
+  "case.s2.title": "Satu hari tidak sama dengan hari lain",
+  "case.s2.situation":
+    "Warung makan siang kantor dengan satu jam ramai tajam di tengah hari. Ramai di hari kerja dan sepi di akhir pekan, jadi satu rata-rata akan salah di sebagian besar hari. FOODOO membandingkan tiap hari dengan hari yang sama.",
+  "case.s2.plan.try": "Buka rencana pagi dan baca alasan pada kartu {menu}.",
+  "case.s2.plan.happens":
+    "{menu}: “{why}”. FOODOO melihat hari yang sama pada beberapa minggu terakhir, jadi hari {hiDay} mendapat {hiQty} porsi dan hari {loDay} hanya {loQty}. {menu2} ceritanya lain: “{why2}”. Sarannya {qty2}, bukan {usual2} yang biasa.",
+  "case.s2.service.try":
+    "Buka layar Penjualan dan ketuk menu yang belum habis untuk menandainya habis.",
+  "case.s2.service.happens":
+    "Warung buka {open} sampai {close}, dengan jam ramai sekitar tengah hari. Menu yang habis sebelum jam ramai memuncak menyembunyikan jauh lebih banyak permintaan daripada yang habis menjelang tutup, karena sebagian besar pembeli belum datang. FOODOO menimbang jam habis dengan jam ramai.",
+  "case.s2.close.try":
+    "Buka jam tutup. Isi sisanya. Kalau ada kejadian tidak biasa hari ini, seperti hujan atau hari libur, nyalakan Hari tidak biasa.",
+  "case.s2.close.happens":
+    "Hari yang ditandai tidak biasa tetap ada di riwayat tetapi diabaikan saat membuat saran. Perbedaan biasa antara hari kerja dan akhir pekan bukan pengecualian, karena membandingkan hari yang sama sudah menanganinya.",
+  "case.s2.summary.try":
+    "Buka ringkasan mingguan, lalu buka satu hari lalu dari daftar.",
+  "case.s2.summary.happens":
+    "Tiap hari menampilkan yang dimasak, yang disarankan, dan permintaannya. Bandingkan hari kerja dengan hari akhir pekan. Jumlahnya berbeda karena permintaannya berbeda, bukan karena pemilik berubah pikiran.",
+  "case.s3.title": "Warung yang tutup lewat tengah malam",
+  "case.s3.situation":
+    "Warung malam yang buka {open} sampai {close}. Harinya melewati tengah malam, jadi penjualan pukul 01:00 masuk ke malam saat warung buka, bukan ke tanggal berikutnya. Tanpa aturan itu, satu malam akan terpecah jadi dua hari.",
+  "case.s3.plan.try":
+    "Buka rencana. Tanggalnya adalah malam saat warung buka, walau jam sudah lewat tengah malam.",
+  "case.s3.plan.happens":
+    "{menu}: “{why}”. FOODOO menyarankan {qty}, bukan {usual} yang biasa. Pembandingnya hari yang sama pada malam warung buka, jadi malam Jumat yang berakhir Sabtu pukul 01:00 tetap dihitung Jumat. {menu2}: {qty2}, bukan {usual2}.",
+  "case.s3.service.try": "Buka layar Penjualan dan tandai satu menu habis.",
+  "case.s3.service.happens":
+    "Jamnya disimpan menurut jam warung sendiri, di mana lewat tengah malam dihitung lebih akhir dari 23:00. Menu yang habis pukul 00:30 dengan benar dibaca habis terlambat, menjelang tutup, bukan di awal hari.",
+  "case.s3.close.try":
+    "Buka jam tutup. Isi sisanya dan tutup hari, walau sudah lewat tengah malam.",
+  "case.s3.close.happens":
+    "Hari yang ditutup disimpan atas nama malam saat warung buka. Permintaan dihitung dengan cara yang sama seperti warung siang, memakai jam ramai antara {open} dan {close}.",
+  "case.s3.summary.try": "Buka ringkasan mingguan dan lihat hari-hari terbaru.",
+  "case.s3.summary.happens":
+    "Tiap malam muncul sekali, atas nama hari mulainya. Malam {hiDay} paling ramai di sini, dengan {hiQty} porsi {menu}, dan malam {loDay} paling sepi, dengan {loQty}.",
+  "case.s4.title": "Warung baru dengan riwayat sedikit",
+  "case.s4.situation":
+    "Warung ini baru buka {days} hari lalu. Riwayatnya belum cukup untuk dipelajari, jadi FOODOO mulai dari porsi biasa dan menyesuaikan sedikit setelah tiap hari.",
+  "case.s4.plan.try":
+    "Buka rencana pagi. Baca alasan pada kartu {menu} dan {menu2}.",
+  "case.s4.plan.happens":
+    "{menu}: “{why}”, jadi {qty}, bukan {usual}. {menu2}: “{why2}”, jadi {qty2}, bukan {usual2}. Dengan hari yang sedikit, FOODOO bergeser sekitar sepersepuluh saja, karena beberapa hari bisa menyesatkan. Saran berdasarkan pola yang sebenarnya butuh paling sedikit 5 hari yang sebanding.",
+  "case.s4.service.try": "Buka layar Penjualan dan tandai satu menu habis.",
+  "case.s4.service.happens":
+    "Jam habis disimpan sejak hari pertama. Saat hari ditutup, jam itu diubah menjadi perkiraan permintaan, dan perkiraan itulah dasar saran berikutnya.",
+  "case.s4.close.try": "Buka jam tutup. Isi sisanya dan tutup hari.",
+  "case.s4.close.happens":
+    "Tiap hari yang ditutup menambah satu data. {menu3} masih menghasilkan {salvage3} untuk setiap porsi yang tidak terjual, jadi sisanya kecil ruginya. Setelah riwayatnya cukup, FOODOO condong memasak lebih banyak karena rasio kritisnya {ratio3}%.",
+  "case.s4.summary.try":
+    "Buka ringkasan mingguan. Hanya ada beberapa hari untuk ditampilkan.",
+  "case.s4.summary.happens":
+    "Dengan {days} hari, grafiknya pendek, dan itu jujur. FOODOO menandai perkiraan dan tidak berpura-pura tahu lebih banyak dari hari yang tercatat. Terus catat dan sarannya berubah dari titik awal menjadi pola.",
 };

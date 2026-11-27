@@ -1,6 +1,7 @@
 // e2e/exportImport.spec.ts
 import { readFile, writeFile } from "node:fs/promises";
 import { expect, test, type Page } from "@playwright/test";
+import { openDemoWithRealClock } from "./helpers.ts";
 
 test.use({ timezoneId: "Asia/Jakarta" });
 
@@ -24,11 +25,7 @@ for (const [label, extension] of [
   }, testInfo) => {
     await page.clock.setFixedTime(new Date("2026-03-02T09:00:00+07:00"));
     await page.goto("/");
-    await page.getByRole("button", { name: "Try demo stall" }).click();
-    await page
-      .getByRole("dialog")
-      .getByRole("button", { name: "Open with the real clock" })
-      .click();
+    await openDemoWithRealClock(page);
     await expect(
       page.getByRole("heading", { level: 1, name: "Today" }),
     ).toBeVisible();
@@ -40,7 +37,7 @@ for (const [label, extension] of [
     await page.getByRole("button", { name: "Delete all data" }).click();
     await page.getByRole("button", { name: "Delete everything" }).click();
     await expect(
-      page.getByRole("heading", { level: 1, name: /Cook the right amount/ }),
+      page.getByRole("heading", { level: 1, name: "Start using FOODOO" }),
     ).toBeVisible();
 
     await page.getByRole("button", { name: "Import a file" }).click();

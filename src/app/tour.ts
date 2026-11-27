@@ -1,9 +1,6 @@
 // src/app/tour.ts
 import { createContext, useContext } from "react";
 
-export const TOUR_STORAGE_KEY = "foodoo.tour";
-export const TOUR_DONE = "done";
-
 export interface TourValue {
   step: number | null;
   goTo: (step: number) => void;

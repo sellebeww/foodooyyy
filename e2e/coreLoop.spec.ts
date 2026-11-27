@@ -6,6 +6,7 @@ import {
   type Page,
   type TestInfo,
 } from "@playwright/test";
+import { openDemoWithRealClock } from "./helpers.ts";
 
 test.use({ timezoneId: "Asia/Jakarta" });
 
@@ -33,11 +34,7 @@ async function goOfflineAfterFirstLoad(page: Page, context: BrowserContext) {
 }
 
 async function runCoreLoop(page: Page, testInfo: TestInfo) {
-  await page.getByRole("button", { name: "Try demo stall" }).click();
-  await page
-    .getByRole("dialog")
-    .getByRole("button", { name: "Open with the real clock" })
-    .click();
+  await openDemoWithRealClock(page);
   await expect(
     page.getByRole("heading", { level: 1, name: "Today" }),
   ).toBeVisible();

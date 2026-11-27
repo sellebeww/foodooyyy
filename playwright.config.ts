@@ -14,15 +14,6 @@ export default defineConfig({
     baseURL: externalBaseUrl ?? localUrl,
     trace: "on-first-retry",
     serviceWorkers: "allow",
-    storageState: {
-      cookies: [],
-      origins: [
-        {
-          origin: new URL(externalBaseUrl ?? localUrl).origin,
-          localStorage: [{ name: "foodoo.tour", value: "done" }],
-        },
-      ],
-    },
   },
   projects: [{ name: "chromium", use: { ...devices["Pixel 7"] } }],
   webServer:

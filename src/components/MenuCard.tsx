@@ -4,6 +4,7 @@ import { useT } from "../i18n/index.ts";
 import { Stepper } from "./Stepper.tsx";
 
 interface MenuCardProps {
+  menuId: string;
   name: string;
   value: number;
   suggested: number | null;
@@ -13,6 +14,7 @@ interface MenuCardProps {
 }
 
 export function MenuCard({
+  menuId,
   name,
   value,
   suggested,
@@ -23,7 +25,7 @@ export function MenuCard({
   const t = useT();
   const edited = suggested !== null && value !== suggested;
   return (
-    <li className="card menu-card">
+    <li className="card menu-card" data-menu-id={menuId}>
       <div className="menu-card__head">
         <span className="menu-card__photo" aria-hidden="true">
           {name.trim().charAt(0).toUpperCase()}

@@ -3,8 +3,8 @@ import { closeMinute, dayMinute, openMinute } from "./time.ts";
 import type { DemandEstimate, HHMM, StallSettings } from "./types.ts";
 
 const DEFAULT_WEIGHT = 2;
-const FULL_SHARE_NUMERATOR = 19;
-const FULL_SHARE_DENOMINATOR = 20;
+export const FULL_SHARE_NUMERATOR = 19;
+export const FULL_SHARE_DENOMINATOR = 20;
 export const DEMAND_CAP_FACTOR = 3;
 
 export function hourWeight(settings: StallSettings, hour: number): number {

@@ -171,6 +171,10 @@ async function startDemoBrowser(): Promise<ChildProcess> {
   }
   const page = await context.newPage();
   await page.goto(`${BASE}/`);
+  await page
+    .getByRole("button", { name: "Set up my own stall" })
+    .first()
+    .click();
   await page.getByRole("button", { name: "Try demo stall" }).click();
   await page.getByRole("button", { name: "Open with the real clock" }).click();
   await page.getByRole("heading", { level: 1, name: "Today" }).waitFor();

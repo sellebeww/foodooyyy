@@ -1,6 +1,7 @@
 // src/components/Screen.tsx
 import type { ReactNode } from "react";
 import { useScreenArrival } from "../app/useScreenArrival.ts";
+import { CaseNote } from "./CaseNote.tsx";
 import { Header } from "./Header.tsx";
 
 interface ScreenProps {
@@ -22,6 +23,7 @@ export function Screen({
     <div className={narrow ? "screen screen--narrow" : "screen"}>
       <Header title={title} showSettings={showSettings} />
       <main id="main" className="screen__main" tabIndex={-1}>
+        <CaseNote />
         {children}
       </main>
     </div>

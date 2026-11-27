@@ -28,28 +28,32 @@ npm ci && npm run dev   # Node 22
 
 Source of truth: `PLAN.md` section 4. Acceptance criteria: `SPEC.md`. Evidence: `docs/DECISIONS.md` and `tests/`.
 
-| ID       | Feature                                                            | Priority | Status                 |
-| -------- | ------------------------------------------------------------------ | -------- | ---------------------- |
-| ON       | Onboarding and setup                                               | Core     | Done                   |
-| TD       | Today screen (loop view)                                           | Core     | Done                   |
-| PL       | Morning plan with reasons                                          | Core     | Done                   |
-| SV       | Service: one-tap sold out + undo                                   | Core     | Done                   |
-| CL       | Night close + missed sell-out + unusual day                        | Core     | Done                   |
-| EST      | Demand estimation + suggestion logic                               | Core     | Done                   |
-| DEMO     | Demo stall generator + labels                                      | Core     | Done                   |
-| PWA      | Offline + installable                                              | Core     | Done                   |
-| I18N     | English / Bahasa Indonesia                                         | Core     | Done                   |
-| DM-1/2/5 | Delete all, demo load/remove, persistent storage                   | Core     | Done                   |
-| BT       | Backtest report                                                    | Core     | Done                   |
-| WS       | Weekly summary + history                                           | Should   | Done                   |
-| DM-3/4   | Export / import                                                    | Should   | Done                   |
-| REG      | Register mode, auto sell-out, sales-linked close, 7-day correction | Should   | Done                   |
-| MN       | Money view: cooking cost, leftover cost, margin missed             | Should   | Done                   |
-| SH       | Today's menus list and share the cooking list                      | Should   | Done                   |
-| NV       | Current-step marker, progress cues, settings section links         | Should   | Done                   |
-| TOUR     | First-run interactive tutorial                                     | Should   | Done                   |
-| SIM      | Hourly stall simulation with live demand analysis                  | Should   | Simulated              |
-| UX-FIX   | Top usability fix from owner testing                               | Should   | Reserved for Final Day |
+| ID       | Feature                                                                                | Priority | Status                 |
+| -------- | -------------------------------------------------------------------------------------- | -------- | ---------------------- |
+| ON       | Onboarding and setup                                                                   | Core     | Done                   |
+| TD       | Today screen (loop view)                                                               | Core     | Done                   |
+| PL       | Morning plan with reasons                                                              | Core     | Done                   |
+| SV       | Service: one-tap sold out + undo                                                       | Core     | Done                   |
+| CL       | Night close + missed sell-out + unusual day                                            | Core     | Done                   |
+| EST      | Demand estimation + suggestion logic                                                   | Core     | Done                   |
+| DEMO     | Demo stall generator + labels                                                          | Core     | Done                   |
+| PWA      | Offline + installable                                                                  | Core     | Done                   |
+| I18N     | English / Bahasa Indonesia                                                             | Core     | Done                   |
+| DM-1/2/5 | Delete all, demo load/remove, persistent storage                                       | Core     | Done                   |
+| BT       | Backtest report                                                                        | Core     | Done                   |
+| WS       | Weekly summary + history                                                               | Should   | Done                   |
+| DM-3/4   | Export / import                                                                        | Should   | Done                   |
+| REG      | Register mode, auto sell-out, sales-linked close, 7-day correction                     | Should   | Done                   |
+| MN       | Money view: cooking cost, leftover cost, margin missed                                 | Should   | Done                   |
+| SH       | Today's menus list and share the cooking list                                          | Should   | Done                   |
+| NV       | Current-step marker, progress cues, settings section links                             | Should   | Done                   |
+| TOUR     | First-run interactive tutorial                                                         | Should   | Done                   |
+| CASE     | Case guide: one story per demo stall, with the numbers from its own history            | Should   | Simulated              |
+| HOW      | Interactive How FOODOO calculates: inputs, sources, two live examples, accuracy limits | Should   | Done                   |
+| CHK      | Suggestions checked against what happened, on the stall's own history                  | Should   | Done                   |
+| PROF     | Company page: ecosystem and trust sections                                             | Should   | Done                   |
+| SIM      | Hourly stall simulation with live demand analysis                                      | Should   | Simulated              |
+| UX-FIX   | Top usability fix from owner testing                                                   | Should   | Reserved for Final Day |
 
 Allowed status values: `Not started`, `In progress`, `Done`, `Reserved for Final Day`, `Simulated` (works on demo data only).
 
@@ -73,9 +77,10 @@ Set `VITE_DEMO=off` in `.env` (copy `.env.example`) to hide the demo stalls; the
 ## 4. Demo access
 
 - **URL:** https://foodoo-d5h.pages.dev (Cloudflare Pages, from `main`; it may lag other branches).
-- **Load demo data:** first screen → **Try demo stall** → pick one of four made-up stalls (synthetic history, fixed seed, dates follow today). Every screen shows a yellow **Demo data** sticker. Demo data cannot be loaded over the owner's own data.
+- **Load demo data:** the app always opens on the company page. **Launch Demo App** opens a chooser: select a stall card to open its demo and tutorial. For independent practice, select a stall in the practice menu and open a stage (plan, sales, closing time, or weekly summary). If a demo already exists the chooser also offers to continue it. The same chooser is behind **Set up my own stall** → **Try demo stall** and the **Demo data** badge inside the app (synthetic history, fixed seed, dates follow today). Every screen shows a yellow **Demo data** sticker. Demo data cannot be loaded over the owner's own data.
 - **Reset:** Settings → Data → **Reset demo data**, **Choose another demo stall** or **Remove demo stall**.
-- **Tutorial:** 16 steps on the first visit, can be ended any time. Replay: Settings → Data → **Replay tutorial** (demo stall only).
+- **Tutorial:** Selecting a stall opens its tutorial. **Start tutorial** begins a seven-step walkthrough using that stall’s menu and history. Back, Next, Skip tutorial, Close and Escape end or move it at any time. Restart: Today → **Start tutorial**, the **Tutorial** button in the desktop sidebar, or Settings → Data → **Replay tutorial** (demo stall only).
+- **Case guide:** each demo stall tells one story: 1 a menu that sells out hides demand, 2 weekdays differ, 3 a stall open past midnight, 4 a new stall with little history. Press **Try demo stall** (or the **Demo data** badge), pick a stall and select its named exercise in the tutorial, or open Today → **Open the case guide**. The guide has four moments (plan, sales, closing time, weekly summary). Each says what to try and what FOODOO does, with numbers read from the stall's own history. While the guide is on, a short note follows you onto each of those screens; **Stop the guide** turns it off. Demo stall only; nothing about your own stall is touched.
 - **Hourly simulation:** demo stall → Today → **Open simulation**. Simulated customers arrive hour by hour; nothing is saved.
 - **Register mode:** Settings → Sales mode → Register, plan today, open the Sales tab.
 - **Vercel:** `vercel.json` is committed; import the repository or run `vercel --prod`. No environment variable is required. No Vercel URL is recorded until a deployment exists.
@@ -133,21 +138,16 @@ Licences read from each package's `package.json` and font licence file.
 
 ZIP, XLSX and CSV handling are written for this project (browser `CompressionStream`, no library). UI icons, logo and PWA icons were drawn for this project. Project licence: **pending team decision** (no `LICENSE` file yet).
 
-## 8. AI assistance
-
-Material AI assistance, as required by STACK 2026. Details per decision are in `docs/DECISIONS.md`. The team owns and must be able to explain every module.
-
-| Date                     | Tool                                         | Module                                    | What the AI did                                                                                     | Reviewed by                                             |
-| ------------------------ | -------------------------------------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
-| 2026-11-25 to 2026-11-27 | Claude Code (Claude Sonnet 5.5 and Opus 5.5) | All code, tests, scripts, config and docs | Wrote, reviewed and fixed code and tests, designed UI and logo, wrote docs, ran checks and releases | Team approved CHECKPOINT F1; the rest is pending review |
-| 2026-11-27               | Codex                                        | Repository publication                    | Compared the local snapshot with both GitHub branches and ran repository checks                     | Pending review                                          |
-
-## 9. Known limitations
+## 8. Known limitations
 
 **Not built or untested**
 
+- FOODOO has no food database, calories, macros, food diary or consumer-side warung browsing. It plans a stall's own portions. A request for those features was reviewed and not built (D-102).
+- The suggestion check (History and How pages) needs 5 closed normal days with a suggestion made from history. Demo history stores no past suggestions, so the demo stall shows "not enough days" until days are played through.
+
 - The abstract's cashier **+1 turned away** tap is not built.
 - Not tested with real warung owners; setup under 3 minutes (ON-5) and daily input under one minute are untimed. UX-FIX is reserved for the Final Day.
+- The company-page-first rule uses a per-tab session flag. A reload keeps the owner in the app; a new tab or a launch of the installed app starts at the company page.
 - E2e covers Chromium only. Installability was checked with Chromium's report, not on a physical phone. The tutorial, simulation and D-096 changes were not checked on a physical device, Safari or Firefox.
 - Night stalls (closing after midnight) have domain and unit tests only.
 
@@ -170,7 +170,7 @@ Material AI assistance, as required by STACK 2026. Details per decision are in `
 - Section 12 comes from one machine with simulated throttling (2026-11-26). Cold mobile largest contentful paint is 2.05 s, just over the 2 s target (D-069).
 - Screenshots in `docs/ui/` predate the D-095 redesign.
 
-## 10. Final Day log
+## 9. Final Day log
 
 To be filled in on the Final Day (16 December 2026).
 
@@ -182,7 +182,7 @@ To be filled in on the Final Day (16 December 2026).
 | Changes in session    |       |
 | Member contributions  |       |
 
-## 11. Backtest results
+## 10. Backtest results
 
 <!-- backtest:start -->
 
@@ -213,7 +213,7 @@ Estimator check (mean absolute error in portions, lower is better):
 
 <!-- backtest:end -->
 
-## 12. Lighthouse and bundle size
+## 11. Lighthouse and bundle size
 
 Generated by `npm run lighthouse`; never typed by hand. Bundle size: `npm run size`.
 

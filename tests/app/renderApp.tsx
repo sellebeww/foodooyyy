@@ -3,7 +3,7 @@ import { render, type RenderResult } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { App } from "../../src/app/App.tsx";
 import { AppProviders } from "../../src/app/AppProviders.tsx";
-import { TOUR_DONE, TOUR_STORAGE_KEY } from "../../src/app/tour.ts";
+import { ENTRY_KEY } from "../../src/app/entry.ts";
 import type { FoodooDb } from "../../src/db/schema.ts";
 
 export const MONDAY_9AM = new Date(2026, 2, 2, 9, 0);
@@ -34,7 +34,7 @@ interface RenderOptions {
   at?: Date;
   now?: () => Date;
   storage?: Storage;
-  tour?: boolean;
+  entered?: boolean;
 }
 
 export function renderApp({
@@ -43,10 +43,12 @@ export function renderApp({
   at = MONDAY_9AM,
   now: clock,
   storage = memoryStorage(),
-  tour = false,
+  entered = true,
 }: RenderOptions): RenderResult {
-  if (!tour) {
-    storage.setItem(TOUR_STORAGE_KEY, TOUR_DONE);
+  if (entered) {
+    window.sessionStorage.setItem(ENTRY_KEY, "1");
+  } else {
+    window.sessionStorage.removeItem(ENTRY_KEY);
   }
   const now = clock ?? (() => new Date(at.getTime()));
   return render(
