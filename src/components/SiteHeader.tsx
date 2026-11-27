@@ -10,19 +10,16 @@ import { LanguageSwitch } from "./LanguageSwitch.tsx";
 const SECTIONS: readonly { id: string; label: MessageKey }[] = [
   { id: "problem", label: "landing.nav.problem" },
   { id: "loop", label: "landing.nav.loop" },
-  { id: "demo", label: "landing.nav.demo" },
   { id: "team", label: "landing.nav.team" },
 ];
 
 interface SiteHeaderProps {
   complete: boolean;
-  showDemo: boolean;
 }
 
-export function SiteHeader({ complete, showDemo }: SiteHeaderProps) {
+export function SiteHeader({ complete }: SiteHeaderProps) {
   const t = useT();
   const [open, setOpen] = useState(false);
-  const sections = SECTIONS.filter((item) => showDemo || item.id !== "demo");
   return (
     <header
       className="site-header"
@@ -43,7 +40,7 @@ export function SiteHeader({ complete, showDemo }: SiteHeaderProps) {
           aria-label={t("landing.nav.label")}
         >
           <ul>
-            {sections.map((item) => (
+            {SECTIONS.map((item) => (
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
@@ -58,15 +55,9 @@ export function SiteHeader({ complete, showDemo }: SiteHeaderProps) {
           </ul>
         </nav>
         <LanguageSwitch compact />
-        {complete ? (
-          <Link className="btn btn--primary site-header__cta" to="/today">
-            {t("landing.nav.openApp")}
-          </Link>
-        ) : showDemo ? (
-          <a className="btn btn--primary site-header__cta" href="#demo">
-            {t("landing.nav.seeDemo")}
-          </a>
-        ) : null}
+        <Link className="btn btn--primary site-header__cta" to="/start">
+          {t(complete ? "how.back" : "landing.nav.openApp")}
+        </Link>
         <button
           type="button"
           className="icon-btn site-header__menu"

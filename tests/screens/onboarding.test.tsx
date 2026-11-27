@@ -50,20 +50,16 @@ async function addMenu(values: {
 }
 
 describe("onboarding", () => {
-  it("ON-1: with no data the app opens on Welcome with both options", async () => {
-    renderApp({ db });
+  it("ON-1: with no data the app entry offers both options", async () => {
+    renderApp({ db, path: "/start" });
     expect(
-      await screen.findByRole("heading", {
-        level: 1,
-        name: /Cook the right amount/,
-      }),
+      await screen.findByRole("button", { name: "Start setup" }),
     ).toBeTruthy();
-    expect(screen.getByRole("button", { name: "Start setup" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Try demo stall" })).toBeTruthy();
   });
 
   it("ON-2: a cost at or above the price shows an inline error and blocks saving", async () => {
-    renderApp({ db });
+    renderApp({ db, path: "/start" });
     fireEvent.click(await screen.findByRole("button", { name: "Start setup" }));
     expect(await screen.findByText("Step 1 of 2")).toBeTruthy();
 
@@ -101,7 +97,7 @@ describe("onboarding", () => {
   });
 
   it("asks for at least one menu before step 2", async () => {
-    renderApp({ db });
+    renderApp({ db, path: "/start" });
     fireEvent.click(await screen.findByRole("button", { name: "Start setup" }));
     fireEvent.click(await screen.findByRole("button", { name: "Next" }));
     expect((await screen.findByRole("alert")).textContent).toBe(
@@ -110,7 +106,7 @@ describe("onboarding", () => {
   });
 
   it("ON-3, ON-4: validates hours, cycles busy levels, finishes and reopens on Today", async () => {
-    const view = renderApp({ db });
+    const view = renderApp({ db, path: "/start" });
     fireEvent.click(await screen.findByRole("button", { name: "Start setup" }));
     await addMenu({
       name: "Tempe Orek",
@@ -156,7 +152,7 @@ describe("onboarding", () => {
     });
 
     view.unmount();
-    renderApp({ db });
+    renderApp({ db, path: "/start" });
     expect(
       await screen.findByRole("heading", { level: 1, name: "Today" }),
     ).toBeTruthy();

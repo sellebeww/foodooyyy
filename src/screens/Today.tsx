@@ -107,11 +107,9 @@ export function Today() {
         <section className="card panel" aria-labelledby="today-sim">
           <h2 id="today-sim">{t("sim.title")}</h2>
           <p>{t("sim.cardBody")}</p>
-          <div data-tour="open-sim">
-            <Button variant="secondary" to="/simulate">
-              {t("sim.open")}
-            </Button>
-          </div>
+          <Button variant="secondary" to="/simulate">
+            {t("sim.open")}
+          </Button>
         </section>
       ) : null}
       <section className="counts" aria-labelledby="today-counts">

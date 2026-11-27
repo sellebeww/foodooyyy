@@ -26,8 +26,8 @@ afterEach(async () => {
 });
 
 describe("demo turned off (VITE_DEMO=off)", () => {
-  it("Welcome offers only Start setup", async () => {
-    renderApp({ db });
+  it("the app entry offers no demo", async () => {
+    renderApp({ db, path: "/start" });
     expect(
       await screen.findByRole("button", { name: "Start setup" }),
     ).toBeTruthy();

@@ -44,7 +44,10 @@ export function CloseRow({
 }: CloseRowProps) {
   const t = useT();
   return (
-    <li className="card close-row">
+    <li
+      className="card close-row"
+      data-missing={(soldOutAt === null && leftover === null) || undefined}
+    >
       <div className="close-row__head">
         <h2 className="close-row__name">{name}</h2>
         <p className="close-row__meta">

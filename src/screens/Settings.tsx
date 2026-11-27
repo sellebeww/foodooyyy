@@ -38,8 +38,7 @@ import {
 import { modeOf } from "../domain/pos.ts";
 import { validateHours, type HoursErrors } from "../domain/setup.ts";
 import { useT } from "../i18n/index.ts";
-import { useTour } from "../app/tour.ts";
-import { FIRST_APP_STEP } from "../app/tourSteps.ts";
+import { useStartTour } from "../app/useStartTour.ts";
 
 type Confirm = "delete" | "removeDemo" | null;
 
@@ -65,7 +64,7 @@ export function Settings() {
   const [busy, setBusy] = useState(false);
   const [picking, setPicking] = useState(false);
   const openDemo = useOpenDemo();
-  const tour = useTour();
+  const startTour = useStartTour();
 
   if (!stall) {
     return (
@@ -137,7 +136,7 @@ export function Settings() {
     try {
       await action();
       setConfirm(null);
-      navigate("/welcome", { replace: true });
+      navigate("/start", { replace: true });
     } catch {
       toast.show(t("common.saveFailed"));
       setBusy(false);
@@ -246,23 +245,7 @@ export function Settings() {
                   <Button
                     variant="secondary"
                     disabled={busy}
-                    onClick={() => {
-                      const entry = DEMO_CATALOG.find(
-                        (item) =>
-                          item.id ===
-                          (stall.demo?.scenario ?? DEFAULT_DEMO_SCENARIO),
-                      );
-                      if (entry !== undefined) {
-                        openDemo(entry, "plan").then(
-                          () => {
-                            tour.goTo(FIRST_APP_STEP);
-                          },
-                          () => {
-                            toast.show(t("common.saveFailed"));
-                          },
-                        );
-                      }
-                    }}
+                    onClick={startTour}
                   >
                     {t("tour.replay")}
                   </Button>
@@ -321,7 +304,7 @@ export function Settings() {
         <p>{t("settings.about.version", { version: __APP_VERSION__ })}</p>
         <p>{t("settings.about.body")}</p>
         <p>
-          <Link className="link-target" to="/about">
+          <Link className="link-target" to="/">
             {t("settings.about.landing")}
           </Link>
         </p>

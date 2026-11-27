@@ -18,7 +18,7 @@ export function Sidebar() {
         items={[...LOOP_NAV, HISTORY_NAV, SETTINGS_NAV]}
         className="sidebar__list"
       />
-      <Link className="sidebar__about" to="/about">
+      <Link className="sidebar__about" to="/">
         <span>{t("settings.about.landing")}</span>
         <ArrowIcon />
       </Link>

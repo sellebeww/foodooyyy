@@ -48,11 +48,7 @@ export function SimulationAnalysis({
     scenario.menus.find((menu) => menu.id === menuId)?.name ?? menuId;
 
   return (
-    <section
-      className="card panel"
-      aria-labelledby="sim-analysis"
-      data-tour="sim-analysis"
-    >
+    <section className="card panel" aria-labelledby="sim-analysis">
       <h2 id="sim-analysis">{t("sim.analysis")}</h2>
       <h3>{t("sim.pattern")}</h3>
       {hasLoads ? (

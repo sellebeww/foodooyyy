@@ -130,7 +130,7 @@ export function HowItWorks() {
         </div>
       </div>
 
-      <Button variant="secondary" to="/">
+      <Button variant="secondary" to="/start">
         {t("how.back")}
       </Button>
     </Screen>

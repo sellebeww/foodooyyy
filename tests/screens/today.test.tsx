@@ -47,7 +47,7 @@ async function planToday(soldOut: number) {
 
 describe("Today", () => {
   it("TD-1..3: trying the demo opens Today in the plan phase with the demo sticker", async () => {
-    renderApp({ db });
+    renderApp({ db, path: "/start" });
     fireEvent.click(
       await screen.findByRole("button", { name: "Try demo stall" }),
     );
@@ -198,7 +198,7 @@ describe("Today", () => {
     ).toBeTruthy();
   });
 
-  it("sends a visitor with no data from an app route to Welcome", async () => {
+  it("sends a visitor with no data from an app route to the app entry", async () => {
     renderApp({ db, path: "/today" });
     expect(
       await screen.findByRole("button", { name: "Start setup" }),

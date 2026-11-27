@@ -5,7 +5,6 @@ import { useT } from "../i18n/index.ts";
 import { Welcome } from "../screens/Welcome.tsx";
 import { registerPwa } from "./registerPwa.ts";
 import { RequireStall } from "./RequireStall.tsx";
-import { RootRedirect } from "./RootRedirect.tsx";
 import { useToast } from "./toast.ts";
 import { Splash } from "../components/Splash.tsx";
 import { Tour } from "../components/Tour.tsx";
@@ -30,6 +29,9 @@ const Plan = lazy(() =>
 );
 const Sales = lazy(() =>
   import("../screens/Sales.tsx").then((m) => ({ default: m.Sales })),
+);
+const Start = lazy(() =>
+  import("../screens/Start.tsx").then((m) => ({ default: m.Start })),
 );
 const Today = lazy(() =>
   import("../screens/Today.tsx").then((m) => ({ default: m.Today })),
@@ -74,10 +76,9 @@ export function App() {
       </a>
       <Suspense fallback={<Splash />}>
         <Routes>
-          <Route path="/" element={<RootRedirect />} />
-          <Route path="/welcome" element={<Welcome />} />
+          <Route path="/" element={<Welcome />} />
+          <Route path="/start" element={<Start />} />
           <Route path="/how" element={<HowItWorks />} />
-          <Route path="/about" element={<Welcome about />} />
           <Route
             path="/setup/menus"
             element={

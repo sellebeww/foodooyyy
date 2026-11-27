@@ -37,7 +37,7 @@ function press(dialog: HTMLElement, name: string | RegExp) {
 
 describe("demo stall picker", () => {
   it("offers four demo stalls, each with hours, history and a short description", async () => {
-    renderApp({ db });
+    renderApp({ db, path: "/start" });
     const dialog = await openPicker("Try demo stall");
     const options = within(dialog).getAllByRole("radio");
     expect(
@@ -57,7 +57,7 @@ describe("demo stall picker", () => {
   });
 
   it("loads the chosen stall; a night stall picked at 09:00 belongs to the night before", async () => {
-    renderApp({ db });
+    renderApp({ db, path: "/start" });
     const dialog = await openPicker("Try demo stall");
     pickStall(dialog, /^Demo Angkringan Malam/);
     press(dialog, "Open with the real clock");
@@ -78,7 +78,7 @@ describe("demo stall picker", () => {
   ] as const)(
     "one press on %s opens that screen with matching demo data",
     async (button, heading, moment, planned, soldOut) => {
-      renderApp({ db });
+      renderApp({ db, path: "/start" });
       const dialog = await openPicker("Try demo stall");
       press(dialog, button);
       await screen.findByText("Demo stall loaded");
@@ -123,15 +123,8 @@ describe("demo stall picker", () => {
     });
   });
 
-  it("the company page keeps offering the demo while a demo is loaded", async () => {
-    await loadDemo(db, TODAY, 2);
-    renderApp({ db, path: "/about" });
-    const moment = await screen.findByRole("button", { name: /^Selling/ });
-    expect(moment.hasAttribute("disabled")).toBe(false);
-  });
-
   it("closes without loading anything", async () => {
-    renderApp({ db });
+    renderApp({ db, path: "/start" });
     const dialog = await openPicker("Try demo stall");
     fireEvent.click(
       within(dialog).getByRole("button", { name: "Close dialog" }),

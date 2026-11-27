@@ -53,6 +53,8 @@ export const id: Record<keyof typeof en, string> = {
   "lang.en": "English",
   "lang.id": "Bahasa Indonesia",
 
+  "start.title": "Mulai pakai FOODOO",
+  "start.lead": "Semua tersimpan di perangkat ini. Tanpa akun.",
   "welcome.start": "Mulai pengaturan",
   "welcome.continue": "Lanjutkan pengaturan",
   "demo.pick.title": "Pilih warung demo",
@@ -561,8 +563,7 @@ export const id: Record<keyof typeof en, string> = {
   "landing.whyPrivateBody":
     "Tanpa login, tanpa server, tanpa data pelanggan. Ekspor atau hapus semua kapan saja.",
   "landing.closingTitle": "Siap mencoba?",
-  "landing.closingBody":
-    "Lihat-lihat warung demo berdata buatan, atau atur menu Anda sendiri. Tanpa akun.",
+  "landing.closingBody": "Atur menu Anda sendiri di ponsel ini. Tanpa akun.",
   "landing.installHint":
     "Tips: pakai “Tambahkan ke layar utama” di browser untuk membuka FOODOO seperti aplikasi.",
   "settings.about.landing": "Tentang FOODOO",
@@ -577,9 +578,7 @@ export const id: Record<keyof typeof en, string> = {
   "landing.nav.menu": "Menu",
   "landing.nav.problem": "Masalah",
   "landing.nav.loop": "Cara kerja",
-  "landing.nav.demo": "Demo",
   "landing.nav.team": "Tim",
-  "landing.nav.seeDemo": "Lihat demo",
   "landing.nav.openApp": "Buka aplikasi",
   "landing.problemLead":
     "Masak kebanyakan, uang terbuang. Masak kekurangan, pembeli pergi, dan catatan tidak pernah menunjukkan berapa orang.",
@@ -601,7 +600,6 @@ export const id: Record<keyof typeof en, string> = {
   "landing.explorer.arrived": "Pembeli yang sudah datang",
   "landing.explorer.hint":
     "Geser penggesernya. Aturannya sama dengan aplikasi, pada warung contoh.",
-  "landing.demoTitle": "Jelajahi warung demo",
   "landing.teamTitle": "Tim di balik FOODOO",
   "landing.teamBody":
     "Calon Mantu Idaman, membangun untuk STACK 2026 oleh GDGoC ITB, Kasus 2: Stronger Communities and Everyday Services.",
@@ -610,10 +608,7 @@ export const id: Record<keyof typeof en, string> = {
   "landing.team.screens": "Layar dan komponen",
   "landing.team.platform":
     "Aplikasi offline, bahasa, aksesibilitas, pengujian, dan deployment",
-  "landing.closingSetup": "Atur warung saya",
-  "landing.closingDemo": "Pilih warung demo",
-  "landing.footerNote":
-    "Data demo adalah data buatan dan diberi label. Isian Anda tetap di perangkat Anda.",
+  "landing.footerNote": "Data yang Anda isi tetap di perangkat Anda.",
   "landing.footerLinks": "Tentang FOODOO lebih lanjut",
   "today.hint.plan": "Periksa tiap angka saran, ubah sesuka Anda, lalu simpan.",
   "today.hint.service": "Saat menu habis, ketuk agar jamnya tercatat.",
@@ -627,46 +622,33 @@ export const id: Record<keyof typeof en, string> = {
   "tour.end": "Akhiri tutorial",
   "tour.goThere": "Antar saya ke sana",
   "tour.replay": "Ulangi tutorial",
-  "tour.welcome.title": "Mulai dari demo",
-  "tour.welcome.body":
-    "Tekan Coba warung demo. Datanya buatan, jadi silakan tekan apa saja.",
-  "tour.moment.title": "Pilih pagi hari",
-  "tour.moment.body": "Tekan Rencana pagi untuk memulai hari dari awal.",
+  "tour.start": "Mulai tutorial",
+  "tour.notNow": "Nanti saja",
+  "tour.register": "Coba register",
+  "tour.sim": "Coba simulasi",
+  "tour.intro.title": "Satu hari dalam 7 langkah",
+  "tour.intro.body":
+    "Rencana, jualan, tutup, lalu lihat hasilnya. Demo diulang dari pagi, dan datanya buatan.",
   "tour.suggestion.title": "Saran beserta alasannya",
   "tour.suggestion.body":
-    "Tiap kartu menunjukkan jumlah porsi yang dimasak dan alasannya. Ubah dengan + dan −.",
+    "Tiap kartu menunjukkan jumlah porsi yang dimasak dan alasannya. Ubah angka dengan + dan −.",
   "tour.accept.title": "Simpan rencana",
   "tour.accept.body": "Tekan Terima semua untuk menyimpan porsi hari ini.",
   "tour.toService.title": "Buka penjualan",
-  "tour.toService.body": "Tekan Penjualan di navigasi.",
+  "tour.toService.body": "Tekan Penjualan di menu.",
   "tour.soldOut.title": "Ada menu habis",
   "tour.soldOut.body":
     "Ketuk menu untuk mencatat jam habisnya. Bisa dibatalkan dalam 10 detik.",
   "tour.toClose.title": "Tutup hari",
-  "tour.toClose.body": "Tekan Tutup di navigasi.",
+  "tour.toClose.body": "Tekan Tutup di menu.",
   "tour.close.title": "Hitung sisanya",
-  "tour.close.body":
-    "Isi tiap menu, tekan Tutup hari, lalu Simpan semua. FOODOO memperkirakan permintaan dan menyarankan porsi besok.",
+  "tour.close.body": "Isi sisa tiap menu, tekan Tutup hari, lalu Simpan semua.",
   "tour.toHistory.title": "Lihat hasilnya",
-  "tour.toHistory.body": "Tekan Riwayat di navigasi.",
-  "tour.history.title": "7 hari terakhir",
-  "tour.history.body":
-    "Sisa, kejadian habis, dan perkiraan penjualan hilang. Angka perkiraan diberi label.",
-  "tour.toSettings.title": "Buka pengaturan",
-  "tour.toSettings.body": "Tekan tombol Pengaturan.",
-  "tour.cashier.title": "Mode kasir",
-  "tour.cashier.body":
-    "Aktifkan register di sini. Kasir menekan menu yang terjual, stok berkurang, jam habis tercatat, dan penutupan terisi otomatis.",
-  "tour.toToday.title": "Kembali ke hari ini",
-  "tour.toToday.body": "Tekan Hari ini di navigasi.",
-  "tour.openSim.title": "Simulasikan hari penuh",
-  "tour.openSim.body": "Buka simulasi per jam.",
-  "tour.play.title": "Jalankan warung",
-  "tour.play.body":
-    "Tekan putar. Pelanggan datang jam demi jam, hari demi hari.",
-  "tour.analysis.title": "Analisis langsung",
-  "tour.analysis.body":
-    "Jam ramai, kinerja tiap menu, dan jumlah porsi berikutnya. Berubah selama simulasi berjalan.",
+  "tour.toHistory.body":
+    "Tekan Riwayat untuk melihat sisa, menu habis, dan perkiraan penjualan hilang.",
+  "tour.outro.title": "Itulah putaran harian",
+  "tour.outro.body":
+    "Saran besok sudah belajar dari hari ini. Dua hal ini juga bisa dicoba.",
   "sim.title": "Simulasi per jam",
   "sim.cardBody":
     "Lihat pelanggan simulasi datang jam demi jam dan analisisnya berubah.",

@@ -140,6 +140,7 @@ Material AI assistance, as required by STACK 2026. Details per decision are in `
 | Date                     | Tool                                         | Module                                    | What the AI did                                                                                     | Reviewed by                                             |
 | ------------------------ | -------------------------------------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
 | 2026-11-25 to 2026-11-27 | Claude Code (Claude Sonnet 5.5 and Opus 5.5) | All code, tests, scripts, config and docs | Wrote, reviewed and fixed code and tests, designed UI and logo, wrote docs, ran checks and releases | Team approved CHECKPOINT F1; the rest is pending review |
+| 2026-11-27               | Codex                                        | Repository publication                    | Compared the local snapshot with both GitHub branches and ran repository checks                     | Pending review                                          |
 
 ## 9. Known limitations
 

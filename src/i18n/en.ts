@@ -51,6 +51,8 @@ export const en = {
   "lang.en": "English",
   "lang.id": "Bahasa Indonesia",
 
+  "start.title": "Start using FOODOO",
+  "start.lead": "Everything stays on this device. No account needed.",
   "welcome.start": "Start setup",
   "welcome.continue": "Continue setup",
   "demo.pick.title": "Choose a demo stall",
@@ -554,7 +556,7 @@ export const en = {
     "No login, no server, no customer data. Export or delete everything at any time.",
   "landing.closingTitle": "Ready to try it?",
   "landing.closingBody":
-    "Look around a demo stall with made-up data, or set up your own menus. No account needed.",
+    "Set up your own menus on this phone. No account needed.",
   "landing.installHint":
     "Tip: use your browser's “Add to Home screen” to open FOODOO like an app.",
   "settings.about.landing": "About FOODOO",
@@ -569,9 +571,7 @@ export const en = {
   "landing.nav.menu": "Menu",
   "landing.nav.problem": "The problem",
   "landing.nav.loop": "How it works",
-  "landing.nav.demo": "Demo",
   "landing.nav.team": "Team",
-  "landing.nav.seeDemo": "See the demo",
   "landing.nav.openApp": "Open the app",
   "landing.problemLead":
     "Cook too much and money is wasted. Cook too little and customers leave, and the records never show how many.",
@@ -592,7 +592,6 @@ export const en = {
   "landing.explorer.arrived": "Customers arrived by then",
   "landing.explorer.hint":
     "Drag the slider. Same rules as the app, on an example stall.",
-  "landing.demoTitle": "Walk through a demo stall",
   "landing.teamTitle": "The team behind FOODOO",
   "landing.teamBody":
     "Calon Mantu Idaman, building for STACK 2026 by GDGoC ITB, Case 2: Stronger Communities and Everyday Services.",
@@ -601,10 +600,7 @@ export const en = {
   "landing.team.screens": "Screens and components",
   "landing.team.platform":
     "Offline app, languages, accessibility, tests and deployment",
-  "landing.closingSetup": "Set up my stall",
-  "landing.closingDemo": "Pick a demo stall",
-  "landing.footerNote":
-    "Demo data is made up and labelled. What you enter stays on your device.",
+  "landing.footerNote": "What you enter stays on your device.",
   "landing.footerLinks": "More about FOODOO",
   "today.hint.plan":
     "Check each suggested number, change what you like, then save.",
@@ -619,45 +615,34 @@ export const en = {
   "tour.end": "End tutorial",
   "tour.goThere": "Take me there",
   "tour.replay": "Replay tutorial",
-  "tour.welcome.title": "Start with the demo",
-  "tour.welcome.body":
-    "Press Try demo stall. The demo uses made-up data, so you can press anything.",
-  "tour.moment.title": "Pick the morning",
-  "tour.moment.body": "Press Morning plan to start the day from the beginning.",
+  "tour.start": "Start tutorial",
+  "tour.notNow": "Not now",
+  "tour.register": "Try the register",
+  "tour.sim": "Try the simulation",
+  "tour.intro.title": "One day in 7 steps",
+  "tour.intro.body":
+    "Plan, sell, close, then see the result. The demo restarts at the morning, and its data is made up.",
   "tour.suggestion.title": "A suggestion with a reason",
   "tour.suggestion.body":
-    "Each card shows how many portions to cook and why. Use + and − to change it.",
+    "Each card shows how many portions to cook and why. Change a number with + and −.",
   "tour.accept.title": "Save the plan",
   "tour.accept.body": "Press Accept all to save today's portions.",
   "tour.toService.title": "Open selling",
-  "tour.toService.body": "Press Sales in the navigation.",
+  "tour.toService.body": "Press Sales in the menu.",
   "tour.soldOut.title": "A menu runs out",
   "tour.soldOut.body":
-    "Tap a menu to record the time it sold out. Undo is offered for 10 seconds.",
+    "Tap a menu to record when it sold out. Undo stays for 10 seconds.",
   "tour.toClose.title": "Close the day",
-  "tour.toClose.body": "Press Close in the navigation.",
+  "tour.toClose.body": "Press Close in the menu.",
   "tour.close.title": "Count what is left",
   "tour.close.body":
-    "Fill in each menu, press Close day, then Save all. FOODOO estimates demand and suggests tomorrow's portions.",
-  "tour.toHistory.title": "See the results",
-  "tour.toHistory.body": "Press History in the navigation.",
-  "tour.history.title": "The last 7 days",
-  "tour.history.body":
-    "Leftovers, sell-outs and estimated lost sales. Estimates are labelled.",
-  "tour.toSettings.title": "Open Settings",
-  "tour.toSettings.body": "Press the Settings button.",
-  "tour.cashier.title": "Cashier mode",
-  "tour.cashier.body":
-    "Switch on the register here. The cashier taps what is sold, stock goes down, sold-out times are recorded and closing is pre-filled.",
-  "tour.toToday.title": "Back to Today",
-  "tour.toToday.body": "Press Today in the navigation.",
-  "tour.openSim.title": "Simulate whole days",
-  "tour.openSim.body": "Open the hourly simulation.",
-  "tour.play.title": "Run the stall",
-  "tour.play.body": "Press Play. Customers arrive hour by hour, day after day.",
-  "tour.analysis.title": "Live analysis",
-  "tour.analysis.body":
-    "Busy hours, how each menu performs and how many portions to cook next. It updates as the simulation runs.",
+    "Enter what is left of each menu, press Close day, then Save all.",
+  "tour.toHistory.title": "See the result",
+  "tour.toHistory.body":
+    "Press History to see leftovers, sell-outs and estimated lost sales.",
+  "tour.outro.title": "That is the daily loop",
+  "tour.outro.body":
+    "Tomorrow's suggestions have already learned from today. You can also try these two.",
   "sim.title": "Hourly simulation",
   "sim.cardBody":
     "Watch simulated customers arrive hour by hour and see the analysis update.",

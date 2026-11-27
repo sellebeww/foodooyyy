@@ -24,7 +24,8 @@ export default defineConfig(({ mode }) => {
           short_name: "FOODOO",
           description:
             "Daily portion planning that counts the customers a sold-out menu hides.",
-          start_url: "/",
+          id: "/",
+          start_url: "/start",
           scope: "/",
           display: "standalone",
           theme_color: "#00212f",

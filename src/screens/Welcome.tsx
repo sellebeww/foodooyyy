@@ -1,15 +1,10 @@
 // src/screens/Welcome.tsx
-import { useEffect, useState } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { DEMO_ENABLED } from "../app/demoConfig.ts";
-import { useOpenDemo } from "../app/useOpenDemo.ts";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useScreenArrival } from "../app/useScreenArrival.ts";
 import { Button } from "../components/Button.tsx";
 import { DemandExplorer } from "../components/DemandExplorer.tsx";
-import { DemoPicker } from "../components/DemoPicker.tsx";
-import { DemoLauncher } from "../components/DemoLauncher.tsx";
 import { HeroLoop } from "../components/HeroLoop.tsx";
-import { ExportImportPanel } from "../components/ExportImportPanel.tsx";
 import { FeatureCard } from "../components/FeatureCard.tsx";
 import { ArrowIcon } from "../components/icons/ArrowIcon.tsx";
 import { ClockIcon } from "../components/icons/ClockIcon.tsx";
@@ -25,132 +20,34 @@ import { OfflinePill } from "../components/OfflinePill.tsx";
 import { ScreenPreview } from "../components/ScreenPreview.tsx";
 import { SiteFooter } from "../components/SiteFooter.tsx";
 import { SiteHeader } from "../components/SiteHeader.tsx";
-import { Splash } from "../components/Splash.tsx";
 import { TeamSection } from "../components/TeamSection.tsx";
-import { useDb, useStall } from "../db/hooks.ts";
-import type { DemoCatalogEntry, DemoMoment } from "../demo/catalog.ts";
-import { startSetup } from "../db/repositories.ts";
+import { useStall } from "../db/hooks.ts";
 import { useT } from "../i18n/index.ts";
 
-interface WelcomeProps {
-  about?: boolean;
-}
-
-export function Welcome({ about = false }: WelcomeProps) {
+export function Welcome() {
   const t = useT();
-  const db = useDb();
-  const navigate = useNavigate();
   const { hash } = useLocation();
-  const stall = useStall();
-  const openDemo = useOpenDemo();
-  const [busy, setBusy] = useState(false);
-  const [picking, setPicking] = useState(false);
-  const [failed, setFailed] = useState(false);
-  const ready = stall !== undefined;
+  const complete = useStall()?.setupComplete === true;
 
-  useScreenArrival(t("landing.pageTitle"), ready);
+  useScreenArrival(t("landing.pageTitle"));
 
   useEffect(() => {
-    if (ready && window.location.hash !== "") {
+    if (window.location.hash !== "") {
       document
         .getElementById(window.location.hash.slice(1))
         ?.scrollIntoView?.();
     }
-  }, [ready, hash]);
+  }, [hash]);
 
-  if (stall === undefined) {
-    return <Splash />;
-  }
-  const complete = stall !== null && stall.setupComplete;
-  if (complete && !about && !busy) {
-    return <Navigate to="/today" replace />;
-  }
-  const started = stall !== null;
-  const isDemo = stall?.settings.isDemo === true;
-  const showDemo = DEMO_ENABLED && (!complete || isDemo);
-  const demoBlocked = started && !isDemo;
-
-  async function run(action: () => Promise<void>) {
-    setBusy(true);
-    setFailed(false);
-    try {
-      await action();
-    } catch {
-      setFailed(true);
-      setBusy(false);
-    }
-  }
-
-  function setUp() {
-    void run(async () => {
-      await startSetup(db);
-      navigate("/setup/menus");
-    });
-  }
-
-  function pickDemo(entry: DemoCatalogEntry, moment: DemoMoment | null) {
-    setPicking(false);
-    void run(() => openDemo(entry, moment));
-  }
-
-  const failure = failed ? (
-    <p className="form__failure" role="alert">
-      {t("common.saveFailed")}
-    </p>
-  ) : null;
-
-  const actions = complete ? (
-    <div className="landing__actions">
-      <Button to="/today" icon={<ArrowIcon />}>
-        {t("how.back")}
-      </Button>
-      {showDemo ? (
-        <a className="btn btn--secondary" href="#demo">
-          {t("header.demoSwitch")}
-        </a>
-      ) : null}
-    </div>
-  ) : (
-    <div className="landing__actions">
-      <Button disabled={busy} icon={<ArrowIcon />} onClick={setUp}>
-        {t(started ? "welcome.continue" : "welcome.start")}
-      </Button>
-      {DEMO_ENABLED ? (
-        <Button
-          variant="secondary"
-          disabled={busy || started}
-          aria-describedby="welcome-demo-note"
-          data-tour="try-demo"
-          onClick={() => {
-            setPicking(true);
-          }}
-        >
-          {t("welcome.demo")}
-        </Button>
-      ) : null}
-      <ExportImportPanel compact />
-      {DEMO_ENABLED ? (
-        <>
-          <p id="welcome-demo-note" className="field__hint">
-            {t(started ? "welcome.demoBlocked" : "welcome.demoNote")}
-          </p>
-          <DemoPicker
-            open={picking}
-            busy={busy}
-            onClose={() => {
-              setPicking(false);
-            }}
-            onPick={pickDemo}
-          />
-        </>
-      ) : null}
-      {failure}
-    </div>
+  const openApp = (
+    <Button to="/start" icon={<ArrowIcon />}>
+      {t(complete ? "how.back" : "landing.nav.openApp")}
+    </Button>
   );
 
   return (
     <div className="site">
-      <SiteHeader complete={complete} showDemo={showDemo} />
+      <SiteHeader complete={complete} />
       <main id="main" className="landing" tabIndex={-1}>
         <section className="hero" aria-labelledby="landing-title">
           <HeroLoop />
@@ -164,7 +61,7 @@ export function Welcome({ about = false }: WelcomeProps) {
                 </span>
               </h1>
               <p className="hero__lead">{t("app.valueLine")}</p>
-              {actions}
+              <div className="landing__actions">{openApp}</div>
               <ul className="hero__pills">
                 <li>
                   <WifiOffIcon />
@@ -301,26 +198,6 @@ export function Welcome({ about = false }: WelcomeProps) {
           </div>
         </section>
 
-        {showDemo ? (
-          <section id="demo" className="band" aria-labelledby="landing-demo">
-            <div className="band__inner">
-              <div className="band__head">
-                <p className="eyebrow">{t("landing.nav.demo")}</p>
-                <h2 id="landing-demo">{t("landing.demoTitle")}</h2>
-                <p>
-                  {t(demoBlocked ? "welcome.demoBlocked" : "demo.pick.intro")}
-                </p>
-              </div>
-              <DemoLauncher
-                initial={stall?.demo?.scenario}
-                disabled={busy || demoBlocked}
-                onOpen={pickDemo}
-              />
-              {failure}
-            </div>
-          </section>
-        ) : null}
-
         <TeamSection />
 
         <section className="band" aria-labelledby="landing-closing">
@@ -328,18 +205,7 @@ export function Welcome({ about = false }: WelcomeProps) {
             <div className="closing">
               <h2 id="landing-closing">{t("landing.closingTitle")}</h2>
               <p>{t("landing.closingBody")}</p>
-              {complete ? null : (
-                <div className="closing__actions">
-                  <Button disabled={busy} onClick={setUp}>
-                    {t("landing.closingSetup")}
-                  </Button>
-                  {showDemo ? (
-                    <a className="btn btn--secondary" href="#demo">
-                      {t("landing.closingDemo")}
-                    </a>
-                  ) : null}
-                </div>
-              )}
+              <div className="closing__actions">{openApp}</div>
               <p className="closing__hint">{t("landing.installHint")}</p>
             </div>
           </div>

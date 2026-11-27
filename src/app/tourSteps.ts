@@ -1,7 +1,6 @@
 // src/app/tourSteps.ts
 export type TourStepId =
-  | "welcome"
-  | "moment"
+  | "intro"
   | "suggestion"
   | "accept"
   | "toService"
@@ -9,20 +8,14 @@ export type TourStepId =
   | "toClose"
   | "close"
   | "toHistory"
-  | "history"
-  | "toSettings"
-  | "cashier"
-  | "toToday"
-  | "openSim"
-  | "play"
-  | "analysis";
+  | "outro";
 
 export interface TourStep {
   id: TourStepId;
-  path: string;
+  path: string | null;
   targets: readonly string[];
   advance: { click: string } | { appears: string } | null;
-  cardOnTop?: boolean;
+  free?: boolean;
 }
 
 function navStep(id: TourStepId, path: string, to: string): TourStep {
@@ -34,27 +27,20 @@ function navStep(id: TourStepId, path: string, to: string): TourStep {
   };
 }
 
-function clickStep(id: TourStepId, path: string, target: string): TourStep {
-  return { id, path, targets: [target], advance: { click: target } };
-}
-
-function readStep(id: TourStepId, path: string, target: string): TourStep {
-  return { id, path, targets: [target], advance: null };
-}
-
 export const TOUR_STEPS: readonly TourStep[] = [
-  clickStep("welcome", "/welcome", '[data-tour="try-demo"]'),
+  { id: "intro", path: null, targets: [], advance: null },
   {
-    id: "moment",
-    path: "/welcome",
-    targets: [
-      '[role="dialog"] [data-tour="moment-plan"]',
-      '[data-tour="try-demo"]',
-    ],
-    advance: { click: '[data-tour="moment-plan"]' },
+    id: "suggestion",
+    path: "/plan",
+    targets: [".card-grid > li:first-child"],
+    advance: null,
   },
-  readStep("suggestion", "/plan", ".card-grid > li:first-child"),
-  clickStep("accept", "/plan", ".action-bar .btn"),
+  {
+    id: "accept",
+    path: "/plan",
+    targets: [".action-bar .btn"],
+    advance: { click: ".action-bar .btn" },
+  },
   navStep("toService", "/today", "/service"),
   {
     id: "soldOut",
@@ -66,20 +52,12 @@ export const TOUR_STEPS: readonly TourStep[] = [
   {
     id: "close",
     path: "/close",
-    targets: [".screen__main"],
+    targets: [".close-row[data-missing]", ".action-bar .btn"],
     advance: { appears: ".closed-card" },
-    cardOnTop: true,
+    free: true,
   },
   navStep("toHistory", "/close", "/history"),
-  readStep("history", "/history", 'section[aria-labelledby="history-week"]'),
-  navStep("toSettings", "/history", "/settings"),
-  readStep("cashier", "/settings", 'section[aria-labelledby="set-mode"]'),
-  navStep("toToday", "/settings", "/today"),
-  clickStep("openSim", "/today", '[data-tour="open-sim"]'),
-  clickStep("play", "/simulate", '[data-tour="sim-play"]'),
-  readStep("analysis", "/simulate", '[data-tour="sim-analysis"]'),
+  { id: "outro", path: "/history", targets: [], advance: null },
 ];
 
-export const FIRST_APP_STEP = TOUR_STEPS.findIndex(
-  (step) => step.path !== "/welcome",
-);
+export const TOUR_TOTAL = TOUR_STEPS.length - 2;

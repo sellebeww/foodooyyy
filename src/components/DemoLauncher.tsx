@@ -81,7 +81,6 @@ export function DemoLauncher({
               key={moment}
               type="button"
               className="launcher__moment"
-              data-tour={`moment-${moment}`}
               disabled={disabled}
               onClick={() => {
                 onOpen(selected, moment);

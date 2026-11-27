@@ -2490,6 +2490,10 @@ div > .launcher__legend {
   background: var(--scrim);
 }
 
+.tour__shade--full {
+  inset: 0;
+}
+
 .tour__ring {
   position: fixed;
   z-index: 55;
@@ -2500,7 +2504,6 @@ div > .launcher__legend {
 
 .tour__card {
   position: fixed;
-  left: 50%;
   z-index: 65;
   display: grid;
   gap: var(--space-2);
@@ -2512,11 +2515,32 @@ div > .launcher__legend {
   border-radius: var(--radius);
   background: var(--paper);
   box-shadow: var(--shadow-overlay);
-  transform: translateX(-50%);
 }
 
-body:has(.tour__card--top) .screen__main {
-  padding-top: 280px;
+.tour__card--center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tour__card--dock {
+  right: var(--space-3);
+  bottom: calc(96px + env(safe-area-inset-bottom));
+  left: var(--space-3);
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .tour__card--dock {
+    right: var(--space-5);
+    bottom: var(--space-5);
+    left: auto;
+  }
+}
+
+body:has(.tour) .toast-region {
+  top: calc(var(--space-2) + env(safe-area-inset-top));
+  bottom: auto;
 }
 
 .tour__title {
@@ -2539,6 +2563,12 @@ body:has(.tour__card--top) .screen__main {
   font: inherit;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.sim-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
 }
 
 .sim-log,

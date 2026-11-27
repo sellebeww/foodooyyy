@@ -43,8 +43,8 @@ async function violations(container: HTMLElement) {
 }
 
 describe("axe: no serious or critical violations", () => {
-  it("welcome screen", async () => {
-    const { container } = renderApp({ db, path: "/welcome", at: AT_9 });
+  it.each(["/", "/start"])("public page %s", async (path) => {
+    const { container } = renderApp({ db, path, at: AT_9 });
     await settled();
     expect(await violations(container)).toEqual([]);
   });

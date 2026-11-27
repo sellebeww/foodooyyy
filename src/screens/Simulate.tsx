@@ -112,9 +112,8 @@ export function Simulate() {
             ? t("sim.dayDone")
             : t("sim.hours", { done: state.hoursDone, total })}
         </p>
-        <div className="settings-actions">
+        <div className="sim-controls">
           <Button
-            data-tour="sim-play"
             aria-pressed={playing}
             onClick={() => {
               setPlaying(!playing);

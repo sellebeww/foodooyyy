@@ -78,13 +78,13 @@ describe("Export and import screens", () => {
     expect(saved[1]?.name).toBe("foodoo-2026-03-02.xlsx");
   });
 
-  it("DM-4: restores a full backup from Welcome after delete all", async () => {
+  it("DM-4: restores a full backup from the app entry after delete all", async () => {
     await loadDemo(db, TODAY);
     const file = await exportData(db, "json", TODAY, `${TODAY}T08:00`);
     const before = await db.menuDays.count();
     await deleteAll(db);
 
-    renderApp({ db, path: "/welcome" });
+    renderApp({ db, path: "/start" });
     expect(
       screen.queryByRole("button", { name: "Choose a file to import" }),
     ).toBeNull();

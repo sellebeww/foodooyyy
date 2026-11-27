@@ -26,7 +26,7 @@ export function SetupMenus() {
         </p>
       ) : null}
       <div className="form__actions form__actions--page">
-        <Button variant="secondary" to="/welcome">
+        <Button variant="secondary" to="/start">
           {t("common.back")}
         </Button>
         <Button

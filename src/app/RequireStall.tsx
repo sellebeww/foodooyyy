@@ -15,7 +15,7 @@ export function RequireStall({ children }: RequireStallProps) {
     return <p role="status">{t("app.loading")}</p>;
   }
   if (stall === null) {
-    return <Navigate to="/welcome" replace />;
+    return <Navigate to="/start" replace />;
   }
   return children;
 }
